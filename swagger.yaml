@@ -1,16 +1,54 @@
 openapi: 3.0.3
 info:
-  title: Eis API
-  description: These are the APIs to provision and configure services from Eis Service Provider.
+  title: EIS DaaS Portal API
+  description: |
+    ### ⚙️ Interfacciamento al Modulo DaaS (Device as a Service) del Portale EIS
+
+    Questa suite di API è fondamentale per **provisionare e configurare i servizi** necessari alla gestione completa del ciclo di vita dei dispositivi (DaaS). Fornisce gli strumenti per gestire l'anagrafica, i cataloghi prodotti, le offerte commerciali e gli ordini di assistenza.
+
+    ---
+
+    ### Flusso Operativo Obbligatorio
+
+    Le chiamate devono seguire la seguente sequenza logica:
+
+    #### 1. Preparazione Iniziale (Dati Base)
+    * **Creare Anagrafica:** Registrazione del cliente.
+    * **Creare Categoria / Fornitore (Marca):** Definizione della classificazione del prodotto.
+    * **Aggiungere Prodotto:** Inserimento dell'articolo specifico.
+
+    #### 2. Creazione Offerta
+    * **Creare Offerta:** Inizializzazione della proposta commerciale.
+    * **Associare all'Offerta i Devices:** Collegamento dei dispositivi all'offerta.
+    * **Associare ai Devices i vari Accessori o Servizi:** Aggiunta di componenti e servizi extra (es. manutenzione) ai dispositivi.
+
+    #### 3. Creazione Ordine di Assistenza
+    * **Creazione Ordine di Assistenza:** Generazione della richiesta di supporto.
+
+    ---
+
+    ### Istruzioni POST e Caricamento File
+
+    **Associazione di Multiple Immagini:**
+    Per associare più immagini ai prodotti nell'array della richiesta (e.g., in un ordine di assistenza), inviare i file usando la dicitura: `"files.{idElement}"`.
+
+    * **Esempio:** Per l'elemento con ID 24, inviare `files.24 => [ image1.jpg, img2.png ]`.
+
+    **Regole sui Nomi dei File e Limiti:**
+    * **Caratteri Ammessi:** Lettere (A-Z, a-z), Numeri (0-9), Spazio, Trattino basso (`_`), Punto (`.`), Trattino (`-`).
+    * **Dimensione Massima:** I file possono avere una dimensione massima di **5MB** ciascuno.
+
+    **Nota sull'Ordine di Assistenza:**
+    Per creare un ordine di assistenza separato per ogni device (invece di uno singolo con più device), includere un solo device nell'array `"devices"` della richiesta.
   version: 1.0.11
   contact:
-    email: sviluppo@teameis.it
+    email: sviluppo@eis.it
 servers:
   - url: https://api.eis.it
     description: Production server
 externalDocs:
   description: Find out more about our solutions
-  url: https://wiki.teameis.it
+  url: https://wiki.eis.it
 
 tags:
   - name: 📋DaaS
