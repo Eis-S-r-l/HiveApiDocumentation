@@ -66,57 +66,57 @@ tags:
 paths:
   # ACCESSORIES
   /v1/daas/accessory/list:
-    $ref: "./paths/accessories.yaml#/paths/v1/daas/accessory/list"
+    $ref: "./components/paths/accessories.yaml#/paths/v1/daas/accessory/list"
   /v1/daas/accessory/{id}:
-    $ref: "./paths/accessories.yaml#/paths/v1/daas/accessory/{id}"
+    $ref: "./components/paths/accessories.yaml#/paths/v1/daas/accessory/{id}"
   /v1/daas/device/{id}/accessory/list:
-    $ref: "./paths/accessories.yaml#/paths/v1/daas/device/{id}/accessory/list"
+    $ref: "./components/paths/accessories.yaml#/paths/v1/daas/device/{id}/accessory/list"
   /v1/daas/accessory/add:
-    $ref: "./paths/accessories.yaml#/paths/v1/daas/accessory/add"
+    $ref: "./components/paths/accessories.yaml#/paths/v1/daas/accessory/add"
   /v1/daas/accessory/edit:
-    $ref: "./paths/accessories.yaml#/paths/v1/daas/accessory/edit"
+    $ref: "./components/paths/accessories.yaml#/paths/v1/daas/accessory/edit"
 
   # SERVICES
   /v1/daas/service/list:
-    $ref: "./paths/services.yaml#/paths/v1/daas/service/list"
+    $ref: "./components/paths/services.yaml#/paths/v1/daas/service/list"
   /v1/daas/service/{id}:
-    $ref: "./paths/services.yaml#/paths/v1/daas/service/{id}"
+    $ref: "./components/paths/services.yaml#/paths/v1/daas/service/{id}"
   /v1/daas/device/{id}/service/list:
-    $ref: "./paths/services.yaml#/paths/v1/daas/device/{id}/service/list"
+    $ref: "./components/paths/services.yaml#/paths/v1/daas/device/{id}/service/list"
   /v1/daas/service/add:
-    $ref: "./paths/services.yaml#/paths/v1/daas/service/add"
+    $ref: "./components/paths/services.yaml#/paths/v1/daas/service/add"
   /v1/daas/service/edit:
-    $ref: "./paths/services.yaml#/paths/v1/daas/service/edit"
+    $ref: "./components/paths/services.yaml#/paths/v1/daas/service/edit"
 
   # CONTRACTS
   /v1/daas/contract/list:
-    $ref: "./paths/contracts.yaml#/paths/v1/daas/contract/list"
+    $ref: "./components/paths/contracts.yaml#/paths/v1/daas/contract/list"
   /v1/daas/contract/{id}:
-    $ref: "./paths/contracts.yaml#/paths/v1/daas/contract/{id}"
+    $ref: "./components/paths/contracts.yaml#/paths/v1/daas/contract/{id}"
   /v1/daas/contract/add:
-    $ref: "./paths/contracts.yaml#/paths/v1/daas/contract/add"
+    $ref: "./components/paths/contracts.yaml#/paths/v1/daas/contract/add"
 
   # DEVICES
   /v1/daas/contract/{id}/devices:
-    $ref: "./paths/devices.yaml#/paths/v1/daas/contract/{id}/devices"
+    $ref: "./components/paths/devices.yaml#/paths/v1/daas/contract/{id}/devices"
   /v1/daas/device/{id}:
-    $ref: "./paths/devices.yaml#/paths/v1/daas/device/{id}"
+    $ref: "./components/paths/devices.yaml#/paths/v1/daas/device/{id}"
   /v1/daas/device/{id}/element:
-    $ref: "./paths/devices.yaml#/paths/v1/daas/device/{id}/element"
+    $ref: "./components/paths/devices.yaml#/paths/v1/daas/device/{id}/element"
 
   # PRODUCTS
   /v1/product/:
-    $ref: "./paths/products.yaml#/paths/v1/product/"
+    $ref: "./components/paths/products.yaml#/paths/v1/product/"
   /v1/product/filter:
-    $ref: "./paths/products.yaml#/paths/v1/product/filter"
+    $ref: "./components/paths/products.yaml#/paths/v1/product/filter"
   /v1/product/details/{id}:
-    $ref: "./paths/products.yaml#/paths/v1/product/details/{id}"
+    $ref: "./components/paths/products.yaml#/paths/v1/product/details/{id}"
   /v1/product/delete/{id}/{organizationId}:
-    $ref: "./paths/products.yaml#/paths/v1/product/delete/{id}/{organizationId}"
+    $ref: "./components/paths/products.yaml#/paths/v1/product/delete/{id}/{organizationId}"
   /v1/product/add:
-    $ref: "./paths/products.yaml#/paths/v1/product/add"
+    $ref: "./components/paths/products.yaml#/paths/v1/product/add"
   /v1/product/edit:
-    $ref: "./paths/products.yaml#/paths/v1/product/edit"
+    $ref: "./components/paths/products.yaml#/paths/v1/product/edit"
 
 components:
   securitySchemes:
