@@ -1,12 +1,23 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: EIS DaaS Portal API
+  title: HIVE DaaS Portal API
   description: |
-    # Interfacciamento al Modulo DaaS (Device as a Service) del Portale EIS
+    # Documentazione delle API per il portale di Hive
 
+    ## Autenticazione
+    L'autenticazione alle API avviene attraverso dei token JWT che vengono generati da una pagina dedicata nel portale.
+    Ogni utente potrà generare un access token e un refresh token per poter effettuare le chiamate alle API.
+
+    #### Durata dei token
+    - **Access Token**: valido per 24 ore
+    - **Refresh Token**: valido per 10 anni
+
+    # Moduli
+
+    ## Device as a Service (DaaS)
     Questa suite di API è fondamentale per provisionare e configurare i servizi necessari alla gestione completa del ciclo di vita dei dispositivi (DaaS). Fornisce gli strumenti per gestire l'anagrafica, i cataloghi prodotti, le offerte commerciali e gli ordini di assistenza.
 
-    ## Flusso Operativo Obbligatorio
+    ### Flusso Operativo Obbligatorio
     Le chiamate devono seguire la seguente sequenza logica:
 
     ### 1. Preparazione Iniziale (Dati Base)
@@ -22,7 +33,7 @@ info:
     ### 3. Creazione Ordine di Assistenza
     - Generare un ordine per device
 
-    ## Istruzioni POST e Caricamento File
+    ### Istruzioni POST e Caricamento File
     Per associare file multipli agli elementi, usare: `files.{idElement}`
 
     **Esempio:**
@@ -42,29 +53,34 @@ info:
 
     **Dimensione massima per file:** 5MB
 
-    #### These are the APIs to provision and configure services from Eis Service Provider.
   version: 1.0.11
   contact:
-    email: sviluppo@eis.it
+    email: sviluppo@hive-service.com
 servers:
-  - url: https://api.eis.it
+  - url: https://api.hive-service.com
     description: Production server
+  - url: https://staging.api.hive-service.com
+    description: Staging server
 externalDocs:
   description: Find out more about our solutions
   url: https://wiki.eis.it
 
 tags:
-  - name: 📋DaaS
-    description: "Device as a Service (macro-category containing accessories, devices, services, and contracts)."
+  - name: DaaS
+    description: Endpoints related to Device as a Service (DaaS) management.
   - name: DaaS/Accessories
+    parent: DaaS
     description: "Endpoints related to DaaS accessories (retrieve, list, and associate)."
   - name: DaaS/Services
+    parent: DaaS
     description: "Endpoints related to DaaS services (retrieve, list, and associate)."
   - name: DaaS/Devices
+    parent: DaaS
     description: "Endpoints related to DaaS devices and their associated items."
   - name: DaaS/Contracts
+    parent: DaaS
     description: "Endpoints related to DaaS contracts (list and retrieve individual contracts)."
-  - name: 💻Products
+  - name: DaaS/Products
     description: "Endpoints for managing products (retrieve all, filter, and get details)."
 
 paths:
@@ -73,7 +89,8 @@ paths:
   # ========================================================
   /v1/daas/accessory/list:
     get:
-      tags: [DaaS/Accessories]
+      tags: 
+      - DaaS/Accessories
       summary: Get all DaaS Accessories
       description: Retrieve the complete list of DaaS accessories with their associated organizations.
       responses:
@@ -90,7 +107,8 @@ paths:
 
   /v1/daas/accessory/{id}:
     get:
-      tags: [DaaS/Accessories]
+      tags: 
+      - DaaS/Accessories
       summary: Get a DaaS Accessory by ID
       description: Retrieve a specific DaaS accessory using its unique ID.
       parameters:
@@ -113,7 +131,8 @@ paths:
 
   /v1/daas/device/{id}/accessory/list:
     get:
-      tags: [DaaS/Accessories]
+      tags: 
+      - DaaS/Accessories
       summary: Get Accessories associated with a Device
       description: Retrieve the list of accessories physically associated with a specific DaaS device.
       parameters:
@@ -138,7 +157,8 @@ paths:
 
   /v1/daas/accessory/add:
     post:
-      tags: [DaaS/Accessories]
+      tags: 
+      - DaaS/Accessories
       summary: Add a new DaaS Accessory
       description: Create a new DaaS accessory with the provided details.
       requestBody:
@@ -161,7 +181,8 @@ paths:
 
   /v1/daas/accessory/edit:
     put:
-      tags: [DaaS/Accessories]
+      tags: 
+      - DaaS/Accessories
       summary: Edit an existing DaaS Accessory
       description: Update an existing DaaS accessory with the provided details.
       requestBody:
@@ -189,7 +210,8 @@ paths:
   # ========================================================
   /v1/daas/service/list:
     get:
-      tags: [DaaS/Services]
+      tags: 
+      - DaaS/Services
       summary: Get all DaaS Services
       description: Retrieve the complete list of DaaS services available.
       responses:
@@ -206,7 +228,8 @@ paths:
 
   /v1/daas/service/{id}:
     get:
-      tags: [DaaS/Services]
+      tags: 
+      - DaaS/Services
       summary: Get a DaaS Service by ID
       description: Retrieve details of a specific DaaS service using its unique ID.
       parameters:
@@ -229,7 +252,8 @@ paths:
 
   /v1/daas/device/{id}/service/list:
     get:
-      tags: [DaaS/Services]
+      tags: 
+      - DaaS/Services
       summary: Get Services associated with a Device
       description: Retrieve the list of DaaS services associated with a specific device.
       parameters:
@@ -254,7 +278,8 @@ paths:
 
   /v1/daas/service/add:
     post:
-      tags: [DaaS/Services]
+      tags: 
+      - DaaS/Services
       summary: Add a new DaaS Service
       description: Create a new DaaS service with the provided details.
       requestBody:
@@ -277,7 +302,8 @@ paths:
 
   /v1/daas/service/edit:
     put:
-      tags: [DaaS/Services]
+      tags: 
+      - DaaS/Services
       summary: Edit an existing DaaS Service
       description: Update an existing DaaS service with the provided details.
       requestBody:
@@ -305,7 +331,8 @@ paths:
   # ========================================================
   /v1/daas/contract/list:
     get:
-      tags: [DaaS/Contracts]
+      tags: 
+      - DaaS/Contracts
       summary: Get all DaaS Contracts
       description: Retrieve the complete list of DaaS contracts (orders) with related organization and customer data.
       responses:
@@ -322,7 +349,8 @@ paths:
 
   /v1/daas/contract/{id}:
     get:
-      tags: [DaaS/Contracts]
+      tags: 
+      - DaaS/Contracts
       summary: Get a DaaS Contract by ID
       description: Retrieve detailed information for a specific DaaS contract.
       parameters:
@@ -345,7 +373,8 @@ paths:
 
   /v1/daas/contract/add:
     post:
-      tags: [DaaS/Contracts]
+      tags: 
+      - DaaS/Contracts
       summary: Add a new DaaS Contract
       description: Create a new DaaS contract with the provided details.
       requestBody:
@@ -368,7 +397,8 @@ paths:
 
   /v1/daas/contract/{id}/devices:
     get:
-      tags: [DaaS/Devices]
+      tags: 
+      - DaaS/Contracts
       summary: Get Devices linked to a Contract
       description: Retrieve the list of DaaS devices associated with a specific contract ID.
       parameters:
@@ -392,7 +422,8 @@ paths:
         "500":
           description: Internal server error
     put:
-      tags: [DaaS/Contracts]
+      tags: 
+      - DaaS/Contracts
       summary: Add Devices to a Contract
       description: Associate one or more devices to a specific DaaS contract. Devices can be created with services and accessories.
       parameters:
@@ -429,7 +460,8 @@ paths:
   # ========================================================
   /v1/daas/device/{id}:
     get:
-      tags: [DaaS/Devices]
+      tags: 
+      - DaaS/Devices
       summary: Get a DaaS Device by ID Device
       description: Retrieve detailed information for a specific DaaS device.
       parameters:
@@ -450,7 +482,8 @@ paths:
         "500":
           description: Internal server error
     delete:
-      tags: [DaaS/Devices]
+      tags: 
+      - DaaS/Devices
       summary: Delete a DaaS Device
       description: Delete a specific DaaS device and remove its association from the contract.
       parameters:
@@ -479,7 +512,8 @@ paths:
 
   /v1/daas/device/{id}/element:
     put:
-      tags: [DaaS/Devices]
+      tags: 
+      - DaaS/Devices
       summary: Add or update elements (services/accessories) to a Device
       description: Associate or remove services and accessories from a specific device.
       parameters:
@@ -514,7 +548,8 @@ paths:
   # ========================================================
   /v1/product/:
     get:
-      tags: [💻Products]
+      tags: 
+      - DaaS/Products
       summary: Get all Products
       description: Retrieve the complete list of products with their associated categories and vendors.
       responses:
@@ -531,7 +566,8 @@ paths:
 
   /v1/product/filter:
     get:
-      tags: [💻Products]
+      tags: 
+      - DaaS/Products
       summary: Get Products with filters
       description: Retrieve a filtered list of products based on organization, query string, category, and vendor.
       parameters:
@@ -575,7 +611,8 @@ paths:
 
   /v1/product/details/{id}:
     get:
-      tags: [💻Products]
+      tags: 
+      - DaaS/Products
       summary: Get Product details by ID
       description: Retrieve detailed information for a specific product using its unique ID.
       parameters:
@@ -599,7 +636,8 @@ paths:
 
   /v1/product/delete/{id}/{organizationId}:
     delete:
-      tags: [💻Products]
+      tags: 
+      - DaaS/Products
       summary: Delete a Product
       description: Delete a specific product by its ID and organization ID.
       parameters:
@@ -634,7 +672,8 @@ paths:
 
   /v1/product/add:
     post:
-      tags: [💻Products]
+      tags: 
+      - DaaS/Products
       summary: Add a new Product
       description: Create a new product with the provided details.
       requestBody:
@@ -657,7 +696,8 @@ paths:
 
   /v1/product/edit:
     post:
-      tags: [💻Products]
+      tags: 
+      - DaaS/Products
       summary: Edit an existing Product
       description: Update an existing product with the provided details.
       requestBody:
