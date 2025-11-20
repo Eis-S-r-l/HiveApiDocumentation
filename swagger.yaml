@@ -1,4 +1,3 @@
-# openapi.yaml
 openapi: 3.0.3
 info:
   title: EIS DaaS Portal API
@@ -14,39 +13,38 @@ info:
     Le chiamate devono seguire la seguente sequenza logica:
 
     #### 1. Preparazione Iniziale (Dati Base)
-    * **Creare Anagrafica:** Registrazione del cliente.
-    * **Creare Categoria / Fornitore (Marca):** Definizione della classificazione del prodotto.
-    * **Aggiungere Prodotto:** Inserimento dell'articolo specifico.
+    * **Creare Anagrafica**
+    * **Creare Categoria / Fornitore**
+    * **Aggiungere Prodotto**
 
     #### 2. Creazione Offerta
-    * **Creare Offerta:** Inizializzazione della proposta commerciale.
-    * **Associare all'Offerta i Devices:** Collegamento dei dispositivi all'offerta.
-    * **Associare ai Devices i vari Accessori o Servizi:** Aggiunta di componenti e servizi extra (es. manutenzione) ai dispositivi.
+    * Creare Offerta
+    * Associare Devices
+    * Aggiungere Accessori / Servizi
 
     #### 3. Creazione Ordine di Assistenza
-    * **Creazione Ordine di Assistenza:** Generazione della richiesta di supporto.
+    * Generare un ordine per device
 
     ---
 
     ### Istruzioni POST e Caricamento File
 
-    **Associazione di Multiple Immagini:**
-    Per associare più immagini ai prodotti nell'array della richiesta (e.g., in un ordine di assistenza), inviare i file usando la dicitura: `"files.{idElement}"`.
+    Per associare file multipli agli elementi, usare: `"files.{idElement}"`
 
-    * **Esempio:** Per l'elemento con ID 24, inviare `files.24 => [ image1.jpg, img2.png ]`.
+    Esempio:  
+    `files.24 => [ image1.jpg, img2.png ]`
 
-    **Regole sui Nomi dei File e Limiti:**
-    * **Caratteri Ammessi:** Lettere (A-Z, a-z), Numeri (0-9), Spazio, Trattino basso (`_`), Punto (`.`), Trattino (`-`).
-    * **Dimensione Massima:** I file possono avere una dimensione massima di **5MB** ciascuno.
+    Nomi file consentiti: A-Z a-z 0-9 spazio _ . -  
+    Dimensione max: **5MB**
 
-    **Nota sull'Ordine di Assistenza:**
-    Per creare un ordine di assistenza separato per ogni device (invece di uno singolo con più device), includere un solo device nell'array `"devices"` della richiesta.
   version: 1.0.11
   contact:
     email: sviluppo@eis.it
+
 servers:
   - url: https://api.eis.it
     description: Production server
+
 externalDocs:
   description: Find out more about our solutions
   url: https://wiki.eis.it
@@ -55,70 +53,70 @@ tags:
   - name: 📋DaaS
     description: "Device as a Service (macro-category containing accessories, devices, services, and contracts)."
   - name: DaaS/Accessories
-    description: "Endpoints related to DaaS accessories (retrieve, list, and associate)."
+    description: "Endpoints related to DaaS accessories."
   - name: DaaS/Services
-    description: "Endpoints related to DaaS services (retrieve, list, and associate)."
+    description: "Endpoints related to DaaS services."
   - name: DaaS/Devices
-    description: "Endpoints related to DaaS devices and their associated items."
+    description: "Endpoints related to DaaS devices."
   - name: DaaS/Contracts
-    description: "Endpoints related to DaaS contracts (list and retrieve individual contracts)."
+    description: "Endpoints related to DaaS contracts."
   - name: 💻Products
-    description: "Endpoints for managing products (retrieve all, filter, and get details)."
+    description: "Endpoints for managing products."
 
 paths:
   # ACCESSORIES
   /v1/daas/accessory/list:
-    $ref: "./paths/accessories.yaml#/v1/daas/accessory/list"
+    $ref: "./paths/accessories.yaml#/paths/v1/daas/accessory/list"
   /v1/daas/accessory/{id}:
-    $ref: "./paths/accessories.yaml#/v1/daas/accessory/{id}"
+    $ref: "./paths/accessories.yaml#/paths/v1/daas/accessory/{id}"
   /v1/daas/device/{id}/accessory/list:
-    $ref: "./paths/accessories.yaml#/v1/daas/device/{id}/accessory/list"
+    $ref: "./paths/accessories.yaml#/paths/v1/daas/device/{id}/accessory/list"
   /v1/daas/accessory/add:
-    $ref: "./paths/accessories.yaml#/v1/daas/accessory/add"
+    $ref: "./paths/accessories.yaml#/paths/v1/daas/accessory/add"
   /v1/daas/accessory/edit:
-    $ref: "./paths/accessories.yaml#/v1/daas/accessory/edit"
+    $ref: "./paths/accessories.yaml#/paths/v1/daas/accessory/edit"
 
   # SERVICES
   /v1/daas/service/list:
-    $ref: "./paths/services.yaml#/v1/daas/service/list"
+    $ref: "./paths/services.yaml#/paths/v1/daas/service/list"
   /v1/daas/service/{id}:
-    $ref: "./paths/services.yaml#/v1/daas/service/{id}"
+    $ref: "./paths/services.yaml#/paths/v1/daas/service/{id}"
   /v1/daas/device/{id}/service/list:
-    $ref: "./paths/services.yaml#/v1/daas/device/{id}/service/list"
+    $ref: "./paths/services.yaml#/paths/v1/daas/device/{id}/service/list"
   /v1/daas/service/add:
-    $ref: "./paths/services.yaml#/v1/daas/service/add"
+    $ref: "./paths/services.yaml#/paths/v1/daas/service/add"
   /v1/daas/service/edit:
-    $ref: "./paths/services.yaml#/v1/daas/service/edit"
+    $ref: "./paths/services.yaml#/paths/v1/daas/service/edit"
 
   # CONTRACTS
   /v1/daas/contract/list:
-    $ref: "./paths/contracts.yaml#/v1/daas/contract/list"
+    $ref: "./paths/contracts.yaml#/paths/v1/daas/contract/list"
   /v1/daas/contract/{id}:
-    $ref: "./paths/contracts.yaml#/v1/daas/contract/{id}"
+    $ref: "./paths/contracts.yaml#/paths/v1/daas/contract/{id}"
   /v1/daas/contract/add:
-    $ref: "./paths/contracts.yaml#/v1/daas/contract/add"
+    $ref: "./paths/contracts.yaml#/paths/v1/daas/contract/add"
 
-  # DEVICES (Alcuni endpoint sono anche in contracts/devices)
+  # DEVICES
   /v1/daas/contract/{id}/devices:
-    $ref: "./paths/devices.yaml#/v1/daas/contract/{id}/devices"
+    $ref: "./paths/devices.yaml#/paths/v1/daas/contract/{id}/devices"
   /v1/daas/device/{id}:
-    $ref: "./paths/devices.yaml#/v1/daas/device/{id}"
+    $ref: "./paths/devices.yaml#/paths/v1/daas/device/{id}"
   /v1/daas/device/{id}/element:
-    $ref: "./paths/devices.yaml#/v1/daas/device/{id}/element"
+    $ref: "./paths/devices.yaml#/paths/v1/daas/device/{id}/element"
 
   # PRODUCTS
   /v1/product/:
-    $ref: "./paths/products.yaml#/v1/product/"
+    $ref: "./paths/products.yaml#/paths/v1/product/"
   /v1/product/filter:
-    $ref: "./paths/products.yaml#/v1/product/filter"
+    $ref: "./paths/products.yaml#/paths/v1/product/filter"
   /v1/product/details/{id}:
-    $ref: "./paths/products.yaml#/v1/product/details/{id}"
+    $ref: "./paths/products.yaml#/paths/v1/product/details/{id}"
   /v1/product/delete/{id}/{organizationId}:
-    $ref: "./paths/products.yaml#/v1/product/delete/{id}/{organizationId}"
+    $ref: "./paths/products.yaml#/paths/v1/product/delete/{id}/{organizationId}"
   /v1/product/add:
-    $ref: "./paths/products.yaml#/v1/product/add"
+    $ref: "./paths/products.yaml#/paths/v1/product/add"
   /v1/product/edit:
-    $ref: "./paths/products.yaml#/v1/product/edit"
+    $ref: "./paths/products.yaml#/paths/v1/product/edit"
 
 components:
   securitySchemes:
@@ -127,7 +125,7 @@ components:
       scheme: basic
 
   schemas:
-    # rEQUEST SCHEMAS (Riferimenti a ./components/schemas/request/)
+    # REQUEST SCHEMAS
     AddAccessoryRequest:
       $ref: "./components/schemas/request/AddAccessoryRequest.yaml"
     EditAccessoryRequest:
@@ -147,7 +145,7 @@ components:
     EditProductRequest:
       $ref: "./components/schemas/request/EditProductRequest.yaml"
 
-    # rESPONSE SCHEMAS (Riferimenti a ./components/schemas/response/)
+    # RESPONSE SCHEMAS
     DaasDevice:
       $ref: "./components/schemas/response/DaasDevice.yaml"
     DaasAccessory:
@@ -158,6 +156,7 @@ components:
       $ref: "./components/schemas/response/DaasContract.yaml"
     Product:
       $ref: "./components/schemas/response/Product.yaml"
-    # Schema comune (necessario per DaasAccessory, DaasService, Product)
+
+    # COMMON
     Organization:
       $ref: "./components/schemas/response/Organization.yaml"
