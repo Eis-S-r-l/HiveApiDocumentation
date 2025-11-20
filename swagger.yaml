@@ -53,87 +53,628 @@ tags:
   - name: 📋DaaS
     description: "Device as a Service (macro-category containing accessories, devices, services, and contracts)."
   - name: DaaS/Accessories
-    description: "Endpoints related to DaaS accessories."
+    description: "Endpoints related to DaaS accessories (retrieve, list, and associate)."
   - name: DaaS/Services
-    description: "Endpoints related to DaaS services."
+    description: "Endpoints related to DaaS services (retrieve, list, and associate)."
   - name: DaaS/Devices
-    description: "Endpoints related to DaaS devices."
+    description: "Endpoints related to DaaS devices and their associated items."
   - name: DaaS/Contracts
-    description: "Endpoints related to DaaS contracts."
+    description: "Endpoints related to DaaS contracts (list and retrieve individual contracts)."
   - name: 💻Products
-    description: "Endpoints for managing products."
+    description: "Endpoints for managing products (retrieve all, filter, and get details)."
 
 paths:
-  # ACCESSORIES
+  # ========================================================
+  # 🔌 ACCESSORY ENDPOINTS
+  # ========================================================
   /v1/daas/accessory/list:
-    $ref: "./components/paths/accessories.yaml#/AccessoryList"
+    get:
+      tags: [DaaS/Accessories]
+      summary: Get all DaaS Accessories
+      description: Retrieve the complete list of DaaS accessories with their associated organizations.
+      responses:
+        "200":
+          description: List of accessories retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DaasAccessory"
+        "500":
+          description: Internal server error
 
   /v1/daas/accessory/{id}:
-    $ref: "./components/paths/accessories.yaml#/AccessoryById"
+    get:
+      tags: [DaaS/Accessories]
+      summary: Get a DaaS Accessory by ID
+      description: Retrieve a specific DaaS accessory using its unique ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Accessory retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaasAccessory"
+        "404":
+          description: Accessory not found
+        "500":
+          description: Internal server error
 
   /v1/daas/device/{id}/accessory/list:
-    $ref: "./components/paths/accessories.yaml#/DeviceAccessoryList"
+    get:
+      tags: [DaaS/Accessories]
+      summary: Get Accessories associated with a Device
+      description: Retrieve the list of accessories physically associated with a specific DaaS device.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of accessories retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DaasAccessory"
+        "404":
+          description: Device not found
+        "500":
+          description: Internal server error
 
   /v1/daas/accessory/add:
-    $ref: "./components/paths/accessories.yaml#/AccessoryAdd"
+    post:
+      tags: [DaaS/Accessories]
+      summary: Add a new DaaS Accessory
+      description: Create a new DaaS accessory with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddAccessoryRequest"
+      responses:
+        "201":
+          description: Accessory created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaasAccessory"
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
 
   /v1/daas/accessory/edit:
-    $ref: "./components/paths/accessories.yaml#/AccessoryEdit"
+    put:
+      tags: [DaaS/Accessories]
+      summary: Edit an existing DaaS Accessory
+      description: Update an existing DaaS accessory with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditAccessoryRequest"
+      responses:
+        "200":
+          description: Accessory updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaasAccessory"
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Accessory not found
+        "500":
+          description: Internal server error
 
-  # SERVICES
+  # ========================================================
+  # 🛠️ SERVICE ENDPOINTS
+  # ========================================================
   /v1/daas/service/list:
-    $ref: "./components/paths/services.yaml#/ServiceList"
+    get:
+      tags: [DaaS/Services]
+      summary: Get all DaaS Services
+      description: Retrieve the complete list of DaaS services available.
+      responses:
+        "200":
+          description: List of services retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DaasService"
+        "500":
+          description: Internal server error
 
   /v1/daas/service/{id}:
-    $ref: "./components/paths/services.yaml#/ServiceById"
+    get:
+      tags: [DaaS/Services]
+      summary: Get a DaaS Service by ID
+      description: Retrieve details of a specific DaaS service using its unique ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Service retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaasService"
+        "404":
+          description: Service not found
+        "500":
+          description: Internal server error
 
   /v1/daas/device/{id}/service/list:
-    $ref: "./components/paths/services.yaml#/DeviceServiceList"
+    get:
+      tags: [DaaS/Services]
+      summary: Get Services associated with a Device
+      description: Retrieve the list of DaaS services associated with a specific device.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of services retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DaasService"
+        "404":
+          description: Device not found
+        "500":
+          description: Internal server error
 
   /v1/daas/service/add:
-    $ref: "./components/paths/services.yaml#/ServiceAdd"
+    post:
+      tags: [DaaS/Services]
+      summary: Add a new DaaS Service
+      description: Create a new DaaS service with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddServiceRequest"
+      responses:
+        "201":
+          description: Service created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaasService"
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
 
   /v1/daas/service/edit:
-    $ref: "./components/paths/services.yaml#/ServiceEdit"
+    put:
+      tags: [DaaS/Services]
+      summary: Edit an existing DaaS Service
+      description: Update an existing DaaS service with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditServiceRequest"
+      responses:
+        "200":
+          description: Service updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaasService"
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Service not found
+        "500":
+          description: Internal server error
 
-  # CONTRACTS
+  # ========================================================
+  # 💼 CONTRACT ENDPOINTS
+  # ========================================================
   /v1/daas/contract/list:
-    $ref: "./components/paths/contracts.yaml#/ContractList"
+    get:
+      tags: [DaaS/Contracts]
+      summary: Get all DaaS Contracts
+      description: Retrieve the complete list of DaaS contracts (orders) with related organization and customer data.
+      responses:
+        "200":
+          description: List of contracts retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DaasContract"
+        "500":
+          description: Internal server error
 
   /v1/daas/contract/{id}:
-    $ref: "./components/paths/contracts.yaml#/ContractById"
+    get:
+      tags: [DaaS/Contracts]
+      summary: Get a DaaS Contract by ID
+      description: Retrieve detailed information for a specific DaaS contract.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Contract retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaasContract"
+        "404":
+          description: Contract not found
+        "500":
+          description: Internal server error
 
   /v1/daas/contract/add:
-    $ref: "./components/paths/contracts.yaml#/ContractAdd"
+    post:
+      tags: [DaaS/Contracts]
+      summary: Add a new DaaS Contract
+      description: Create a new DaaS contract with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddContractRequest"
+      responses:
+        "201":
+          description: Contract created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaasContract"
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
 
-  # DEVICES
   /v1/daas/contract/{id}/devices:
-    $ref: "./components/paths/devices.yaml#/ContractDevices"
+    get:
+      tags: [DaaS/Devices]
+      summary: Get Devices linked to a Contract
+      description: Retrieve the list of DaaS devices associated with a specific contract ID.
+      parameters:
+        - name: id
+          in: path
+          description: Unique ID of the DaaS contract
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of devices retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DaasDevice"
+        "404":
+          description: Contract not found
+        "500":
+          description: Internal server error
+    put:
+      tags: [DaaS/Contracts]
+      summary: Add Devices to a Contract
+      description: Associate one or more devices to a specific DaaS contract. Devices can be created with services and accessories.
+      parameters:
+        - name: id
+          in: path
+          description: Unique ID of the DaaS contract
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddDevicesToContractRequest"
+      responses:
+        "200":
+          description: Devices added to contract successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DaasDevice"
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Contract not found
+        "500":
+          description: Internal server error
 
+  # ========================================================
+  # 💻 DEVICE ENDPOINTS
+  # ========================================================
   /v1/daas/device/{id}:
-    $ref: "./components/paths/devices.yaml#/DeviceById"
+    get:
+      tags: [DaaS/Devices]
+      summary: Get a DaaS Device by ID Device
+      description: Retrieve detailed information for a specific DaaS device.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Device retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaasDevice"
+        "404":
+          description: Device not found
+        "500":
+          description: Internal server error
+    delete:
+      tags: [DaaS/Devices]
+      summary: Delete a DaaS Device
+      description: Delete a specific DaaS device and remove its association from the contract.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Unique ID of the DaaS device to delete
+      responses:
+        "200":
+          description: Device deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  deviceId:
+                    type: integer
+        "404":
+          description: Device not found
+        "500":
+          description: Internal server error
 
   /v1/daas/device/{id}/element:
-    $ref: "./components/paths/devices.yaml#/DeviceElement"
+    put:
+      tags: [DaaS/Devices]
+      summary: Add or update elements (services/accessories) to a Device
+      description: Associate or remove services and accessories from a specific device.
+      parameters:
+        - name: id
+          in: path
+          description: Unique ID of the DaaS device
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeviceElementRequest"
+      responses:
+        "200":
+          description: Device elements updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DaasDevice"
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Device not found
+        "500":
+          description: Internal server error
 
-  # PRODUCTS
+  # ========================================================
+  # 📦 PRODUCT ENDPOINTS
+  # ========================================================
   /v1/product/:
-    $ref: "./components/paths/products.yaml#/ProductList"
+    get:
+      tags: [💻Products]
+      summary: Get all Products
+      description: Retrieve the complete list of products with their associated categories and vendors.
+      responses:
+        "200":
+          description: List of products retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        "500":
+          description: Internal server error
 
   /v1/product/filter:
-    $ref: "./components/paths/products.yaml#/ProductFilter"
+    get:
+      tags: [💻Products]
+      summary: Get Products with filters
+      description: Retrieve a filtered list of products based on organization, query string, category, and vendor.
+      parameters:
+        - name: organizationId
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Filter by organization ID
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search query for product name or product number
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Filter by category ID
+        - name: vendor
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Filter by vendor ID
+      responses:
+        "200":
+          description: Filtered list of products retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        "400":
+          description: Bad request - invalid filter parameters
+        "500":
+          description: Internal server error
 
   /v1/product/details/{id}:
-    $ref: "./components/paths/products.yaml#/ProductDetails"
+    get:
+      tags: [💻Products]
+      summary: Get Product details by ID
+      description: Retrieve detailed information for a specific product using its unique ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Unique ID of the product
+      responses:
+        "200":
+          description: Product details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Product not found
+        "500":
+          description: Internal server error
 
   /v1/product/delete/{id}/{organizationId}:
-    $ref: "./components/paths/products.yaml#/ProductDelete"
+    delete:
+      tags: [💻Products]
+      summary: Delete a Product
+      description: Delete a specific product by its ID and organization ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Unique ID of the product to delete
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization ID associated with the product
+      responses:
+        "200":
+          description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  productId:
+                    type: integer
+        "404":
+          description: Product not found
+        "500":
+          description: Internal server error
 
   /v1/product/add:
-    $ref: "./components/paths/products.yaml#/ProductAdd"
+    post:
+      tags: [💻Products]
+      summary: Add a new Product
+      description: Create a new product with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddProductRequest"
+      responses:
+        "201":
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
 
   /v1/product/edit:
-    $ref: "./components/paths/products.yaml#/ProductEdit"
+    post:
+      tags: [💻Products]
+      summary: Edit an existing Product
+      description: Update an existing product with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditProductRequest"
+      responses:
+        "200":
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Product not found
+        "500":
+          description: Internal server error
 
 components:
   securitySchemes:
@@ -142,50 +683,482 @@ components:
       scheme: basic
 
   schemas:
+    # ========================================================
     # REQUEST SCHEMAS
+    # ========================================================
     AddAccessoryRequest:
-      $ref: "./components/schemas/request/AddAccessoryRequest.yaml"
+      type: object
+      required:
+        - organizationId
+        - name
+        - description
+        - externalId
+        - productNumber
+      properties:
+        organizationId:
+          type: integer
+          description: "ID dell'organizzazione a cui associare l'accessorio"
+        name:
+          type: string
+          description: "Nome dell'accessorio"
+        description:
+          type: string
+          description: "Descrizione dell'accessorio"
+        externalId:
+          type: string
+          description: "ID esterno dell'accessorio"
+        productNumber:
+          type: string
+          description: "Numero di prodotto dell'accessorio"
 
     EditAccessoryRequest:
-      $ref: "./components/schemas/request/EditAccessoryRequest.yaml"
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - externalId
+        - productNumber
+      properties:
+        id:
+          type: integer
+          description: "ID dell'accessorio da modificare"
+        name:
+          type: string
+          description: "Nome dell'accessorio"
+        description:
+          type: string
+          description: "Descrizione dell'accessorio"
+        externalId:
+          type: string
+          description: "ID esterno dell'accessorio"
+        productNumber:
+          type: string
+          description: "Numero di prodotto dell'accessorio"
 
     AddServiceRequest:
-      $ref: "./components/schemas/request/AddServiceRequest.yaml"
+      type: object
+      required:
+        - organizationId
+        - name
+        - description
+        - externalId
+        - productNumber
+      properties:
+        organizationId:
+          type: integer
+          description: "ID dell'organizzazione a cui associare il servizio"
+        name:
+          type: string
+          description: "Nome del servizio"
+        description:
+          type: string
+          description: "Descrizione del servizio"
+        externalId:
+          type: string
+          description: "ID esterno del servizio"
+        productNumber:
+          type: string
+          description: "Numero di prodotto del servizio"
 
     EditServiceRequest:
-      $ref: "./components/schemas/request/EditServiceRequest.yaml"
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - externalId
+        - productNumber
+      properties:
+        id:
+          type: integer
+          description: "ID del servizio da modificare"
+        name:
+          type: string
+          description: "Nome del servizio"
+        description:
+          type: string
+          description: "Descrizione del servizio"
+        externalId:
+          type: string
+          description: "ID esterno del servizio"
+        productNumber:
+          type: string
+          description: "Numero di prodotto del servizio"
 
     AddContractRequest:
-      $ref: "./components/schemas/request/AddContractRequest.yaml"
+      type: object
+      required:
+        - organizationId
+        - customerId
+        - contractName
+        - startDate
+        - endDate
+        - externalId
+      properties:
+        organizationId:
+          type: integer
+          description: "ID dell'organizzazione a cui associare il contratto"
+        customerId:
+          type: integer
+          description: "ID del cliente associato al contratto"
+        contractName:
+          type: string
+          description: "Nome del contratto"
+        startDate:
+          type: string
+          format: date
+          description: "Data di inizio contratto (formato dd/MM/yyyy)"
+        endDate:
+          type: string
+          format: date
+          description: "Data di fine contratto (formato dd/MM/yyyy)"
+        externalId:
+          type: string
+          description: "ID esterno del contratto"
 
     DeviceElementRequest:
-      $ref: "./components/schemas/request/DeviceElementRequest.yaml"
+      type: object
+      required:
+        - deleteServices
+        - deleteAccessories
+        - services
+        - accessories
+      properties:
+        deleteServices:
+          type: boolean
+          description: "Se true, rimuove tutti i servizi esistenti prima di aggiungere quelli nuovi"
+        deleteAccessories:
+          type: boolean
+          description: "Se true, rimuove tutti gli accessori esistenti prima di aggiungere quelli nuovi"
+        services:
+          type: array
+          items:
+            type: integer
+          description: "Array di ID dei servizi da associare al device"
+        accessories:
+          type: array
+          items:
+            type: integer
+          description: "Array di ID degli accessori da associare al device"
 
     AddDevicesToContractRequest:
-      $ref: "./components/schemas/request/AddDevicesToContractRequest.yaml"
+      type: array
+      items:
+        type: object
+        required:
+          - deviceId
+          - serialNumber
+          - externalId
+          - mrc
+          - nrc
+          - startDate
+          - endDate
+          - services
+          - accessories
+        properties:
+          deviceId:
+            type: integer
+            description: "ID del tipo di device da associare"
+          serialNumber:
+            type: string
+            description: "Numero seriale del device"
+          externalId:
+            type: string
+            description: "ID esterno del device"
+          mrc:
+            type: number
+            format: float
+            description: "Monthly Recurring Cost"
+          nrc:
+            type: number
+            format: float
+            description: "Non-Recurring Cost"
+          startDate:
+            type: string
+            description: "Data di inizio (formato dd/MM/yyyy)"
+          endDate:
+            type: string
+            description: "Data di fine (formato dd/MM/yyyy)"
+          services:
+            type: array
+            items:
+              type: integer
+            description: "Array di ID dei servizi da associare al device"
+          accessories:
+            type: array
+            items:
+              type: integer
+            description: "Array di ID degli accessori da associare al device"
 
     AddProductRequest:
-      $ref: "./components/schemas/request/AddProductRequest.yaml"
+      type: object
+      required:
+        - productNumber
+        - name
+        - description
+        - category
+        - vendor
+        - available
+        - notes
+      properties:
+        productNumber:
+          type: string
+          description: Product number or SKU
+        name:
+          type: string
+          description: Name of the product
+        description:
+          type: string
+          description: Description of the product
+        category:
+          type: integer
+          description: Category ID
+        vendor:
+          type: integer
+          description: Vendor ID
+        available:
+          type: boolean
+          description: Availability status of the product
+        notes:
+          type: string
+          description: Additional notes about the product
 
     EditProductRequest:
-      $ref: "./components/schemas/request/EditProductRequest.yaml"
+      type: object
+      required:
+        - productId
+        - productNumber
+        - name
+        - description
+        - category
+        - vendor
+        - available
+        - notes
+      properties:
+        productId:
+          type: integer
+          description: ID of the product to edit
+        productNumber:
+          type: string
+          description: Product number or SKU
+        name:
+          type: string
+          description: Name of the product
+        description:
+          type: string
+          description: Description of the product
+        category:
+          type: integer
+          description: Category ID
+        vendor:
+          type: integer
+          description: Vendor ID
+        available:
+          type: boolean
+          description: Availability status of the product
+        notes:
+          type: string
+          description: Additional notes about the product
 
+    # ========================================================
     # RESPONSE SCHEMAS
+    # ========================================================
     DaasDevice:
-      $ref: "./components/schemas/response/DaasDevice.yaml"
+      type: object
+      properties:
+        id: { type: integer }
+        customerId: { type: integer }
+        serialNumber: { type: string }
+        externalId: { type: string }
+        description: { type: string, nullable: true }
+        createdDate: { type: string, format: date }
+        startTime: { type: string, format: date }
+        endTime: { type: string, format: date }
+        shippingDate: { type: string, format: date, nullable: true }
+        mrc: { type: number, format: float }
+        nrc: { type: number, format: float }
+        status:
+          type: object
+          properties:
+            id: { type: integer }
+            code: { type: string }
+            description: { type: string }
+            finishStatus: { type: boolean }
+        product:
+          type: object
+          properties:
+            id: { type: integer }
+            name: { type: string }
+            description: { type: string }
+            productNumber: { type: string }
+            rma: { type: string, nullable: true }
+            available: { type: boolean }
+            notes: { type: string }
+            images: { type: string, nullable: true }
+            category:
+              type: object
+              properties:
+                id: { type: integer }
+                name: { type: string }
+            vendor:
+              type: object
+              properties:
+                id: { type: integer }
+                name: { type: string }
+        rma: { type: boolean }
 
     DaasAccessory:
-      $ref: "./components/schemas/response/DaasAccessory.yaml"
+      type: object
+      properties:
+        id: { type: integer }
+        organization: { $ref: "#/components/schemas/Organization" }
+        name: { type: string }
+        description: { type: string }
+        externalId: { type: string }
+        productNumber: { type: string }
 
     DaasService:
-      $ref: "./components/schemas/response/DaasService.yaml"
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        description: { type: string }
+        status:
+          type: string
+          enum: [active, inactive, pending]
+        linkedAccessory: { $ref: "#/components/schemas/DaasAccessory" }
 
     DaasContract:
-      $ref: "./components/schemas/response/DaasContract.yaml"
+      type: object
+      properties:
+        id: { type: integer }
+        createDate: { type: string }
+        startTime: { type: string }
+        endTime: { type: string }
+        name: { type: string }
+        externalId: { type: string }
+        companyName: { type: string }
+        type: { type: string }
+        mrc: { type: number, format: float }
+        nrc: { type: number, format: float }
+        status: { $ref: "#/components/schemas/ContractStatus" }
+        customer: { $ref: "#/components/schemas/Customer" }
+        organization: { $ref: "#/components/schemas/Organization" }
+
+    ContractStatus:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        code: { type: string }
+        finishStatus: { type: boolean }
+
+    Customer:
+      type: object
+      properties:
+        id: { type: integer }
+        organizationId: { type: integer }
+        name: { type: string }
+        ragioneSociale: { type: string }
+        rappresentante: { type: string, nullable: true }
+        indirizzo: { type: string }
+        civico: { type: string }
+        indSedLeg: { type: string }
+        civicoSedLeg: { type: string }
+        comuneSedLeg: { type: string }
+        provinciaSedLeg: { type: string }
+        regioneSedLeg: { type: string }
+        capSedLeg: { type: string }
+        comune: { type: string }
+        provincia: { type: string }
+        regione: { type: string }
+        cap: { type: string }
+        tel: { type: string }
+        fiscalCode: { type: string, nullable: true }
+        isActive: { type: boolean, nullable: true }
+        userid: { type: integer }
+        organization: { $ref: "#/components/schemas/Organization" }
+        user: { $ref: "#/components/schemas/User" }
+        piva: { type: string }
+        ptoponomastica: { type: string, nullable: true }
+
+    Organization:
+      type: object
+      properties:
+        organizationId: { type: integer }
+        userId: { type: integer, nullable: true }
+        userName: { type: string, nullable: true }
+        # correggo: createDate / modifiedDate sono stringhe nel formato dd/MM/yyyy nel payload reale
+        createDate: { type: string, nullable: true }
+        modifiedDate: { type: string, nullable: true }
+        parentOrganizationId: { type: integer, nullable: true }
+        name: { type: string }
+        sbcId: { type: integer, nullable: true }
+        notificationEmailFromAddress: { type: string }
+        customerId:
+          type: integer
+          nullable: true
+          description: "ID del cliente (può essere nullo)."
+
+    User:
+      type: object
+      properties:
+        userId: { type: integer }
+        ssoId: { type: string }
+        createDate: { type: string }
+        modifiedDate: { type: string }
+        emailAddress: { type: string }
+        firstName: { type: string }
+        lastName: { type: string }
+        hasToChangePassword: { type: boolean }
+        organizationId: { type: integer }
+        parentOrganizationId: { type: integer }
 
     Product:
-      $ref: "./components/schemas/response/Product.yaml"
-
-    # COMMON
-    Organization:
-      $ref: "./components/schemas/response/Organization.yaml"
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the product
+        name:
+          type: string
+          description: Name of the product
+        description:
+          type: string
+          description: Description of the product
+        productNumber:
+          type: string
+          description: Product number or SKU
+        rma:
+          type: string
+          nullable: true
+          description: RMA (Return Merchandise Authorization) information
+        available:
+          type: boolean
+          description: Availability status of the product
+        notes:
+          type: string
+          description: Additional notes about the product
+        images:
+          type: string
+          nullable: true
+          description: Product images URL or path
+        category:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: Category ID
+            name:
+              type: string
+              description: Category name
+        vendor:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: Vendor ID
+            name:
+              type: string
+              description: Vendor name
