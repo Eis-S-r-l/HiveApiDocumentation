@@ -2,6 +2,7 @@ openapi: 3.1.0
 info:
   title: HIVE DaaS Portal API
   description: |
+    ![Image](images/logo.png)
     # Documentazione delle API per il portale di Hive
 
     ## Autenticazione
