@@ -31,11 +31,16 @@ jobs:
           rm $RELEASE_TAG
           # Move index.html to the root
           mv dist/index.html .
+          # Copy favicons to dist folder
+          cp -r favicons/* dist/
           # Fix references in dist/swagger-initializer and index.html
           sed -i "s|https://petstore.swagger.io/v2/swagger.json|$SWAGGER_YAML|g" dist/swagger-initializer.js
+          sed -i "s|SwaggerUIStandalonePreset|SwaggerUIStandalonePreset.slice(1)|g" dist/swagger-initializer.js
           sed -i "s|href=\"./|href=\"dist/|g" index.html
           sed -i "s|src=\"./|src=\"dist/|g" index.html
           sed -i "s|href=\"index|href=\"dist/index|g" index.html
+          # Update page title
+          sed -i "s|<title>.*</title>|<title>Hive API Documentation - Swagger UI</title>|g" index.html
           # Update current release
           echo ${{ steps.swagger-ui.outputs.release_tag }} > swagger-ui.version
       - name: Create Pull Request
