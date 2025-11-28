@@ -20,6 +20,13 @@ info:
     - **Access Token**: valido per 24 ore
     - **Refresh Token (API Key)**: valido per 10 anni
 
+    ### Utilizzo dell'Access Token
+    L'access token ottenuto deve essere incluso nell'header di ogni richiesta successiva come segue:
+
+    ```
+    Authorization: Bearer {access_token}
+    ```
+
     # Moduli
 
     ## Device as a Service (DaaS)
