@@ -14,7 +14,7 @@ info:
     Per ottenere un access token, effettuare una chiamata POST al seguente endpoint:
 
     [`/auth/api-key/login`](#/Authorization/post_auth_api_key_login)
-  
+
 
     #### Durata dei token
     - **Access Token**: valido per 24 ore
@@ -104,7 +104,7 @@ paths:
   /auth/api-key/login:
     post:
       tags:
-      - Authorization
+        - Authorization
       summary: Obtain JWT Access Tokens using the API Refresh Token
       description: Generate a new JWT access token by providing a valid API key.
       requestBody:
@@ -143,8 +143,8 @@ paths:
   # ========================================================
   /v1/daas/accessory/list:
     get:
-      tags: 
-      - DaaS/Accessories
+      tags:
+        - DaaS/Accessories
       summary: Get all DaaS Accessories
       description: Retrieve the complete list of DaaS accessories with their associated organizations.
       responses:
@@ -161,8 +161,8 @@ paths:
 
   /v1/daas/accessory/{id}:
     get:
-      tags: 
-      - DaaS/Accessories
+      tags:
+        - DaaS/Accessories
       summary: Get a DaaS Accessory by ID
       description: Retrieve a specific DaaS accessory using its unique ID.
       parameters:
@@ -185,8 +185,8 @@ paths:
 
   /v1/daas/device/{id}/accessory/list:
     get:
-      tags: 
-      - DaaS/Accessories
+      tags:
+        - DaaS/Accessories
       summary: Get Accessories associated with a Device
       description: Retrieve the list of accessories physically associated with a specific DaaS device.
       parameters:
@@ -211,8 +211,8 @@ paths:
 
   /v1/daas/accessory/add:
     post:
-      tags: 
-      - DaaS/Accessories
+      tags:
+        - DaaS/Accessories
       summary: Add a new DaaS Accessory
       description: Create a new DaaS accessory with the provided details.
       requestBody:
@@ -235,8 +235,8 @@ paths:
 
   /v1/daas/accessory/edit:
     put:
-      tags: 
-      - DaaS/Accessories
+      tags:
+        - DaaS/Accessories
       summary: Edit an existing DaaS Accessory
       description: Update an existing DaaS accessory with the provided details.
       requestBody:
@@ -264,8 +264,8 @@ paths:
   # ========================================================
   /v1/daas/service/list:
     get:
-      tags: 
-      - DaaS/Services
+      tags:
+        - DaaS/Services
       summary: Get all DaaS Services
       description: Retrieve the complete list of DaaS services available.
       responses:
@@ -282,8 +282,8 @@ paths:
 
   /v1/daas/service/{id}:
     get:
-      tags: 
-      - DaaS/Services
+      tags:
+        - DaaS/Services
       summary: Get a DaaS Service by ID
       description: Retrieve details of a specific DaaS service using its unique ID.
       parameters:
@@ -306,8 +306,8 @@ paths:
 
   /v1/daas/device/{id}/service/list:
     get:
-      tags: 
-      - DaaS/Services
+      tags:
+        - DaaS/Services
       summary: Get Services associated with a Device
       description: Retrieve the list of DaaS services associated with a specific device.
       parameters:
@@ -332,8 +332,8 @@ paths:
 
   /v1/daas/service/add:
     post:
-      tags: 
-      - DaaS/Services
+      tags:
+        - DaaS/Services
       summary: Add a new DaaS Service
       description: Create a new DaaS service with the provided details.
       requestBody:
@@ -356,8 +356,8 @@ paths:
 
   /v1/daas/service/edit:
     put:
-      tags: 
-      - DaaS/Services
+      tags:
+        - DaaS/Services
       summary: Edit an existing DaaS Service
       description: Update an existing DaaS service with the provided details.
       requestBody:
@@ -385,8 +385,8 @@ paths:
   # ========================================================
   /v1/daas/contract/list:
     get:
-      tags: 
-      - DaaS/Contracts
+      tags:
+        - DaaS/Contracts
       summary: Get all DaaS Contracts
       description: Retrieve the complete list of DaaS contracts (orders) with related organization and customer data.
       responses:
@@ -403,8 +403,8 @@ paths:
 
   /v1/daas/contract/{id}:
     get:
-      tags: 
-      - DaaS/Contracts
+      tags:
+        - DaaS/Contracts
       summary: Get a DaaS Contract by ID
       description: Retrieve detailed information for a specific DaaS contract.
       parameters:
@@ -427,8 +427,8 @@ paths:
 
   /v1/daas/contract/add:
     post:
-      tags: 
-      - DaaS/Contracts
+      tags:
+        - DaaS/Contracts
       summary: Add a new DaaS Contract
       description: Create a new DaaS contract with the provided details.
       requestBody:
@@ -451,8 +451,8 @@ paths:
 
   /v1/daas/contract/{id}/devices:
     get:
-      tags: 
-      - DaaS/Contracts
+      tags:
+        - DaaS/Contracts
       summary: Get Devices linked to a Contract
       description: Retrieve the list of DaaS devices associated with a specific contract ID.
       parameters:
@@ -476,8 +476,8 @@ paths:
         "500":
           description: Internal server error
     put:
-      tags: 
-      - DaaS/Contracts
+      tags:
+        - DaaS/Contracts
       summary: Add Devices to a Contract
       description: Associate one or more devices to a specific DaaS contract. Devices can be created with services and accessories.
       parameters:
@@ -510,12 +510,333 @@ paths:
           description: Internal server error
 
   # ========================================================
+  # CATEGORIES ENDPOINTS
+  # ========================================================
+
+  /v1/product/categories:
+    get:
+      tags:
+        - DaaS/Products/Categories
+      summary: Get all Product Categories
+      description: Retrieve the complete list of product categories.
+      responses:
+        "200":
+          description: List of product categories retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Unique identifier of the category
+                    name:
+                      type: string
+                      description: Name of the category
+        "500":
+          description: Internal server error
+
+  /v1/product/category/{id}:
+    get:
+      tags:
+        - DaaS/Products/Categories
+      summary: Get Product Category by ID
+      description: Retrieve details of a specific product category using its unique ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Product category retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Unique identifier of the category
+                  name:
+                    type: string
+                    description: Name of the category
+        "404":
+          description: Category not found
+        "500":
+          description: Internal server error
+
+  /v1/product/category/add:
+    post:
+      tags:
+        - DaaS/Products/Categories
+      summary: Add a new Product Category
+      description: Create a new product category with the provided name.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: Name of the new category
+      responses:
+        "201":
+          description: Product category created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Unique identifier of the new category
+                  name:
+                    type: string
+                    description: Name of the new category
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/product/category/edit:
+    post:
+      tags:
+        - DaaS/Products/Categories
+      summary: Edit an existing Product Category
+      description: Update the name of an existing product category.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - name
+              properties:
+                id:
+                  type: integer
+                  description: Unique identifier of the category to edit
+                name:
+                  type: string
+                  description: New name of the category
+      responses:
+        "200":
+          description: Product category updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Unique identifier of the category
+                  name:
+                    type: string
+                    description: Updated name of the category
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Category not found
+        "500":
+          description: Internal server error
+
+  /v1/product/category/delete/{categoryId}/{organizationId}:
+    delete:
+      tags:
+        - DaaS/Products/Categories
+      summary: Delete a Product Category
+      description: Delete a specific product category by its ID and organization ID.
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Unique ID of the category to delete
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization ID associated with the category
+      responses:
+        "200":
+          description: Product category deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  categoryId:
+                    type: integer
+        "404":
+          description: Category not found
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # VENDORS ENDPOINTS
+  # ========================================================
+
+  /v1/product/vendors:
+    get:
+      tags:
+        - DaaS/Products/Vendors
+      summary: Get all Product Vendors
+      description: Retrieve the complete list of product vendors.
+      responses:
+        "200":
+          description: List of product vendors retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Unique identifier of the vendor
+                    name:
+                      type: string
+                      description: Name of the vendor
+        "500":
+          description: Internal server error
+
+  /v1/product/vendor/{id}:
+    get:
+      tags:
+        - DaaS/Products/Vendors
+      summary: Get Product Vendor by ID
+      description: Retrieve details of a specific product vendor using its unique ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Product vendor retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Unique identifier of the vendor
+                  name:
+                    type: string
+                    description: Name of the vendor
+        "404":
+          description: Vendor not found
+        "500":
+          description: Internal server error
+
+  /v1/product/vendor/add:
+    post:
+      tags:
+        - DaaS/Products/Vendors
+      summary: Add a new Product Vendor
+      description: Create a new product vendor with the provided name.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: Name of the new vendor
+      responses:
+        "201":
+          description: Product vendor created successfully
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/product/vendor/edit:
+    post:
+      tags:
+        - DaaS/Products/Vendors
+      summary: Edit an existing Product Vendor
+      description: Update the name of an existing product vendor.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - name
+              properties:
+                id:
+                  type: integer
+                  description: Unique identifier of the vendor to edit
+                name:
+                  type: string
+                  description: New name of the vendor
+      responses:
+        "200":
+          description: Product vendor updated successfully
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Vendor not found
+        "500":
+          description: Internal server error
+
+  /v1/product/vendor/delete/{vendorId}/{organizationId}:
+    delete:
+      tags:
+        - DaaS/Products/Vendors
+      summary: Delete a Product Vendor
+      description: Delete a specific product vendor by its ID and organization ID.
+      parameters:
+        - name: vendorId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Unique ID of the vendor to delete
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization ID associated with the vendor
+      responses:
+        "200":
+          description: Product vendor deleted successfully
+        "404":
+          description: Vendor not found
+        "500":
+          description: Internal server error
+
+  # ========================================================
   # 💻 DEVICE ENDPOINTS
   # ========================================================
   /v1/daas/device/{id}:
     get:
-      tags: 
-      - DaaS/Devices
+      tags:
+        - DaaS/Devices
       summary: Get a DaaS Device by ID Device
       description: Retrieve detailed information for a specific DaaS device.
       parameters:
@@ -536,8 +857,8 @@ paths:
         "500":
           description: Internal server error
     delete:
-      tags: 
-      - DaaS/Devices
+      tags:
+        - DaaS/Devices
       summary: Delete a DaaS Device
       description: Delete a specific DaaS device and remove its association from the contract.
       parameters:
@@ -566,8 +887,8 @@ paths:
 
   /v1/daas/device/{id}/element:
     put:
-      tags: 
-      - DaaS/Devices
+      tags:
+        - DaaS/Devices
       summary: Add or update elements (services/accessories) to a Device
       description: Associate or remove services and accessories from a specific device.
       parameters:
@@ -602,8 +923,8 @@ paths:
   # ========================================================
   /v1/product/:
     get:
-      tags: 
-      - DaaS/Products
+      tags:
+        - DaaS/Products
       summary: Get all Products
       description: Retrieve the complete list of products with their associated categories and vendors.
       responses:
@@ -620,8 +941,8 @@ paths:
 
   /v1/product/filter:
     get:
-      tags: 
-      - DaaS/Products
+      tags:
+        - DaaS/Products
       summary: Get Products with filters
       description: Retrieve a filtered list of products based on organization, query string, category, and vendor.
       parameters:
@@ -665,8 +986,8 @@ paths:
 
   /v1/product/details/{id}:
     get:
-      tags: 
-      - DaaS/Products
+      tags:
+        - DaaS/Products
       summary: Get Product details by ID
       description: Retrieve detailed information for a specific product using its unique ID.
       parameters:
@@ -690,8 +1011,8 @@ paths:
 
   /v1/product/delete/{id}/{organizationId}:
     delete:
-      tags: 
-      - DaaS/Products
+      tags:
+        - DaaS/Products
       summary: Delete a Product
       description: Delete a specific product by its ID and organization ID.
       parameters:
@@ -726,8 +1047,8 @@ paths:
 
   /v1/product/add:
     post:
-      tags: 
-      - DaaS/Products
+      tags:
+        - DaaS/Products
       summary: Add a new Product
       description: Create a new product with the provided details.
       requestBody:
@@ -750,8 +1071,8 @@ paths:
 
   /v1/product/edit:
     post:
-      tags: 
-      - DaaS/Products
+      tags:
+        - DaaS/Products
       summary: Edit an existing Product
       description: Update an existing product with the provided details.
       requestBody:
