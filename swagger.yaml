@@ -6,12 +6,19 @@ info:
     # Documentazione delle API per il portale di Hive
 
     ## Autenticazione
-    L'autenticazione alle API avviene attraverso dei token JWT che vengono generati da una pagina dedicata nel portale.
-    Ogni utente potrà generare un access token e un refresh token per poter effettuare le chiamate alle API.
+    L'autenticazione alle API avviene attraverso una API Key (Refresh Token) che può essere generata dal portale.
+    La generazione avviene nella sezione **Profilo Utente > API Keys** del portale Hive.
+    Una volta completato il processo, verranno forniti il clientId e la API Key.
+
+    ### Ottenimento del Token
+    Per ottenere un access token, effettuare una chiamata POST al seguente endpoint:
+
+    [`/auth/api-key/login`](#/Authorization/post_auth_api_key_login)
+  
 
     #### Durata dei token
     - **Access Token**: valido per 24 ore
-    - **Refresh Token**: valido per 10 anni
+    - **Refresh Token (API Key)**: valido per 10 anni
 
     # Moduli
 
