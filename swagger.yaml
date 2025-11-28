@@ -67,6 +67,8 @@ externalDocs:
   url: https://wiki.eis.it
 
 tags:
+  - name: Authorization
+    description: Endpoints for obtaining and refreshing JWT tokens for API access.
   - name: DaaS
     description: Endpoints related to Device as a Service (DaaS) management.
   - name: DaaS/Accessories
@@ -85,6 +87,43 @@ tags:
     description: "Endpoints for managing products (retrieve all, filter, and get details)."
 
 paths:
+  /auth/api-key/login:
+    post:
+      tags:
+      - Authorization
+      summary: Obtain JWT Access Tokens using the API Refresh Token
+      description: Generate a new JWT access token by providing a valid API key.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                clientId:
+                  type: string
+                  description: The client identifier
+                clientSecret:
+                  type: string
+                  description: The API Key (client secret)
+              required:
+                - clientId
+                - clientSecret
+      responses:
+        "200":
+          description: Tokens generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    description: JWT access token
+        "401":
+          description: Unauthorized - Invalid API key
+        "500":
+          description: Internal server error
   # ========================================================
   # 🔌 ACCESSORY ENDPOINTS
   # ========================================================
