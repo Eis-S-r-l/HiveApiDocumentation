@@ -259,6 +259,42 @@ paths:
         "500":
           description: Internal server error
 
+  /v1/daas/accessory/delete/{id}/{organizationId}:
+    delete:
+      tags:
+        - DaaS/Accessories
+      summary: Delete a DaaS Accessory
+      description: Delete a specific DaaS accessory by its ID and organization ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Unique ID of the DaaS accessory to delete
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization ID associated with the accessory
+      responses:
+        "200":
+          description: Accessory deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  accessoryId:
+                    type: integer
+        "404":
+          description: Accessory not found
+        "500":
+          description: Internal server error
+
   # ========================================================
   # 🛠️ SERVICE ENDPOINTS
   # ========================================================
@@ -379,6 +415,42 @@ paths:
           description: Service not found
         "500":
           description: Internal server error
+
+    /v1/daas/service/delete/{id}/{organizationId}:
+      delete:
+        tags:
+          - DaaS/Services
+        summary: Delete a DaaS Service
+        description: Delete a specific DaaS service by its ID and organization ID.
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+            description: Unique ID of the DaaS service to delete
+          - name: organizationId
+            in: path
+            required: true
+            schema:
+              type: integer
+            description: Organization ID associated with the service
+        responses:
+          "200":
+            description: Service deleted successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    serviceId:
+                      type: integer
+          "404":
+            description: Service not found
+          "500":
+            description: Internal server error
 
   # ========================================================
   # 💼 CONTRACT ENDPOINTS
