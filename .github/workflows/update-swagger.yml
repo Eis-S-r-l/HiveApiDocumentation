@@ -7,11 +7,10 @@ on:
 jobs:
   updateSwagger:
     runs-on: [ self-hosted, linux ]
-    permissions: write-all
     steps:
       - uses: actions/checkout@v5
       - name: Install jq
-        run: sudo apt-get update && sudo apt-get install jq --no-install-recommends
+        uses: dcarbone/install-jq-action@v3.2.0
       - name: Get Latest Swagger UI Release
         id: swagger-ui
         run: |
