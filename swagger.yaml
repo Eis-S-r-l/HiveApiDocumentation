@@ -83,6 +83,10 @@ externalDocs:
 tags:
   - name: Authorization
     description: Endpoints for obtaining and refreshing JWT tokens for API access.
+  - name: Customers
+    description: Endpoints related to customer management.
+  - name: Regulatory
+    description: Endpoints related to regulatory management.
   - name: DaaS
     description: Endpoints related to Device as a Service (DaaS) management.
   - name: DaaS/Accessories
@@ -136,6 +140,266 @@ paths:
                     description: JWT access token
         "401":
           description: Unauthorized - Invalid API key
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 🏣 CUSTOMER & REGULATORY ENDPOINTS
+  # ========================================================
+
+  /v1/customers/:
+    get:
+      tags:
+        - Customers
+      summary: Get all Customers
+      description: Retrieve the complete list of customers.
+      responses:
+        "200":
+          description: List of customers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+        "500":
+          description: Internal server error
+
+  /v1/customers/organization/{organizationId}:
+    get:
+      tags:
+        - Customers
+      summary: Get Customers by Organization ID
+      description: Retrieve customers associated with a specific organization ID.
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of customers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+        "404":
+          description: Organization not found
+        "500":
+          description: Internal server error
+
+  /v1/customers/user/{userId}:
+    get:
+      tags:
+        - Customers
+      summary: Get Customers by User ID
+      description: Retrieve customers associated with a specific user ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of customers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+        "404":
+          description: User not found
+        "500":
+          description: Internal server error
+
+  v1/customers/{customerId}:
+    get:
+      tags:
+        - Customers
+      summary: Get Customer by ID
+      description: Retrieve detailed information for a specific customer using its unique ID.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Customer retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        "404":
+          description: Customer not found
+        "500":
+          description: Internal server error
+
+  v1/customers/add:
+    post:
+      tags:
+        - Customers
+      summary: Add a new Customer
+      description: Create a new customer with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddCustomerRequest"
+      responses:
+        "201":
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/customers/regulatorydatabaseinfo/{customerId}:
+    get:
+      tags:
+        - Regulatory
+      summary: Get Regulatory Database Info by Customer ID
+      description: Retrieve regulatory database information for a specific customer using its unique ID.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Regulatory database info retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegulatoryDatabaseInfo"
+        "404":
+          description: Customer not found
+        "500":
+          description: Internal server error
+
+  /v1/customers/reginfo/add:
+    post:
+      tags:
+        - Regulatory
+      summary: Add Regulatory Database Info
+      description: Create regulatory database information for a customer with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegulatoryDatabaseInfo"
+      responses:
+        "201":
+          description: Regulatory database info created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegulatoryDatabaseInfo"
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/customers/update/{customerId}/details:
+    put:
+      tags:
+        - Customers
+      summary: Update Customer Details
+      description: Update the details of an existing customer using its unique ID.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCustomerRequest"
+      responses:
+        "200":
+          description: Customer details updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Customer not found
+        "500":
+          description: Internal server error
+
+  /v1/customers/update/{customerId}/address:
+    put:
+      tags:
+        - Customers
+      summary: Update Customer Address
+      description: Update the address of an existing customer using its unique ID.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCustomerAddressRequest"
+      responses:
+        "200":
+          description: Customer address updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Customer not found
+        "500":
+          description: Internal server error
+
+  /v1/customers/reginfo/edit:
+    put:
+      tags:
+        - Regulatory
+      summary: Edit Regulatory Database Info
+      description: Update regulatory database information for a customer with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegulatoryDatabaseInfo"
+      responses:
+        "200":
+          description: Regulatory database info updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegulatoryDatabaseInfo"
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Customer not found
         "500":
           description: Internal server error
 
@@ -1178,6 +1442,284 @@ components:
     # ========================================================
     # REQUEST SCHEMAS
     # ========================================================
+
+    AddCustomerRequest:
+      type: object
+      required:
+        - name
+        - ragioneSociale
+        - tel
+        - piva
+        - indirizzo
+        - civico
+        - cap
+        - provincia
+        - comune
+        - regione
+        - indSedLeg
+        - civicoSedLeg
+        - capSedLeg
+        - provinciaSedLeg
+        - comuneSedLeg
+        - regioneSedLeg
+      properties:
+        name:
+          type: string
+          description: "Nome del cliente"
+        ragioneSociale:
+          type: string
+          description: "Ragione sociale del cliente"
+        tel:
+          type: string
+          description: "Numero di telefono del cliente"
+        piva:
+          type: string
+          description: "Partita IVA del cliente"
+        indirizzo:
+          type: string
+          description: "Indirizzo della sede operativa"
+        civico:
+          type: string
+          description: "Numero civico della sede operativa"
+        cap:
+          type: string
+          description: "CAP della sede operativa"
+        provincia:
+          type: string
+          description: "Provincia della sede operativa"
+        comune:
+          type: string
+          description: "Comune della sede operativa"
+        regione:
+          type: string
+          description: "Regione della sede operativa"
+        indSedLeg:
+          type: string
+          description: "Indirizzo della sede legale"
+        civicoSedLeg:
+          type: string
+          description: "Numero civico della sede legale"
+        capSedLeg:
+          type: string
+          description: "CAP della sede legale"
+        provinciaSedLeg:
+          type: string
+          description: "Provincia della sede legale"
+        comuneSedLeg:
+          type: string
+          description: "Comune della sede legale"
+        regioneSedLeg:
+          type: string
+          description: "Regione della sede legale"
+
+    RegulatoryDatabaseInfo:
+      type: object
+      required:
+        - anagraficaId
+        - holderAddress
+        - holderBirthDate
+        - holderBirthPlace
+        - holderCf
+        - holderCity
+        - holderCompanyName
+        - holderEmail
+        - holderGender
+        - holderIdIssuingAuthority
+        - holderIdNumber
+        - holderIdReleaseDate
+        - holderIdType
+        - holderName
+        - holderNationality
+        - holderPostalCode
+        - holderProvince
+        - holderStreetName
+        - holderStreetNumber
+        - holderSurname
+        - holderVat
+        - invoiceAddress
+        - invoiceCity
+        - invoiceCompanyName
+        - invoiceName
+        - invoiceNationality
+        - invoicePostalCode
+        - invoiceProvince
+        - invoiceStreetName
+        - invoiceStreetNumber
+        - invoiceSurname
+      properties:
+        anagraficaId:
+          type: integer
+          description: "ID anagrafica"
+        holderAddress:
+          type: string
+          description: "Indirizzo completo dell'intestatario"
+        holderBirthDate:
+          type: string
+          description: "Data di nascita dell'intestatario"
+        holderBirthPlace:
+          type: string
+          description: "Luogo di nascita dell'intestatario"
+        holderCf:
+          type: string
+          description: "Codice fiscale dell'intestatario"
+        holderCity:
+          type: string
+          description: "Città dell'intestatario"
+        holderCompanyName:
+          type: string
+          description: "Ragione sociale dell'intestatario"
+        holderEmail:
+          type: string
+          description: "Email dell'intestatario"
+        holderGender:
+          type: string
+          description: "Sesso dell'intestatario"
+        holderIdIssuingAuthority:
+          type: string
+          description: "Autorità rilasciante il documento"
+        holderIdNumber:
+          type: string
+          description: "Numero del documento d'identità"
+        holderIdReleaseDate:
+          type: string
+          description: "Data di rilascio del documento"
+        holderIdType:
+          type: string
+          description: "Tipo di documento (es. CI, PASS)"
+        holderName:
+          type: string
+          description: "Nome dell'intestatario"
+        holderNationality:
+          type: string
+          description: "Nazionalità dell'intestatario"
+        holderPostalCode:
+          type: string
+          description: "CAP dell'intestatario"
+        holderProvince:
+          type: string
+          description: "Provincia dell'intestatario"
+        holderStreetName:
+          type: string
+          description: "Via dell'intestatario"
+        holderStreetNumber:
+          type: string
+          description: "Civico dell'intestatario"
+        holderSurname:
+          type: string
+          description: "Cognome dell'intestatario"
+        holderVat:
+          type: string
+          description: "Partita IVA dell'intestatario"
+        invoiceAddress:
+          type: string
+          description: "Indirizzo per la fatturazione"
+        invoiceCity:
+          type: string
+          description: "Città per la fatturazione"
+        invoiceCompanyName:
+          type: string
+          description: "Ragione sociale per la fatturazione"
+        invoiceName:
+          type: string
+          description: "Nome riferito alla fatturazione"
+        invoiceNationality:
+          type: string
+          description: "Nazionalità riferita alla fatturazione"
+        invoicePostalCode:
+          type: string
+          description: "CAP della fatturazione"
+        invoiceProvince:
+          type: string
+          description: "Provincia della fatturazione"
+        invoiceStreetName:
+          type: string
+          description: "Via della fatturazione"
+        invoiceStreetNumber:
+          type: string
+          description: "Civico della fatturazione"
+        invoiceSurname:
+          type: string
+          description: "Cognome riferito alla fatturazione"
+
+    UpdateCustomerRequest:
+      type: object
+      required:
+        - name
+        - ragioneSociale
+        - isActive
+        - piva
+        - tel
+      properties:
+        name:
+          type: string
+          description: "Nome del cliente"
+        ragioneSociale:
+          type: string
+          description: "Ragione sociale del cliente"
+        isActive:
+          type: string
+          description: "Stato di attivazione (es. Yes/No)"
+        piva:
+          type: string
+          description: "Partita IVA o codice fiscale del cliente"
+        tel:
+          type: string
+          description: "Numero di telefono del cliente"
+
+    UpdateCustomerAddressRequest:
+      type: object
+      required:
+        - indirizzo
+        - civico
+        - indSedLeg
+        - comune
+        - provincia
+        - regione
+        - cap
+        - civicoSedLeg
+        - comuneSedLeg
+        - provinciaSedLeg
+        - regioneSedLeg
+        - capSedLeg
+      properties:
+        indirizzo:
+          type: string
+          description: "Indirizzo della sede operativa"
+        civico:
+          type: string
+          description: "Numero civico della sede operativa"
+        comune:
+          type: string
+          description: "Comune della sede operativa"
+        provincia:
+          type: string
+          description: "Provincia della sede operativa"
+        regione:
+          type: string
+          description: "Regione della sede operativa"
+        cap:
+          type: string
+          description: "CAP della sede operativa"
+
+        indSedLeg:
+          type: string
+          description: "Indirizzo della sede legale"
+        civicoSedLeg:
+          type: string
+          description: "Numero civico della sede legale"
+        comuneSedLeg:
+          type: string
+          description: "Comune della sede legale"
+        provinciaSedLeg:
+          type: string
+          description: "Provincia della sede legale"
+        regioneSedLeg:
+          type: string
+          description: "Regione della sede legale"
+        capSedLeg:
+          type: string
+          description: "CAP della sede legale"
+
     AddAccessoryRequest:
       type: object
       required:
