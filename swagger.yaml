@@ -1287,6 +1287,9 @@ components:
         - startDate
         - endDate
         - externalId
+        - contactName
+        - contactEmailAddress
+        - contactPhone
       properties:
         organizationId:
           type: integer
@@ -1308,6 +1311,15 @@ components:
         externalId:
           type: string
           description: "ID esterno del contratto"
+        contactName:
+          type: string
+          description: "Nome del contatto associato al contratto"
+        contactEmailAddress:
+          type: string
+          description: "Indirizzo email del contatto associato al contratto"
+        contactPhone:
+          type: string
+          description: "Numero di telefono del contatto associato al contratto"
 
     DeviceElementRequest:
       type: object
