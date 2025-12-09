@@ -1432,6 +1432,162 @@ paths:
         "500":
           description: Internal server error
 
+  /v1/images/products/add:
+    post:
+      summary: Aggiungi Immagini Prodotto
+      operationId: addProductImages
+      tags:
+        - DaaS/Products
+      description: Carica una o più immagini per un prodotto specifico utilizzando il suo ID.
+      requestBody:
+        description: Dati in multipart/form-data per il caricamento delle immagini
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: Array di file immagine da caricare. (Simulato come "2 files" nell'immagine)
+                productId:
+                  type: integer
+                  format: int64
+                  description: L'ID del prodotto a cui associare le immagini.
+      responses:
+        "200":
+          description: Immagini caricate con successo
+        "400":
+          description: Richiesta non valida (es. ID prodotto mancante o formato file errato)
+        "500":
+          description: Errore interno del server
+
+  /v1/images/products/reorder:
+    post:
+      summary: Riordina Immagini Prodotto
+      operationId: reorderProductImages
+      tags:
+        - DaaS/Products
+      description: Aggiorna la posizione di una o più immagini per un prodotto specifico.
+      requestBody:
+        description: Dati JSON contenenti l'ID del prodotto e la nuova posizione delle immagini.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imagesProduct:
+                  type: array
+                  description: Array di oggetti che definiscono l'ID dell'immagine e la sua nuova posizione.
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                        description: L'ID univoco dell'immagine.
+                      position:
+                        type: integer
+                        description: La nuova posizione dell'immagine (a partire da 1).
+                productId:
+                  type: integer
+                  format: int64
+                  description: L'ID del prodotto le cui immagini devono essere riordinate.
+              required:
+                - imagesProduct
+                - productId
+      responses:
+        "200":
+          description: Immagini riordinate con successo
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Ordine delle immagini aggiornato.
+        "400":
+          description: Richiesta non valida
+        "404":
+          description: Risorsa non trovata
+
+  /v1/images/products/delete/{imageId}:
+    delete:
+      summary: Elimina Immagine Prodotto
+      operationId: deleteProductImage
+      tags:
+        - DaaS/Products
+      description: Elimina un'immagine specifica associata a un prodotto utilizzando l'ID dell'immagine.
+      parameters:
+        - name: imageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: L'ID univoco dell'immagine da eliminare.
+      responses:
+        "200":
+          description: Immagine eliminata con successo
+        "404":
+          description: Immagine non trovata
+        "500":
+          description: Errore interno del server
+
+  /v1/images/outputstream/{orgId}/{productId}/{fileName}:
+    get:
+      summary: Recupera Immagine Prodotto
+      operationId: getProductImage
+      tags:
+        - DaaS/Products
+      description: Recupera e trasmette un file immagine specifico associato a un prodotto in una data organizzazione.
+      parameters:
+        - name: orgId
+          in: path
+          description: L'ID dell'organizzazione (es. 33704).
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: productId
+          in: path
+          description: L'ID del prodotto a cui l'immagine è associata (es. 32).
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: fileName
+          in: path
+          description: Il nome del file immagine completo da recuperare (es. 0c6cc6b0-6c80-4ee9-9b01-cd42f2e635a3_eis-vertical.webp).
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: File immagine recuperato con successo
+          content:
+            image/webp:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            image/png:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Immagine, Prodotto o Organizzazione non trovata
+        "500":
+          description: Errore interno del server
+
 components:
   securitySchemes:
     BasicAuth:
