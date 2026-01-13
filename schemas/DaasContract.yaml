@@ -1,0 +1,14 @@
+type: object
+properties:
+  id: { type: integer }
+  createDate: { type: string }
+  startTime: { type: string }
+  endTime: { type: string }
+  name: { type: string }
+  externalId: { type: string }
+  companyName: { type: string }
+  type: { type: string }
+  mrc: { type: number, format: float }
+  status: { $ref: "/schemas/ContractStatus.yaml" }
+  customer: { $ref: "/schemas/Customer.yaml" }
+  organization: { $ref: "/schemas/Organization.yaml" }

@@ -1,0 +1,13 @@
+type: object
+properties:
+  id: { type: integer }
+  name: { type: string }
+  description: { type: string }
+  productNumber: { type: string }
+  rma: { type: string, nullable: true }
+  available: { type: boolean }
+  notes: { type: string }
+  images: { type: array, nullable: true }
+  category: { $ref: "/schemas/Category.yaml" }
+  vendor: { $ref: "/schemas/Vendor.yaml" }
+  externalId: { type: string }

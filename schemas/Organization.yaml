@@ -1,0 +1,12 @@
+type: object
+properties:
+  organizationId: { type: integer }
+  userId: { type: integer, nullable: true }
+  userName: { type: string, nullable: true }
+  createDate: { type: string, nullable: true }
+  modifiedDate: { type: string, nullable: true }
+  parentOrganizationId: { type: integer, nullable: true }
+  name: { type: string }
+  sbcId: { type: integer, nullable: true }
+  notificationEmailFromAddress: { type: string }
+  customerId: { type: integer, nullable: true }

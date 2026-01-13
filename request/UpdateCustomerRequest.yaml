@@ -1,0 +1,23 @@
+type: object
+required:
+  - name
+  - ragioneSociale
+  - isActive
+  - piva
+  - tel
+properties:
+  name:
+    type: string
+    description: "Nome del cliente"
+  ragioneSociale:
+    type: string
+    description: "Ragione sociale del cliente"
+  isActive:
+    type: string
+    description: "Stato di attivazione (es. Yes/No)"
+  piva:
+    type: string
+    description: "Partita IVA o codice fiscale del cliente"
+  tel:
+    type: string
+    description: "Numero di telefono del cliente"

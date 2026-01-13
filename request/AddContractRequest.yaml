@@ -1,0 +1,41 @@
+type: object
+required:
+  - organizationId
+  - customerId
+  - contractName
+  - startDate
+  - endDate
+  - externalId
+  - contactName
+  - contactEmailAddress
+  - contactPhone
+properties:
+  organizationId:
+    type: integer
+    description: "ID dell'organizzazione a cui associare il contratto"
+  customerId:
+    type: integer
+    description: "ID del cliente associato al contratto"
+  contractName:
+    type: string
+    description: "Nome del contratto"
+  startDate:
+    type: string
+    format: date
+    description: "Data di inizio contratto (formato dd/MM/yyyy)"
+  endDate:
+    type: string
+    format: date
+    description: "Data di fine contratto (formato dd/MM/yyyy)"
+  externalId:
+    type: string
+    description: "ID esterno del contratto"
+  contactName:
+    type: string
+    description: "Nome del contatto associato al contratto"
+  contactEmailAddress:
+    type: string
+    description: "Indirizzo email del contatto associato al contratto"
+  contactPhone:
+    type: string
+    description: "Numero di telefono del contatto associato al contratto"

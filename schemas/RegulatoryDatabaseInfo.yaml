@@ -1,0 +1,65 @@
+type: object
+required:
+  - anagraficaId
+  - holderAddress
+  - holderBirthDate
+  - holderBirthPlace
+  - holderCf
+  - holderCity
+  - holderCompanyName
+  - holderEmail
+  - holderGender
+  - holderIdIssuingAuthority
+  - holderIdNumber
+  - holderIdReleaseDate
+  - holderIdType
+  - holderName
+  - holderNationality
+  - holderPostalCode
+  - holderProvince
+  - holderStreetName
+  - holderStreetNumber
+  - holderSurname
+  - holderVat
+  - invoiceAddress
+  - invoiceCity
+  - invoiceCompanyName
+  - invoiceName
+  - invoiceNationality
+  - invoicePostalCode
+  - invoiceProvince
+  - invoiceStreetName
+  - invoiceStreetNumber
+  - invoiceSurname
+properties:
+  anagraficaId: { type: integer }
+  holderAddress: { type: string }
+  holderBirthDate: { type: string, format: date }
+  holderBirthPlace: { type: string }
+  holderCf: { type: string }
+  holderCity: { type: string }
+  holderCompanyName: { type: string }
+  holderEmail: { type: string, format: email }
+  holderGender: { type: string, enum: [M, F, Other] }
+  holderIdIssuingAuthority: { type: string }
+  holderIdNumber: { type: string }
+  holderIdReleaseDate: { type: string, format: date }
+  holderIdType: { type: string, enum: [CI, PASSPORT, DRIVING_LICENSE] }
+  holderName: { type: string, description: "Nome dell'intestatario" }
+  holderNationality: { type: string }
+  holderPostalCode: { type: string, pattern: '^\d{5}$' }
+  holderProvince: { type: string, minLength: 2, maxLength: 2 }
+  holderStreetName: { type: string }
+  holderStreetNumber: { type: string }
+  holderSurname: { type: string }
+  holderVat: { type: string, pattern: '^\d{11}$' }
+  invoiceAddress: { type: string }
+  invoiceCity: { type: string }
+  invoiceCompanyName: { type: string }
+  invoiceName: { type: string }
+  invoiceNationality: { type: string }
+  invoicePostalCode: { type: string, pattern: '^\d{5}$' }
+  invoiceProvince: { type: string, minLength: 2, maxLength: 2 }
+  invoiceStreetName: { type: string }
+  invoiceStreetNumber: { type: string }
+  invoiceSurname: { type: string }

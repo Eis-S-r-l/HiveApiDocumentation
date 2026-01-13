@@ -1,0 +1,11 @@
+type: object
+required:
+  - deleteServices
+  - deleteAccessories
+  - services
+  - accessories
+properties:
+  deleteServices: { type: boolean }
+  deleteAccessories: { type: boolean }
+  services: { type: array, items: { type: integer } }
+  accessories: { type: array, items: { type: integer } }

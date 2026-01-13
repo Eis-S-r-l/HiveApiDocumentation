@@ -1,0 +1,51 @@
+type: object
+required:
+  - indirizzo
+  - civico
+  - indSedLeg
+  - comune
+  - provincia
+  - regione
+  - cap
+  - civicoSedLeg
+  - comuneSedLeg
+  - provinciaSedLeg
+  - regioneSedLeg
+  - capSedLeg
+properties:
+  indirizzo:
+    type: string
+    description: "Indirizzo della sede operativa"
+  civico:
+    type: string
+    description: "Numero civico della sede operativa"
+  comune:
+    type: string
+    description: "Comune della sede operativa"
+  provincia:
+    type: string
+    description: "Provincia della sede operativa"
+  regione:
+    type: string
+    description: "Regione della sede operativa"
+  cap:
+    type: string
+    description: "CAP della sede operativa"
+  indSedLeg:
+    type: string
+    description: "Indirizzo della sede legale"
+  civicoSedLeg:
+    type: string
+    description: "Numero civico della sede legale"
+  comuneSedLeg:
+    type: string
+    description: "Comune della sede legale"
+  provinciaSedLeg:
+    type: string
+    description: "Provincia della sede legale"
+  regioneSedLeg:
+    type: string
+    description: "Regione della sede legale"
+  capSedLeg:
+    type: string
+    description: "CAP della sede legale"

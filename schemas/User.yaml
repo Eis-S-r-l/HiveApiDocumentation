@@ -1,0 +1,12 @@
+type: object
+properties:
+  userId: { type: integer }
+  ssoId: { type: string }
+  createDate: { type: string }
+  modifiedDate: { type: string }
+  emailAddress: { type: string }
+  firstName: { type: string }
+  lastName: { type: string }
+  hasToChangePassword: { type: boolean }
+  organizationId: { type: integer }
+  parentOrganizationId: { type: integer }
