@@ -428,6 +428,30 @@ paths:
         "500":
           description: Internal server error
 
+  /v1/daas/accessory/external/{externalId}:
+    get:
+      tags:
+        - DaaS/Accessories
+      summary: Get a DaaS Accessory by External ID
+      description: Retrieve a specific DaaS accessory using its unique external ID.
+      parameters:
+        - name: externalId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Accessory retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/DaasAccessory.yaml"
+        "404":
+          description: Accessory not found
+        "500":
+          description: Internal server error
+
   /v1/daas/device/{id}/accessory/list:
     get:
       tags:
@@ -568,6 +592,30 @@ paths:
         "500":
           description: Internal server error
 
+  /v1/daas/service/external/{externalId}:
+    get:
+      tags:
+        - DaaS/Services
+      summary: Get a DaaS Service by External ID
+      description: Retrieve details of a specific DaaS service using its unique external ID.
+      parameters:
+        - name: externalId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Service retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/DaasService.yaml"
+        "404":
+          description: Service not found
+        "500":
+          description: Internal server error
+
   /v1/daas/device/{id}/service/list:
     get:
       tags:
@@ -692,6 +740,30 @@ paths:
       description: Retrieve detailed information for a specific DaaS contract.
       parameters:
         - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Contract retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/DaasContract.yaml"
+        "404":
+          description: Contract not found
+        "500":
+          description: Internal server error
+
+  /v1/daas/contract/external/{externalId}:
+    get:
+      tags:
+        - DaaS/Contracts
+      summary: Get a DaaS Contract by External ID
+      description: Retrieve detailed information for a specific DaaS contract.
+      parameters:
+        - name: externalId
           in: path
           required: true
           schema:
@@ -1047,6 +1119,30 @@ paths:
       responses:
         "200":
           description: Device deleted successfully
+        "404":
+          description: Device not found
+        "500":
+          description: Internal server error
+
+  /v1/daas/device/external/{externalId}:
+    get:
+      tags:
+        - DaaS/Devices
+      summary: Get a DaaS Device by External ID
+      description: Retrieve detailed information for a specific DaaS device.
+      parameters:
+        - name: externalId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Device retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/DaasDevice.yaml"
         "404":
           description: Device not found
         "500":
