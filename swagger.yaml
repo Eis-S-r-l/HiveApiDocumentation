@@ -1563,9 +1563,3 @@ paths:
           description: Immagine, Prodotto o Organizzazione non trovata
         "500":
           description: Errore interno del server
-
-components:
-  securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
