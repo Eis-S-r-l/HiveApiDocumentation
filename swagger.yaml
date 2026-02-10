@@ -90,16 +90,12 @@ tags:
   - name: DaaS
     description: Endpoints related to Device as a Service (DaaS) management.
   - name: DaaS/Accessories
-    parent: DaaS
     description: "Endpoints related to DaaS accessories (retrieve, list, and associate)."
   - name: DaaS/Services
-    parent: DaaS
     description: "Endpoints related to DaaS services (retrieve, list, and associate)."
   - name: DaaS/Devices
-    parent: DaaS
     description: "Endpoints related to DaaS devices and their associated items."
   - name: DaaS/Contracts
-    parent: DaaS
     description: "Endpoints related to DaaS contracts (list and retrieve individual contracts)."
   - name: DaaS/Products
     description: "Endpoints for managing products (retrieve all, filter, and get details)."
