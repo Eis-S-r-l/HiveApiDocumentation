@@ -1,0 +1,21 @@
+type: object
+properties:
+  id: { type: integer }
+  user_id: { type: integer }
+  firstName: { type: string }
+  lastName: { type: string }
+  emailAddress: { type: string }
+  organization_id: { type: integer }
+  organizationName: { type: string }
+  parentOrganizationId: { type: integer }
+  requestType: { type: string }
+  path: { type: string }
+  module: { type: string }
+  action: { type: string }
+  entityId: { type: string }
+  fullUrl: { type: string }
+  payload: { type: string }
+  timestamp: { type: string }
+  responseCode: { type: [integer, "null"] }
+  description: { type: [string, "null"] }
+  responsePayload: { type: [string, "null"] }

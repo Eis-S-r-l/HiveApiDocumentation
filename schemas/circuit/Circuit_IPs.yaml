@@ -1,0 +1,31 @@
+type: object
+properties:
+  id: { type: integer }
+  serviceList:
+    type: object
+    properties:
+      id: { type: integer }
+      name: { type: string }
+      serviceProvider:
+        type: object
+        properties:
+          id: { type: integer }
+          description: { type: string }
+      carrier:
+        type: object
+        properties:
+          id: { type: integer }
+          name: { type: string }
+      type:
+        type: object
+        properties:
+          id: { type: integer }
+          name: { type: string }
+      supplierProductId: { type: string }
+  organizationId: { type: integer }
+  integration: { type: object }
+  name: { type: string }
+  forDirect: { type: boolean }
+  forSub: { type: boolean }
+  carrierType: { type: string }
+  offsetDays: { type: integer }

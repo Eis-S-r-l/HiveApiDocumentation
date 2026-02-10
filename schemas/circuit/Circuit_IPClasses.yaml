@@ -1,0 +1,8 @@
+type: object
+properties:
+  orderCode: { type: string }
+  ipAddress: { type: string }
+  netMask: { type: string }
+  desc: { type: string }
+  status: { type: string }
+  pppipAddress: { type: string }

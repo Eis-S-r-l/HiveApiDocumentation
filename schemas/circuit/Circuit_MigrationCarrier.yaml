@@ -1,0 +1,4 @@
+type: object
+properties:
+  ioloCoded: { type: string }
+  name: { type: string }

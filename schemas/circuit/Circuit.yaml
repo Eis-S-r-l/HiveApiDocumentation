@@ -1,0 +1,152 @@
+type: object
+properties:
+  id: { type: integer }
+  supplierId: { type: string }
+  supplierProcedureId: { type: [string, "null"] }
+  accountSupplier: { type: string }
+  insertDate: { type: string }
+  dad: { type: string }
+  type: { type: string }
+  completeDate: { type: [string, "null"] }
+  residentialContext: { type: [string, "null"] }
+  stair: { type: [string, "null"] }
+  floor: { type: [string, "null"] }
+  unit: { type: [string, "null"] }
+  timeSlot: { type: string }
+  firtNameRef: { type: string }
+  lastNameRef: { type: string }
+  fixedNumberRef: { type: string }
+  mobileNumberRef: { type: string }
+  emailRef: { type: string }
+  productName: { type: string }
+  idNumeroAppoggio: { type: [string, "null"] }
+  descNumeroAppoggio: { type: [string, "null"] }
+  koHistory: { type: [string, "null"] }
+  cow: { type: [string, "null"] }
+  cor: { type: [string, "null"] }
+  cos: { type: [string, "null"] }
+  contrChar: { type: [string, "null"] }
+  donating: { type: [string, "null"] }
+  donatingSocieta: { type: [string, "null"] }
+  publicIpv4: { type: boolean }
+  publicIpv6: { type: boolean }
+  organization:
+    type: object
+    properties:
+      organizationId: { type: integer }
+      userId: { type: integer }
+      userName: { type: string }
+      createDate: { type: string }
+      modifiedDate: { type: string }
+      parentOrganizationId: { type: integer }
+      name: { type: string }
+      type_: { type: string }
+      sbcId: { type: integer }
+      documentation_URL: { type: string }
+      support_URL: { type: string }
+      status_URL: { type: string }
+      redirect_URL: { type: string }
+      notificationEmailFromAddress: { type: string }
+      customerId: { type: [string, "null"] }
+  user:
+    type: object
+    properties:
+      userId: { type: integer }
+      ssoId: { type: string }
+      createDate: { type: string }
+      modifiedDate: { type: string }
+      emailAddress: { type: string }
+      firstName: { type: string }
+      lastName: { type: string }
+      hasToChangePassword: { type: boolean }
+      type:
+        {
+          type: object,
+          properties: { id: { type: integer }, name: { type: string } },
+        }
+      organizationId: { type: integer }
+      parentOrganizationId: { type: integer }
+      organizationName: { type: string }
+  customer:
+    type: object
+    properties:
+      id: { type: integer }
+      organizationId: { type: integer }
+      name: { type: string }
+      ragioneSociale: { type: string }
+      rappresentante: { type: [string, "null"] }
+      indirizzo: { type: string }
+      civico: { type: string }
+      indSedLeg: { type: string }
+      civicoSedLeg: { type: string }
+      comuneSedLeg: { type: string }
+      provinciaSedLeg: { type: [string, "null"] }
+      regioneSedLeg: { type: [string, "null"] }
+      capSedLeg: { type: string }
+      comune: { type: string }
+      provincia: { type: [string, "null"] }
+      regione: { type: string }
+      cap: { type: string }
+      tel: { type: string }
+      fiscalCode: { type: [string, "null"] }
+      isActive: { type: string }
+      userid: { type: integer }
+      customerPortal: { type: boolean }
+      associated_users: { type: array }
+      piva: { type: string }
+      ptoponomastica: { type: [string, "null"] }
+  status:
+    type: object
+    properties:
+      id: { type: integer }
+      code: { type: string }
+      description: { type: string }
+      finishStatus: { type: boolean }
+  profile:
+    type: object
+    properties:
+      id: { type: integer }
+      serviceList:
+        type: object
+        properties:
+          id: { type: integer }
+          name: { type: string }
+          serviceProvider:
+            {
+              type: object,
+              properties:
+                { id: { type: integer }, description: { type: string } },
+            }
+          carrier:
+            {
+              type: object,
+              properties: { id: { type: integer }, name: { type: string } },
+            }
+          type:
+            {
+              type: object,
+              properties: { id: { type: integer }, name: { type: string } },
+            }
+          supplierProductId: { type: string }
+      organizationId: { type: integer }
+      integration:
+        {
+          type: object,
+          properties: { id: { type: integer }, name: { type: string } },
+        }
+      name: { type: string }
+      forDirect: { type: boolean }
+      forSub: { type: boolean }
+      carrierType: { type: string }
+      offsetDays: { type: integer }
+  mcr:
+    type: object
+    properties:
+      id: { type: integer }
+      name: { type: string }
+      forDirect: { type: boolean }
+      forSub: { type: boolean }
+      type: { type: string }
+  sla: { type: [string, "null"] }
+  ipV4: { type: [string, "null"] }
+  ipV6: { type: [string, "null"] }

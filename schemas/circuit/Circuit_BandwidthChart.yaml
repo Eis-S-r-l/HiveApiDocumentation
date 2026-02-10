@@ -1,0 +1,11 @@
+type: object
+properties:
+  connectionState: { type: boolean }
+  lastUpdate: { type: string }
+  Data:
+    type: object
+    properties:
+      Daily: { type: string }
+      Weekly: { type: string }
+      Monthly: { type: string }
+      Yearly: { type: string }

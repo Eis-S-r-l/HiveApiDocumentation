@@ -83,6 +83,12 @@ externalDocs:
 tags:
   - name: Authorization
     description: Endpoints for obtaining and refreshing JWT tokens for API access.
+  - name: Audit Logs
+    description: Endpoints related to retrieving audit logs for customer activities.
+  - name: Carriers
+    description: Endpoints related to carrier management.
+  - name: Circuits
+    description: Endpoints related to circuit management and details.
   - name: Customers
     description: Endpoints related to customer management.
   - name: Regulatory
@@ -138,6 +144,221 @@ paths:
                     description: JWT access token
         "401":
           description: Unauthorized - Invalid API key
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 📋 AUDIT LOGS
+  # ========================================================
+
+  /v1/audit-logs/list/{organizationId}:
+    get:
+      tags:
+        - Audit Logs
+      summary: Get all Audit Logs
+      description: Retrieve the complete list of audit logs for a specific organization.
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: long
+      responses:
+        "200":
+          description: List of audit logs retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/audit/AuditLog.yaml"
+        "404":
+          description: Organization not found
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 📋 CARRIERS
+  # ========================================================
+
+  /v1/carriers/list:
+    get:
+      tags:
+        - Carriers
+      summary: Get all Carriers
+      description: Retrieve the complete list of carriers.
+      responses:
+        "200":
+          description: List of carriers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/Carrier.yaml"
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 🌐 CIRCUITS
+  # ========================================================
+
+  /v1/circuits/:
+    get:
+      tags:
+        - Circuits
+      summary: Get all Circuits
+      description: Retrieve the complete list of circuits.
+      responses:
+        "200":
+          description: List of circuits retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/circuit/Circuit.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/circuits/{orderId}:
+    get:
+      tags:
+        - Circuits
+      summary: Get Circuit by Order ID
+      description: Retrieve circuit information for a specific order ID.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Circuit retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "/schemas/circuit/Circuit.yaml"
+        "404":
+          description: Circuit not found
+        "500":
+          description: Internal server error
+
+  /v1/circuits/customer/{customerId}:
+    get:
+      tags:
+        - Circuits
+      summary: Get Circuit by Customer ID
+      description: Retrieve circuit information for a specific customer ID.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Circuit retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "/schemas/circuit/Circuit.yaml"
+        "404":
+          description: Circuit not found
+        "500":
+          description: Internal server error
+
+  /v1/circuits/{orderId}/{organizationId}/details:
+    get:
+      tags:
+        - Circuits
+      summary: Get Circuit Details by Order ID and Organization ID
+      description: Retrieve detailed information for a specific circuit using its order ID and organization ID.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: long
+      responses:
+        "200":
+          description: Circuit details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/circuit/Circuit_Detail.yaml"
+        "404":
+          description: Circuit not found
+        "500":
+          description: Internal server error
+
+  /v1/circuits/migration/carrier/{carrierId}:
+    get:
+      tags:
+        - Circuits
+      summary: Get Circuit by Carrier ID
+      description: Retrieve circuit information for a specific carrier ID.
+      parameters:
+        - name: carrierId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Circuit retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/circuit/Circuit_MigrationCarrier.yaml"
+        "404":
+          description: Circuit not found
+        "500":
+          description: Internal server error
+
+  /v1/circuits/order/ipv4:
+    get:
+      tags:
+        - Circuits
+      summary: Get Circuit by Order ID with IPv4
+      description: Retrieve circuit information for a specific order ID, including IPv4 details.
+      responses:
+        "200":
+          description: Circuit retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/circuit/Circuit_IPs.yaml"
+        "404":
+          description: Circuit not found
+        "500":
+          description: Internal server error
+
+  /v1/circuits/order/ipv6:
+    get:
+      tags:
+        - Circuits
+      summary: Get Circuit by Order ID with IPv6
+      description: Retrieve circuit information for a specific order ID, including IPv6 details.
+      responses:
+        "200":
+          description: Circuit retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/circuit/Circuit_IPs.yaml"
+        "404":
+          description: Circuit not found
         "500":
           description: Internal server error
 

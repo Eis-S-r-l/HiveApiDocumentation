@@ -1,0 +1,16 @@
+type: object
+properties:
+  connectionState: { type: boolean }
+  lastUpdate: { type: string }
+  logs:
+    type: array
+    items:
+      type: object
+      properties:
+        username: { type: string }
+        ipAddress: { type: string }
+        startTime: { type: string }
+        sessionTime: { type: string }
+        endTime: { type: string }
+        kbytesIn: { type: string }
+        kbytesOut: { type: string }

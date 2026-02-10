@@ -1,0 +1,44 @@
+type: object
+properties:
+  orderId: { type: integer }
+  organizationId: { type: integer }
+  mc: { type: string }
+  hid: { type: integer }
+  resourceId: { type: string }
+  xdslTypeId: { type: integer }
+  appointmentDate: { type: string }
+  technicalData:
+    type: object
+    properties:
+      username: { type: string }
+      password: { type: string }
+      userVlan: { type: string }
+      cvlanCode: { type: string }
+      td: { type: string }
+  statusHistory:
+    type: array
+    items:
+      type: object
+      properties:
+        date: { type: string }
+        description: { type: string }
+        note: { type: string }
+  contactHistory:
+    type: array
+    items:
+      type: object
+      properties:
+        nameRef: { type: string }
+        lastNameRef: { type: string }
+        tlcAccount: { type: string }
+        contactDate: { type: string }
+  timeline:
+    type: array
+    items:
+      type: object
+      properties:
+        date: { type: string }
+        requestId: { type: string }
+        active: { type: boolean }
+        inUse: { type: boolean }
+        type: { type: string }
