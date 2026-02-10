@@ -87,12 +87,14 @@ tags:
     description: Endpoints related to customer management.
   - name: Regulatory
     description: Endpoints related to regulatory management.
-  - name: DaaS
-    description: Endpoints related to Device as a Service (DaaS) management.
   - name: DaaS/Accessories
     description: "Endpoints related to DaaS accessories (retrieve, list, and associate)."
   - name: DaaS/Services
     description: "Endpoints related to DaaS services (retrieve, list, and associate)."
+  - name: DaaS/Categories
+    description: "Endpoints for managing product categories (retrieve all, filter, and get details)."
+  - name: DaaS/Vendors
+    description: "Endpoints for managing product vendors (retrieve all, filter, and get details)."
   - name: DaaS/Devices
     description: "Endpoints related to DaaS devices and their associated items."
   - name: DaaS/Contracts
@@ -803,7 +805,7 @@ paths:
   /v1/product/categories:
     get:
       tags:
-        - DaaS/Products/Categories
+        - DaaS/Categories
       summary: Get all Product Categories
       description: Retrieve the complete list of product categories.
       responses:
@@ -821,7 +823,7 @@ paths:
   /v1/product/category/{id}:
     get:
       tags:
-        - DaaS/Products/Categories
+        - DaaS/Categories
       summary: Get Product Category by ID
       description: Retrieve details of a specific product category using its unique ID.
       parameters:
@@ -845,7 +847,7 @@ paths:
   /v1/product/category/external/{externalId}:
     get:
       tags:
-        - DaaS/Products/Categories
+        - DaaS/Categories
       summary: Get Product Category by External ID
       description: Retrieve details of a specific product category using its unique external ID.
       parameters:
@@ -869,7 +871,7 @@ paths:
   /v1/product/category/add:
     post:
       tags:
-        - DaaS/Products/Categories
+        - DaaS/Categories
       summary: Add a new Product Category
       description: Create a new product category with the provided name.
       requestBody:
@@ -889,7 +891,7 @@ paths:
   /v1/product/category/edit:
     post:
       tags:
-        - DaaS/Products/Categories
+        - DaaS/Categories
       summary: Edit an existing Product Category
       description: Update the name of an existing product category.
       requestBody:
@@ -911,7 +913,7 @@ paths:
   /v1/product/category/delete/{categoryId}/{organizationId}:
     delete:
       tags:
-        - DaaS/Products/Categories
+        - DaaS/Categories
       summary: Delete a Product Category
       description: Delete a specific product category by its ID and organization ID.
       parameters:
@@ -942,7 +944,7 @@ paths:
   /v1/product/vendors:
     get:
       tags:
-        - DaaS/Products/Vendors
+        - DaaS/Vendors
       summary: Get all Product Vendors
       description: Retrieve the complete list of product vendors.
       responses:
@@ -960,7 +962,7 @@ paths:
   /v1/product/vendor/{id}:
     get:
       tags:
-        - DaaS/Products/Vendors
+        - DaaS/Vendors
       summary: Get Product Vendor by ID
       description: Retrieve details of a specific product vendor using its unique ID.
       parameters:
@@ -984,7 +986,7 @@ paths:
   /v1/product/vendor/external/{externalId}:
     get:
       tags:
-        - DaaS/Products/Vendors
+        - DaaS/Vendors
       summary: Get Product Vendor by External ID
       description: Retrieve details of a specific product vendor using its unique external ID.
       parameters:
@@ -1008,7 +1010,7 @@ paths:
   /v1/product/vendor/add:
     post:
       tags:
-        - DaaS/Products/Vendors
+        - DaaS/Vendors
       summary: Add a new Product Vendor
       description: Create a new product vendor with the provided name.
       requestBody:
@@ -1028,7 +1030,7 @@ paths:
   /v1/product/vendor/edit:
     post:
       tags:
-        - DaaS/Products/Vendors
+        - DaaS/Vendors
       summary: Edit an existing Product Vendor
       description: Update the name of an existing product vendor.
       requestBody:
@@ -1050,7 +1052,7 @@ paths:
   /v1/product/vendor/delete/{vendorId}/{organizationId}:
     delete:
       tags:
-        - DaaS/Products/Vendors
+        - DaaS/Vendors
       summary: Delete a Product Vendor
       description: Delete a specific product vendor by its ID and organization ID.
       parameters:
