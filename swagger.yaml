@@ -211,7 +211,6 @@ paths:
       description: Retrieve the complete list of circuits.
       responses:
         "200":
-          description: List of circuits retrieved successfully.
           content:
             application/json:
               schema:
@@ -235,16 +234,11 @@ paths:
             type: integer
       responses:
         "200":
-          description: Circuit retrieved successfully.
           content:
             application/json:
               schema:
                 type: object
                 $ref: "/schemas/circuit/Circuit.yaml"
-        "404":
-          description: Circuit not found
-        "500":
-          description: Internal server error
 
   /v1/circuits/customer/{customerId}:
     get:
@@ -260,16 +254,11 @@ paths:
             type: integer
       responses:
         "200":
-          description: Circuit retrieved successfully.
           content:
             application/json:
               schema:
                 type: object
                 $ref: "/schemas/circuit/Circuit.yaml"
-        "404":
-          description: Circuit not found
-        "500":
-          description: Internal server error
 
   /v1/circuits/{orderId}/{organizationId}/details:
     get:
@@ -290,15 +279,10 @@ paths:
             type: long
       responses:
         "200":
-          description: Circuit details retrieved successfully.
           content:
             application/json:
               schema:
                 $ref: "/schemas/circuit/Circuit_Detail.yaml"
-        "404":
-          description: Circuit not found
-        "500":
-          description: Internal server error
 
   /v1/circuits/migration/carrier/{carrierId}:
     get:
@@ -314,17 +298,12 @@ paths:
             type: integer
       responses:
         "200":
-          description: Circuit retrieved successfully.
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "/schemas/circuit/Circuit_MigrationCarrier.yaml"
-        "404":
-          description: Circuit not found
-        "500":
-          description: Internal server error
 
   /v1/circuits/order/ipv4:
     get:
@@ -334,15 +313,10 @@ paths:
       description: Retrieve circuit information for a specific order ID, including IPv4 details.
       responses:
         "200":
-          description: Circuit retrieved successfully.
           content:
             application/json:
               schema:
                 $ref: "/schemas/circuit/Circuit_IPs.yaml"
-        "404":
-          description: Circuit not found
-        "500":
-          description: Internal server error
 
   /v1/circuits/order/ipv6:
     get:
@@ -352,15 +326,140 @@ paths:
       description: Retrieve circuit information for a specific order ID, including IPv6 details.
       responses:
         "200":
-          description: Circuit retrieved successfully.
           content:
             application/json:
               schema:
                 $ref: "/schemas/circuit/Circuit_IPs.yaml"
-        "404":
-          description: Circuit not found
-        "500":
-          description: Internal server error
+
+  /v1/circuits/{orderId}/{organizationId}/ping:
+    get:
+      tags:
+        - Circuits
+      summary: Ping Circuit by Order ID and Organization ID
+      description: Ping a specific circuit using its order ID and organization ID.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: long
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/circuit/Circuit_Ping.yaml"
+
+  /v1/circuits/{orderId}/{organizationId}/connectionlog:
+    get:
+      tags:
+        - Circuits
+      summary: Get Connection Log for Circuit by Order ID and Organization ID
+      description: Retrieve connection log information for a specific circuit using its order ID and organization ID.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: long
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/circuit/Circuit_logs.yaml"
+
+  /v1/circuits/{orderId}/{organizationId}/ngasp/alignment:
+    get:
+      tags:
+        - Circuits
+      summary: Get NGASP Alignment for Circuit by Order ID and Organization ID
+      description: Retrieve NGASP alignment information for a specific circuit using its order ID and organization ID.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: long
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/circuit/Circuit_NGASP.yaml"
+
+  /v1/circuits/{orderId}/{organizationId}/charts/bandwidth/{xdslType}:
+    get:
+      tags:
+        - Circuits
+      summary: Get Bandwidth Chart for Circuit by Order ID and Organization ID
+      description: Retrieve bandwidth chart information for a specific circuit using its order ID and organization ID.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: long
+        - name: xdslType
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/circuit/Circuit_BandwidthChart.yaml"
+
+  /v1/circuits/{orderId}/{organizationId}/ipclass:
+    get:
+      tags:
+        - Circuits
+      summary: Get IP Class for Circuit by Order ID and Organization ID
+      description: Retrieve IP class  information for a specific circuit using its order ID and organization ID.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: long
+        - name: xdslType
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/circuit/Circuit_IPClasses.yaml"
 
   # ========================================================
   # 🏣 CUSTOMER & REGULATORY ENDPOINTS
