@@ -217,7 +217,7 @@ paths:
         "500":
           description: Internal server error
 
-  v1/customers/{customerId}:
+  /v1/customers/{customerId}:
     get:
       tags:
         - Customers
@@ -241,7 +241,7 @@ paths:
         "500":
           description: Internal server error
 
-  v1/customers/add:
+  /v1/customers/add:
     post:
       tags:
         - Customers
