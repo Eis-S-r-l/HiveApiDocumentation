@@ -1,0 +1,23 @@
+type: object
+properties:
+  id:
+    type: integer
+  startDate:
+    type: string
+    example: "31/12/2023"
+  endDate:
+    type: string
+    example: "31/12/2024"
+  contractName:
+    type: string
+  contactName:
+    type: string
+  contactPhone:
+    type: string
+  contactEmailAddress:
+    type: string
+    format: email
+  statusId:
+    type: integer
+  externalId:
+    type: string

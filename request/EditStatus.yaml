@@ -1,0 +1,7 @@
+type: object
+properties:
+  id:
+    type: integer
+    description: "Unique identifier for the entity"
+  statusId:
+    type: integer

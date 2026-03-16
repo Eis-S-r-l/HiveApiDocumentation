@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: integer
+  serialNumber:
+    type: string
+  externalId:
+    type: string
+  startDate:
+    type: string
+    example: "15/05/2024"
+    pattern: '^([0-2][0-9]|3[0-1])/(0[1-9]|1[0-2])/\d{4}$'
+  endDate:
+    type: string
+    example: "15/05/2025"
+    pattern: '^([0-2][0-9]|3[0-1])/(0[1-9]|1[0-2])/\d{4}$'
+  statusId:
+    type: integer
+  mrc:
+    type: number
+    format: float

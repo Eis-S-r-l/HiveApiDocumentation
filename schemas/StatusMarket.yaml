@@ -1,0 +1,25 @@
+type: object
+description: "Status detail record from database"
+properties:
+  id:
+    type: integer
+    description: "Primary key (Auto-increment)"
+    example: 1
+  name:
+    type: string
+    maxLength: 100
+    nullable: true
+    description: "Display name of the status"
+    example: "Completed"
+  code:
+    type: string
+    maxLength: 50
+    nullable: true
+    description: "Status code identifier"
+    example: "PROC_01"
+  finishStatus:
+    type: boolean
+    nullable: true
+    default: false
+    description: "Indicates if the status is a final state (true) or an intermediate state (false)"
+    example: true

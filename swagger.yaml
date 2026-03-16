@@ -85,6 +85,8 @@ tags:
     description: Endpoints for obtaining and refreshing JWT tokens for API access.
   - name: Audit Logs
     description: Endpoints related to retrieving audit logs for customer activities.
+  - name: Statuses
+    description: Endpoints related to retrieving all statuses.
   - name: Carriers
     description: Endpoints related to carrier management.
   - name: Circuits
@@ -174,6 +176,94 @@ paths:
                   $ref: "/schemas/audit/AuditLog.yaml"
         "404":
           description: Organization not found
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 📋 AUDIT LOGS
+  # ========================================================
+
+  /v1/status/list:
+    get:
+      tags:
+        - Statuses
+      summary: Get all Statuses
+      description: Retrieve the complete list of statuses.
+      responses:
+        "200":
+          description: List of statuses retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/Status.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/status/{id}:
+    get:
+      tags:
+        - Statuses
+      summary: Get Status by ID
+      description: Retrieve detailed information for a specific status using its unique ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Status retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/Status.yaml"
+        "404":
+          description: Status not found
+        "500":
+          description: Internal server error
+
+  /v1/status/market/list:
+    get:
+      tags:
+        - Statuses
+      summary: Get all Market Statuses
+      description: Retrieve the complete list of market statuses.
+      responses:
+        "200":
+          description: List of market statuses retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/StatusMarket.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/status/market/{id}:
+    get:
+      tags:
+        - Statuses
+      summary: Get Market Status by ID
+      description: Retrieve detailed information for a specific market status using its unique ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Market status retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/StatusMarket.yaml"
+        "404":
+          description: Market status not found
         "500":
           description: Internal server error
 
@@ -1118,6 +1208,47 @@ paths:
         "500":
           description: Internal server error
 
+
+  /v1/daas/contract/edit:
+    post:
+      tags:
+        - DaaS/Contracts
+      summary: Edit an existing DaaS Contract
+      description: Update the details of an existing DaaS contract.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/EditContract.yaml"
+      responses:
+        "200":
+          description: Contract updated successfully
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/daas/contract/edit/status:
+    post:
+      tags:
+        - DaaS/Contracts
+      summary: Edit the Status of an existing DaaS Contract
+      description: Update the status of an existing DaaS contract.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/EditStatus.yaml"
+      responses:
+        "200":
+          description: Contract status updated successfully
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
   # ========================================================
   # CATEGORIES ENDPOINTS
   # ========================================================
@@ -1549,9 +1680,52 @@ paths:
         "500":
           description: Internal server error
 
+  /v1/daas/device/edit:
+    post:
+      tags:
+        - DaaS/Devices
+      summary: Edit an existing DaaS Device
+      description: Update the details of an existing DaaS device.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/EditSerial.yaml"
+      responses:
+        "200":
+          description: Device updated successfully
+        "400":
+          description: Bad request - invalid input data
+        "404":
+          description: Device not found
+        "500":
+          description: Internal server error
+
+  /v1/daas/device/edit/status:
+    post:
+      tags:
+        - DaaS/Devices
+      summary: Edit the Status of an existing DaaS Device
+      description: Update the status of an existing DaaS device.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/EditStatus.yaml"
+      responses:
+        "200":
+          description: Device status updated successfully
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
   # ========================================================
   # 📦 PRODUCT ENDPOINTS
   # ========================================================
+
   /v1/product/:
     get:
       tags:
