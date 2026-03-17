@@ -39,3 +39,6 @@ properties:
   contactPhone:
     type: string
     description: "Numero di telefono del contatto associato al contratto"
+  statusId:
+    type: integer
+    description: "ID dello stato del contratto"

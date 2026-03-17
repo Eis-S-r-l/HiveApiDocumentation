@@ -9,6 +9,6 @@ properties:
   companyName: { type: string }
   type: { type: string }
   mrc: { type: number, format: float }
-  status: { $ref: "/schemas/ContractStatus.yaml" }
+  status: { $ref: "/schemas/StatusMarket.yaml" }
   customer: { $ref: "/schemas/Customer.yaml" }
   organization: { $ref: "/schemas/Organization.yaml" }
