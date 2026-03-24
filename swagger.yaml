@@ -1210,7 +1210,7 @@ paths:
 
 
   /v1/daas/contract/edit:
-    post:
+    put:
       tags:
         - DaaS/Contracts
       summary: Edit an existing DaaS Contract
@@ -1230,7 +1230,7 @@ paths:
           description: Internal server error
 
   /v1/daas/contract/edit/status:
-    post:
+    put:
       tags:
         - DaaS/Contracts
       summary: Edit the Status of an existing DaaS Contract
@@ -1681,7 +1681,7 @@ paths:
           description: Internal server error
 
   /v1/daas/device/edit:
-    post:
+    put:
       tags:
         - DaaS/Devices
       summary: Edit an existing DaaS Device
@@ -1703,7 +1703,7 @@ paths:
           description: Internal server error
 
   /v1/daas/device/edit/status:
-    post:
+    put:
       tags:
         - DaaS/Devices
       summary: Edit the Status of an existing DaaS Device
