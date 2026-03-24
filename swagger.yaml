@@ -1249,6 +1249,26 @@ paths:
         "500":
           description: Internal server error
 
+  /v1/daas/contract/delete/{idContract}:
+    delete:
+      tags:
+        - DaaS/Contracts
+      summary: Delete a DaaS Contract
+      description: Remove an existing DaaS contract.
+      parameters:
+        - name: idContract
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Contract deleted successfully
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
   # ========================================================
   # CATEGORIES ENDPOINTS
   # ========================================================
