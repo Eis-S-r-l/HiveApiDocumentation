@@ -15,7 +15,6 @@ items:
     deviceId:
       { type: integer, description: "ID del tipo di device da associare" }
     serialNumber: { type: string, description: "Numero seriale del device" }
-    externalId: { type: string, description: "ID esterno del device" }
     mrc: { type: number, format: float, description: "Monthly Recurring Cost" }
     nrc: { type: number, format: float, description: "Non-Recurring Cost" }
     startDate:

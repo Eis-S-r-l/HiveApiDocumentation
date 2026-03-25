@@ -1593,14 +1593,19 @@ paths:
         "500":
           description: Internal server error
 
-  /v1/daas/device/external/{externalId}:
+  /v1/daas/device/serial/{serialNumber}/{orderId}:
     get:
       tags:
         - DaaS/Devices
-      summary: Get a DaaS Device by External ID
+      summary: Get a DaaS Device by Serial Number
       description: Retrieve detailed information for a specific DaaS device.
       parameters:
-        - name: externalId
+        - name: serialNumber
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: orderId
           in: path
           required: true
           schema:

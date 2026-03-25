@@ -3,7 +3,6 @@ properties:
   id: { type: integer }
   customerId: { type: integer }
   serialNumber: { type: string }
-  externalId: { type: string }
   description: { type: string, nullable: true }
   createdDate: { type: string, format: date }
   startTime: { type: string, format: date }
