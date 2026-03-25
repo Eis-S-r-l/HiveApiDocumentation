@@ -17,6 +17,7 @@ items:
     serialNumber: { type: string, description: "Numero seriale del device" }
     mrc: { type: number, format: float, description: "Monthly Recurring Cost" }
     nrc: { type: number, format: float, description: "Non-Recurring Cost" }
+    statusId: { type: integer, description: "ID dello stato del device" }
     startDate:
       { type: string, description: "Data di inizio (formato dd/MM/yyyy)" }
     endDate: { type: string, description: "Data di fine (formato dd/MM/yyyy)" }
