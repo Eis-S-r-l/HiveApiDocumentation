@@ -10,6 +10,7 @@ properties:
   indSedLeg: { type: string }
   civicoSedLeg: { type: string }
   comuneSedLeg: { type: string }
+  country: {type: string}
   provinciaSedLeg: { type: string }
   regioneSedLeg: { type: string }
   capSedLeg: { type: string }

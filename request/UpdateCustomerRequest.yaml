@@ -18,6 +18,9 @@ properties:
   piva:
     type: string
     description: "Partita IVA o codice fiscale del cliente"
+  country:
+    type: string
+    description: "Nazionalità ISO code (IT, EN, ecc.)"
   tel:
     type: string
     description: "Numero di telefono del cliente"

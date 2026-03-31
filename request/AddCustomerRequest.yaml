@@ -35,6 +35,9 @@ properties:
   civico:
     type: string
     description: "Numero civico della sede operativa"
+  country:
+    type: string
+    description: "Nazionalità ISO code (IT, EN, ecc.)"
   cap:
     type: string
     description: "CAP della sede operativa"
