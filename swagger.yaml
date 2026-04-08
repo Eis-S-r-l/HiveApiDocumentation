@@ -641,6 +641,24 @@ paths:
         "500":
           description: Internal server error
 
+  /v1/customers/delete/{idCustomer}:
+    delete:
+      tags:
+        - Customers
+      summary: Delete Customer
+      description: Delete a customer by its unique ID.
+      parameters:
+        - name: idCustomer
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Customer deleted successfully
+        "404":
+          description: Customer not found
+
   /v1/customers/regulatorydatabaseinfo/{customerId}:
     get:
       tags:
