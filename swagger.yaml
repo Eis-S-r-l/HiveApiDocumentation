@@ -1202,26 +1202,6 @@ paths:
         "500":
           description: Internal server error
 
-  /v1/circuits/twtimport:
-    post:
-      tags:
-        - Circuits
-      summary: Import Circuit from TWT
-      description: Import a circuit using the TWT identifier and integration ID.
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              $ref: "/request/CircuitTwtImportRequest.yaml"
-      responses:
-        "200":
-          description: Circuit imported successfully.
-        "400":
-          description: Bad request - invalid input data
-        "500":
-          description: Internal server error
-
   /v1/circuits/terminate:
     post:
       tags:
@@ -1365,26 +1345,6 @@ paths:
         "500":
           description: Internal server error
 
-  /v1/circuits/temp/addservice:
-    post:
-      tags:
-        - Circuits
-      summary: Add Temporary Services
-      description: Add temporary services for an organization and integration.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "/request/CircuitTempAddServiceRequest.yaml"
-      responses:
-        "200":
-          description: Temporary services added successfully.
-        "400":
-          description: Bad request - invalid input data
-        "500":
-          description: Internal server error
-
   /v1/circuits/change-status:
     post:
       tags:
@@ -1440,26 +1400,6 @@ paths:
       responses:
         "200":
           description: Complete date changed successfully.
-        "400":
-          description: Bad request - invalid input data
-        "500":
-          description: Internal server error
-
-  /v1/circuits/svlan/associate:
-    post:
-      tags:
-        - Circuits
-      summary: Associate SVLAN
-      description: Associate an SVLAN and CV LAN value to a circuit.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "/request/CircuitAssociateSvlanRequest.yaml"
-      responses:
-        "200":
-          description: SVLAN associated successfully.
         "400":
           description: Bad request - invalid input data
         "500":
