@@ -1,0 +1,18 @@
+type: object
+description: Request payload for rescheduling a portability order.
+properties:
+  organizationId:
+    type: integer
+    format: int64
+    description: The organization identifier (long)
+  orderId:
+    type: integer
+    description: The portability order identifier (int)
+  new_dac:
+    type: string
+    description: The new DAC date in format dd/MM/yyyy
+    pattern: "^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\\d{4}$"
+required:
+  - organizationId
+  - orderId
+  - new_dac

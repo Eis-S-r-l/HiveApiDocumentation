@@ -95,10 +95,14 @@ tags:
     description: Endpoints related to customer management.
   - name: Coverage
     description: Endpoints related coverage.
+  - name: Numbers
+    description: Endpoints related to number resources.
   - name: Numbers/Order
     description: Endpoints related to numbering orders.
   - name: Numbers/New Number
     description: Endpoints related to native new number orders.
+  - name: Numbers/Portabilities
+    description: Endpoints related to portability orders.
   - name: Regulatory
     description: Endpoints related to regulatory management.
   - name: DaaS/Accessories
@@ -848,6 +852,193 @@ paths:
           description: New number order created successfully.
         "400":
           description: Bad request - Invalid parameters or missing required fields
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 🔢 NUMBERS/PORTABILITIES
+  # ========================================================
+
+  /v1/numbers/orders/portabilities/optimized:
+    get:
+      tags:
+        - Numbers/Portabilities
+      summary: Get All Portability Orders
+      description: Retrieve all portability orders.
+      responses:
+        "200":
+          description: Portability orders retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/numbers/NumberPortabilityItem.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/numbers/orders/migration-code:
+    post:
+      tags:
+        - Numbers/Portabilities
+      summary: Check Migration Code
+      description: Validate the migration code and return the carrier and routing details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/numbers/NumberMigrationCodeRequest.yaml"
+      responses:
+        "200":
+          description: Migration code checked successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/numbers/NumberMigrationCodeResponse.yaml"
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "500":
+          description: Internal server error
+
+  /v1/numbers/orders/reschedule:
+    post:
+      tags:
+        - Numbers/Portabilities
+      summary: Reschedule a Portability Order
+      description: Reschedule a portability order by changing its DAC date.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/numbers/NumberRescheduleRequest.yaml"
+      responses:
+        "200":
+          description: Portability order rescheduled successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "500":
+          description: Internal server error
+
+  /v1/numbers/orders/cancel/{idOrder}/{organizationId}:
+    delete:
+      tags:
+        - Numbers/Portabilities
+      summary: Cancel a Portability Order
+      description: Cancel an existing portability order by order ID and organization ID.
+      parameters:
+        - name: idOrder
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The order identifier to cancel
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The organization identifier
+      responses:
+        "200":
+          description: Portability order cancelled successfully.
+        "404":
+          description: Order not found
+        "500":
+          description: Internal server error
+
+  /v1/numbers/orders/number-portability:
+    post:
+      tags:
+        - Numbers/Portabilities
+      summary: Create a New Portability Order
+      description: Create a new portability order.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/numbers/NumberPortabilityCreateRequest.yaml"
+      responses:
+        "201":
+          description: Portability order created successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 🔢 NUMBERS
+  # ========================================================
+
+  /v1/numbers/optimized:
+    get:
+      tags:
+        - Numbers
+      summary: Get Numbers
+      description: Retrieve an optimized list of numbers.
+      responses:
+        "200":
+          description: Numbers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/numbers/NumberItem.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/numbers/{idNumber}:
+    get:
+      tags:
+        - Numbers
+      summary: Get Number by ID
+      description: Retrieve detailed number information by number ID.
+      parameters:
+        - name: idNumber
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The number identifier
+      responses:
+        "200":
+          description: Number retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/numbers/NumberDetail.yaml"
+        "404":
+          description: Number not found
+        "500":
+          description: Internal server error
+
+  /v1/numbers/customer/{customerId}:
+    get:
+      tags:
+        - Numbers
+      summary: Get Numbers by Customer ID
+      description: Retrieve all numbers associated with a customer.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The customer identifier
+      responses:
+        "200":
+          description: Numbers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/numbers/NumberDetail.yaml"
+        "404":
+          description: Customer not found
         "500":
           description: Internal server error
 

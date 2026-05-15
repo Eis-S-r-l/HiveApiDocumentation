@@ -1,0 +1,104 @@
+type: object
+description: Detailed number information.
+properties:
+  id:
+    type: integer
+    description: The unique number identifier
+  created_time:
+    type: string
+    nullable: true
+  activationDate:
+    type: string
+    nullable: true
+  ceasedDate:
+    type: string
+    nullable: true
+  statoBK:
+    type: string
+    nullable: true
+  numeroBK:
+    type: string
+    nullable: true
+  permanente:
+    type: boolean
+    nullable: true
+  destination_old:
+    type: string
+    nullable: true
+  canali:
+    type: string
+    nullable: true
+  dbu:
+    type: boolean
+  dbuCategory:
+    type: integer
+  dbuQualification:
+    type: string
+  dbuOccupation:
+    type: string
+  dbuEmail:
+    type: string
+  dbuAdditionalAddress:
+    type: string
+  dbuNote:
+    type: string
+  paperDirectories:
+    type: boolean
+  informationServices:
+    type: boolean
+  derivedSearch:
+    type: boolean
+  emailAdvertising:
+    type: boolean
+  taxCodeAggregation:
+    type: boolean
+  phoneAdvertising:
+    type: boolean
+  otherAdvertisingChannels:
+    type: boolean
+  etnaInserted:
+    type: boolean
+  anagrafica:
+    $ref: "/schemas/Customer.yaml"
+  organization:
+    $ref: "/schemas/Organization.yaml"
+  creator:
+    $ref: "/schemas/User.yaml"
+  voipPlatform:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+      attributes:
+        type: object
+  status:
+    $ref: "/schemas/Status.yaml"
+  order:
+    $ref: "/schemas/numbers/NumberOrder.yaml"
+  service:
+    type: object
+  codiceMigrazione:
+    type: string
+    nullable: true
+  tipo:
+    type: string
+    nullable: true
+  tipoSP:
+    type: string
+    nullable: true
+  dn:
+    type: string
+    nullable: true
+  ipgateway:
+    type: string
+    nullable: true
+required:
+  - id
+  - created_time
+  - organization
+  - status
+  - order

@@ -1,0 +1,54 @@
+type: object
+description: Request payload for creating a portability order.
+properties:
+  idService:
+    type: integer
+    description: The service identifier
+  idCustomer:
+    type: integer
+    description: The customer identifier
+  organizationId:
+    type: integer
+    description: The organization identifier
+  cow:
+    type: string
+    description: The COW code
+  cor:
+    type: string
+    description: The COR code
+  cos:
+    type: string
+    description: The COS code
+  controlCode:
+    type: string
+    description: The control code
+  lineType:
+    type: integer
+    enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    description: The line type. 1 = Simplex, 2 = GNR, 3 = ISDN mono, 4 = ISDN multi, 5 = POTS
+  dac:
+    type: string
+    description: The DAC date
+  phoneContact:
+    type: string
+    description: The contact phone number
+  emailContact:
+    type: string
+    description: The contact email address
+required:
+  - idService
+  - idCustomer
+  - organizationId
+  - cow
+  - cor
+  - cos
+  - controlCode
+  - lineType
+  - dac
+  - phoneContact
+  - emailContact

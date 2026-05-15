@@ -1,0 +1,47 @@
+type: object
+description: Order information for portability orders.
+properties:
+  id:
+    type: integer
+    description: The unique order identifier
+  status:
+    $ref: "/schemas/Status.yaml"
+  service:
+    type: string
+    description: The service name
+  direction:
+    type: string
+    description: The portability direction
+  customerName:
+    type: string
+    description: The customer name
+  dn:
+    type: string
+    description: The directory number
+  lineType:
+    type: string
+    description: The line type
+  createdDate:
+    type: string
+    description: The order creation date
+  dac:
+    type: string
+    description: The DAC date
+  organizationId:
+    type: integer
+    description: The organization identifier
+  organizationName:
+    type: string
+    description: The organization name
+required:
+  - id
+  - status
+  - service
+  - direction
+  - customerName
+  - dn
+  - lineType
+  - createdDate
+  - dac
+  - organizationId
+  - organizationName

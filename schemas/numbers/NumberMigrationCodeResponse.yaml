@@ -1,0 +1,68 @@
+type: object
+description: Response payload for a migration code check.
+properties:
+  cow:
+    type: string
+    description: The COW code
+  cor:
+    type: string
+    description: The COR code
+  cos:
+    type: string
+    description: The COS code
+  controlCode:
+    type: string
+    description: The control code
+  donor:
+    type: object
+    description: The donor carrier information
+    properties:
+      description:
+        type: string
+        description: The donor carrier description
+      code:
+        type: string
+        description: The donor carrier code
+      idCarrier:
+        type: string
+        description: The donor carrier identifier
+    required:
+      - description
+      - code
+      - idCarrier
+  donating:
+    type: object
+    description: The donating carrier information
+    properties:
+      description:
+        type: string
+        description: The donating carrier description
+      code:
+        type: string
+        description: The donating carrier code
+      idCarrier:
+        type: string
+        description: The donating carrier identifier
+    required:
+      - description
+      - code
+      - idCarrier
+  routingNumber:
+    type: string
+    description: The generated routing number
+  completeCode:
+    type: string
+    description: The complete migration code
+  valid:
+    type: boolean
+    description: Whether the migration code is valid
+required:
+  - cow
+  - cor
+  - cos
+  - controlCode
+  - donor
+  - donating
+  - routingNumber
+  - completeCode
+  - valid

@@ -1,0 +1,58 @@
+type: object
+description: Optimized number list item.
+properties:
+  id:
+    type: integer
+    description: The unique number identifier
+  idOrder:
+    type: integer
+    description: The related order identifier
+  orderType:
+    type: string
+    description: The order type
+  orderStatus:
+    $ref: "/schemas/Status.yaml"
+  type:
+    type: string
+    description: The type description
+  typeSP:
+    type: string
+    description: The type short code
+  customerName:
+    type: string
+    description: The customer display name
+  ragioneSociale:
+    type: string
+    description: The legal company name
+  activationDate:
+    type: string
+    nullable: true
+    description: The activation date
+  createdDate:
+    type: string
+    description: The creation date
+  dac:
+    type: string
+    description: The DAC date
+  destination:
+    type: string
+    nullable: true
+    description: The destination
+  organizationName:
+    type: string
+    description: The organization name
+  organizationId:
+    type: integer
+    description: The organization identifier
+  dn:
+    type: string
+    description: The directory number
+required:
+  - id
+  - idOrder
+  - orderType
+  - orderStatus
+  - customerName
+  - createdDate
+  - organizationId
+  - dn

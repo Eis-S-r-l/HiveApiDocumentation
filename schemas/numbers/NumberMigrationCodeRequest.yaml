@@ -1,0 +1,20 @@
+type: object
+description: Request payload for checking a migration code.
+properties:
+  cow:
+    type: string
+    description: The COW code
+  cor:
+    type: string
+    description: The COR code
+  cos:
+    type: string
+    description: The COS code
+  controlCode:
+    type: string
+    description: The control code
+required:
+  - cow
+  - cor
+  - cos
+  - controlCode
