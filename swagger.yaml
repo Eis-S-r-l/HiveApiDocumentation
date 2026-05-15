@@ -29,6 +29,30 @@ info:
 
     # Moduli
 
+    ## Elenco Moduli
+    Di seguito i moduli disponibili in questa documentazione:
+
+    - Authorization
+    - Audit Logs
+    - Statuses
+    - Carriers
+    - Circuits
+    - Customers
+    - Coverage
+    - Numbers
+      - Numbers/Order
+      - Numbers/New Number
+      - Numbers/Portabilities
+    - Regulatory
+    - DaaS
+      - DaaS/Accessories
+      - DaaS/Services
+      - DaaS/Categories
+      - DaaS/Vendors
+      - DaaS/Devices
+      - DaaS/Contracts
+      - DaaS/Products
+
     ## Device as a Service (DaaS)
     Questa suite di API è fondamentale per provisionare e configurare i servizi necessari alla gestione completa del ciclo di vita dei dispositivi (DaaS). Fornisce gli strumenti per gestire l'anagrafica, i cataloghi prodotti, le offerte commerciali e gli ordini di assistenza.
 
