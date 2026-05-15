@@ -93,6 +93,8 @@ tags:
     description: Endpoints related to circuit management and details.
   - name: Customers
     description: Endpoints related to customer management.
+  - name: Coverage
+    description: Endpoints related coverage.
   - name: Regulatory
     description: Endpoints related to regulatory management.
   - name: DaaS/Accessories
@@ -522,6 +524,184 @@ paths:
             application/json:
               schema:
                 $ref: "/schemas/circuit/Circuit_IPClasses.yaml"
+
+  # ========================================================
+  # 📍 COVERAGE ENDPOINTS
+  # ========================================================
+
+  /v1/coverage/manual/getcity:
+    get:
+      tags:
+        - Coverage
+      summary: Get City Information by City Name
+      description: Retrieve city information including province, postal code, and other details by city name.
+      parameters:
+        - name: city
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The city name to search for
+      responses:
+        "200":
+          description: City information retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/coverage/CoverageCity.yaml"
+        "400":
+          description: Bad request - Invalid city parameter
+        "404":
+          description: City not found
+        "500":
+          description: Internal server error
+
+  /v1/coverage/manual/getaddress:
+    get:
+      tags:
+        - Coverage
+      summary: Get Address Information by City ID and Address
+      description: Retrieve address details for a specific city using the city ID and address name.
+      parameters:
+        - name: idCity
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The unique city identifier
+        - name: address
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The address or street name to search for
+      responses:
+        "200":
+          description: Address information retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/coverage/CoverageAddress.yaml"
+        "400":
+          description: Bad request - Invalid parameters
+        "404":
+          description: Address not found
+        "500":
+          description: Internal server error
+
+  /v1/coverage/manual/getstreetnumber:
+    get:
+      tags:
+        - Coverage
+      summary: Get Street Number Information by Address ID and Street Number
+      description: Retrieve street number and toponomastico information for a specific address.
+      parameters:
+        - name: idAddress
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The unique address identifier
+        - name: streetNumber
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The street number to search for
+      responses:
+        "200":
+          description: Street number information retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/coverage/CoverageStreetNumber.yaml"
+        "400":
+          description: Bad request - Invalid parameters
+        "404":
+          description: Street number not found
+        "500":
+          description: Internal server error
+
+  /v1/coverage/validate:
+    post:
+      tags:
+        - Coverage
+      summary: Validate Address Information
+      description: Validate city, address, and street number information in a single request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/coverage/CoverageValidateRequest.yaml"
+      responses:
+        "200":
+          description: Address validation completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/coverage/CoverageValidateResponse.yaml"
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "500":
+          description: Internal server error
+
+  /v1/coverage/getcoverage:
+    get:
+      tags:
+        - Coverage
+      summary: Get Available Circuit Technologies
+      description: Retrieve all active circuit technologies for the specified street, building, and optional technology filter.
+      parameters:
+        - name: streetEgon
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The EGON code of the street
+        - name: streetNumber
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The street number
+        - name: mainEgon
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The EGON code of the main connection point
+        - name: technology
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - adsl
+              - fttcab
+              - fttc
+              - ftth
+              - ftthome
+          description: Optional technology filter. If omitted, all available technologies are returned.
+      responses:
+        "200":
+          description: Coverage technologies retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/coverage/CoverageTechnologyItem.yaml"
+        "400":
+          description: Bad request - Invalid parameters
+        "500":
+          description: Internal server error
 
   # ========================================================
   # 🏣 CUSTOMER & REGULATORY ENDPOINTS

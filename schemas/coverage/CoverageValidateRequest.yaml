@@ -1,0 +1,19 @@
+type: object
+properties:
+  city:
+    type: string
+    description: The city name to validate
+  address:
+    type: string
+    description: The address or street name to validate
+  number:
+    type: string
+    description: The street number to validate
+  province:
+    type: string
+    description: The province name or abbreviation to validate
+required:
+  - city
+  - address
+  - number
+  - province

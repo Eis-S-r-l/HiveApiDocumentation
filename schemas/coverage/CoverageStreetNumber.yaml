@@ -1,0 +1,19 @@
+type: object
+properties:
+  idStreetNumber:
+    type: string
+    description: The unique street number identifier
+  addressId:
+    type: string
+    description: The associated address identifier
+  number:
+    type: string
+    description: The street number
+  toponomastico:
+    type: string
+    description: The toponomastico reference (same as number or with additional info)
+required:
+  - idStreetNumber
+  - addressId
+  - number
+  - toponomastico

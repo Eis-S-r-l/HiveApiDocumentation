@@ -1,0 +1,23 @@
+type: object
+properties:
+  street:
+    type: string
+    description: The street name
+  name:
+    type: string
+    description: The address name
+  egonCode:
+    type: string
+    description: The EGON code identifier
+  toponym:
+    type: string
+    description: The toponym type (e.g., VIA, VIALE, PIAZZA)
+  idAddress:
+    type: string
+    description: The unique address identifier
+required:
+  - street
+  - name
+  - egonCode
+  - toponym
+  - idAddress

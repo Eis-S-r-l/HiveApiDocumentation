@@ -1,0 +1,81 @@
+type: object
+properties:
+  providerId:
+    type: integer
+    description: The provider identifier
+  providerName:
+    type: string
+    description: The provider name
+  speedLimit:
+    type: number
+    format: float
+    description: The maximum available speed
+  speedComplete:
+    type: string
+    nullable: true
+    description: The complete speed description
+  multipleConnection:
+    type: boolean
+    description: Whether multiple connections are available
+  distance:
+    type: number
+    format: float
+    description: The distance from the connection element
+  connectionType:
+    type: string
+    description: The connection type
+  connectionElementName:
+    type: string
+    description: The connection element name
+  connectionCLLi:
+    type: string
+    description: The connection CLLI code
+  serviceName:
+    type: string
+    description: The service name
+  serviceDescription:
+    type: string
+    description: The service description
+  oloServiceId:
+    type: integer
+    description: The OLO service identifier
+  oloTypeProduct:
+    type: string
+    description: The OLO product type
+  oloTypeService:
+    type: string
+    description: The OLO service type
+  fiberRange:
+    type: string
+    nullable: true
+    description: The fiber range, if available
+  coverage:
+    type: boolean
+    description: Whether coverage is available
+  idBuilding:
+    type: string
+    description: The building identifier
+  headerId:
+    type: string
+    description: The header identifier
+  connectionElementDetail:
+    type: string
+    description: The connection element detail
+required:
+  - providerId
+  - providerName
+  - speedLimit
+  - multipleConnection
+  - distance
+  - connectionType
+  - connectionElementName
+  - connectionCLLi
+  - serviceName
+  - serviceDescription
+  - oloServiceId
+  - oloTypeProduct
+  - oloTypeService
+  - coverage
+  - idBuilding
+  - headerId
+  - connectionElementDetail

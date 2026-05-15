@@ -1,0 +1,35 @@
+type: object
+properties:
+  city:
+    type: string
+    description: The name of the city
+  province:
+    type: string
+    description: The province abbreviation
+  provinceComplete:
+    type: string
+    description: The complete province name
+  zipcode:
+    type: string
+    description: The postal code
+  phonePrefix:
+    type: string
+    description: The telephone prefix for the city
+  region:
+    type: string
+    description: The region name
+  egonCode:
+    type: string
+    description: The EGON code identifier
+  idCity:
+    type: string
+    description: The unique city identifier
+required:
+  - city
+  - province
+  - provinceComplete
+  - zipcode
+  - phonePrefix
+  - region
+  - egonCode
+  - idCity

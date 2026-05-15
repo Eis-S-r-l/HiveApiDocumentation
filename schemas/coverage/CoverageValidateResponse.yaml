@@ -1,0 +1,85 @@
+type: object
+properties:
+  city:
+    type: object
+    properties:
+      name:
+        type: string
+        description: The city name
+      province:
+        type: string
+        description: The province name
+      provinceISO3166:
+        type: string
+        description: The province ISO 3166 code
+      zipCode:
+        type: string
+        description: The postal code range
+      phonePrefix:
+        type: string
+        description: The telephone prefix for the city
+      region:
+        type: string
+        description: The region name
+      egonCode:
+        type: string
+        description: The EGON code identifier for the city
+      idCity:
+        type: string
+        nullable: true
+        description: The unique city identifier (may be null)
+    required:
+      - name
+      - province
+      - provinceISO3166
+      - zipCode
+      - phonePrefix
+      - region
+      - egonCode
+  address:
+    type: object
+    properties:
+      streetType:
+        type: string
+        description: The full street name with type (e.g., VIA TEVERE)
+      name:
+        type: string
+        description: The address name
+      egonCode:
+        type: string
+        description: The EGON code identifier for the address
+      toponym:
+        type: string
+        description: The toponym type (e.g., VIA, VIALE, PIAZZA)
+    required:
+      - streetType
+      - name
+      - egonCode
+      - toponym
+  streetNumber:
+    type: string
+    description: The validated street number
+  egonCode:
+    type: string
+    description: The EGON code identifier for the street number
+  validCity:
+    type: boolean
+    description: Whether the city is valid
+  validAddress:
+    type: boolean
+    description: Whether the address is valid
+  validStreetNumber:
+    type: boolean
+    description: Whether the street number is valid
+  valid:
+    type: boolean
+    description: Overall validity indicator (true if all validations pass)
+required:
+  - city
+  - address
+  - streetNumber
+  - egonCode
+  - validCity
+  - validAddress
+  - validStreetNumber
+  - valid
