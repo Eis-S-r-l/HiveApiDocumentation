@@ -1,0 +1,11 @@
+type: object
+required:
+  - idCircuit
+  - organizationId
+  - ipOrderCode
+  - ipClass
+properties:
+  idCircuit: { type: integer }
+  organizationId: { type: integer }
+  ipOrderCode: { type: string }
+  ipClass: { type: string }

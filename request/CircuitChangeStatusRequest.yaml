@@ -1,0 +1,9 @@
+type: object
+required:
+  - organizationId
+  - orderId
+  - statusId
+properties:
+  organizationId: { type: integer }
+  orderId: { type: integer }
+  statusId: { type: integer }

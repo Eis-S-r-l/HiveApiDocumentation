@@ -1,0 +1,9 @@
+type: object
+required:
+  - idCircuit
+  - organizationId
+  - appointmentDate
+properties:
+  idCircuit: { type: integer }
+  organizationId: { type: integer }
+  appointmentDate: { type: string }

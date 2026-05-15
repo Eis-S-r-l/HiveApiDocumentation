@@ -1,0 +1,12 @@
+type: object
+required:
+  - idServices
+  - organizationId
+  - integrationId
+properties:
+  idServices:
+    type: array
+    items:
+      type: string
+  organizationId: { type: integer }
+  integrationId: { type: integer }
