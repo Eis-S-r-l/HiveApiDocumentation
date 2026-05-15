@@ -1,0 +1,11 @@
+type: object
+required:
+  - profileId
+  - mcrId
+  - idCircuit
+  - organizationId
+properties:
+  profileId: { type: integer }
+  mcrId: { type: integer }
+  idCircuit: { type: integer }
+  organizationId: { type: integer }

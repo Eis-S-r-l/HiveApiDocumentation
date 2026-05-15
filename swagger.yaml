@@ -1093,6 +1093,398 @@ paths:
         "500":
           description: Internal server error
 
+  /v1/circuits/dad/minimum:
+    get:
+      tags:
+        - Circuits
+      summary: Verify Minimum Date Selectable
+      description: Verify the minimum selectable DAD date using a date and offset.
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Minimum selectable date verified successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/circuit/Circuit_MinimumDate.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/circuits/dad/holiday:
+    get:
+      tags:
+        - Circuits
+      summary: Verify Holiday
+      description: Verify whether the provided date is a holiday.
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Holiday verification completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/circuit/Circuit_verifyHoliday.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/circuits/stats/count:
+    get:
+      tags:
+        - Circuits
+      summary: Get Circuits Count
+      description: Retrieve the total number of circuits.
+      responses:
+        "200":
+          description: Circuits count retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  active: { type: integer }
+                  ko: { type: integer }
+                  delivering: { type: integer }
+        "500":
+          description: Internal server error
+
+  /v1/circuits/activate:
+    post:
+      tags:
+        - Circuits
+      summary: Activate Circuit
+      description: Create an activation request for a new circuit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitActivateRequest.yaml"
+      responses:
+        "200":
+          description: Circuit activation requested successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/migrate:
+    post:
+      tags:
+        - Circuits
+      summary: Migrate Circuit
+      description: Create a migration request for an existing circuit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitMigrateRequest.yaml"
+      responses:
+        "200":
+          description: Circuit migration requested successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/twtimport:
+    post:
+      tags:
+        - Circuits
+      summary: Import Circuit from TWT
+      description: Import a circuit using the TWT identifier and integration ID.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "/request/CircuitTwtImportRequest.yaml"
+      responses:
+        "200":
+          description: Circuit imported successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/terminate:
+    post:
+      tags:
+        - Circuits
+      summary: Terminate Circuit
+      description: Terminate a circuit by ID and organization ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitTerminateRequest.yaml"
+      responses:
+        "200":
+          description: Circuit terminated successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/migration/checkmc:
+    post:
+      tags:
+        - Circuits
+      summary: Check Migration Code
+      description: Validate a migration code for the provided carrier.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "/request/CircuitMigrationCheckMcRequest.yaml"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "/request/CircuitMigrationCheckMcRequest.yaml"
+      responses:
+        "200":
+          description: Migration code checked successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/migration/validate-cow:
+    post:
+      tags:
+        - Circuits
+      summary: Validate COW
+      description: Validate a COW code.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "/request/CircuitValidateCowRequest.yaml"
+      responses:
+        "200":
+          description: COW validated successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/migration/validate-cor:
+    post:
+      tags:
+        - Circuits
+      summary: Validate COR
+      description: Validate a COR code using the related COW code.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "/request/CircuitValidateCorRequest.yaml"
+      responses:
+        "200":
+          description: COR validated successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/newipclass:
+    post:
+      tags:
+        - Circuits
+      summary: Add New IP Class
+      description: Add a new IP class to a circuit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitNewIpClassRequest.yaml"
+      responses:
+        "200":
+          description: IP class added successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/change/profile:
+    post:
+      tags:
+        - Circuits
+      summary: Change Circuit Profile
+      description: Change the profile and MCR of a circuit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitChangeProfileRequest.yaml"
+      responses:
+        "200":
+          description: Circuit profile changed successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/change/sla:
+    post:
+      tags:
+        - Circuits
+      summary: Change Circuit SLA
+      description: Change the SLA of a circuit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitChangeSlaRequest.yaml"
+      responses:
+        "200":
+          description: Circuit SLA changed successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/temp/addservice:
+    post:
+      tags:
+        - Circuits
+      summary: Add Temporary Services
+      description: Add temporary services for an organization and integration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitTempAddServiceRequest.yaml"
+      responses:
+        "200":
+          description: Temporary services added successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/change-status:
+    post:
+      tags:
+        - Circuits
+      summary: Change Circuit Status
+      description: Change the status of a circuit order.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitChangeStatusRequest.yaml"
+      responses:
+        "200":
+          description: Circuit status changed successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/change/appointment-date:
+    post:
+      tags:
+        - Circuits
+      summary: Change Appointment Date
+      description: Change the appointment date of a circuit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitChangeAppointmentDateRequest.yaml"
+      responses:
+        "200":
+          description: Appointment date changed successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/change/complete-date:
+    post:
+      tags:
+        - Circuits
+      summary: Change Complete Date
+      description: Change the complete date of a circuit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitChangeCompleteDateRequest.yaml"
+      responses:
+        "200":
+          description: Complete date changed successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/svlan/associate:
+    post:
+      tags:
+        - Circuits
+      summary: Associate SVLAN
+      description: Associate an SVLAN and CV LAN value to a circuit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitAssociateSvlanRequest.yaml"
+      responses:
+        "200":
+          description: SVLAN associated successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
+  /v1/circuits/deleteipclass:
+    delete:
+      tags:
+        - Circuits
+      summary: Delete IP Class
+      description: Delete an IP class from a circuit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/request/CircuitDeleteIpClassRequest.yaml"
+      responses:
+        "200":
+          description: IP class deleted successfully.
+        "400":
+          description: Bad request - invalid input data
+        "500":
+          description: Internal server error
+
   # ========================================================
   # 🏣 CUSTOMER & REGULATORY ENDPOINTS
   # ========================================================

@@ -1,0 +1,13 @@
+type: object
+required:
+  - ipv6AdditionalId
+  - ipv4AdditionalId
+  - publicIpv6
+  - idCircuit
+  - organizationId
+properties:
+  ipv6AdditionalId: { type: integer }
+  ipv4AdditionalId: { type: integer }
+  publicIpv6: { type: boolean }
+  idCircuit: { type: integer }
+  organizationId: { type: integer }

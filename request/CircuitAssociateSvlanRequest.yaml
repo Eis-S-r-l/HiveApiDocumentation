@@ -1,0 +1,11 @@
+type: object
+required:
+  - idCircuito
+  - svlanId
+  - cvLan
+  - organizationId
+properties:
+  idCircuito: { type: integer }
+  svlanId: { type: integer }
+  cvLan: { type: integer }
+  organizationId: { type: integer }

@@ -1,0 +1,7 @@
+type: object
+required:
+  - twtId
+  - integrationId
+properties:
+  twtId: { type: string }
+  integrationId: { type: integer }

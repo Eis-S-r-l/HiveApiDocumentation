@@ -1,0 +1,9 @@
+type: object
+required:
+  - slaId
+  - idCircuit
+  - organizationId
+properties:
+  slaId: { type: integer }
+  idCircuit: { type: integer }
+  organizationId: { type: integer }
