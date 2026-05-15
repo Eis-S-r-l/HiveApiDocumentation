@@ -1,0 +1,7 @@
+type: object
+properties:
+  trunk:
+    $ref: "/schemas/dss/DssTrunk.yaml"
+  gateway:
+    $ref: "/schemas/dss/DssGateway.yaml"
+additionalProperties: true

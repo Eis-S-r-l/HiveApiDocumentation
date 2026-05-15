@@ -1,0 +1,15 @@
+type: object
+properties:
+  id: { type: integer }
+  username: { type: string }
+  ruid: { type: string }
+  contact: { type: string }
+  received: { type: [string, "null"] }
+  expires: { type: string }
+  last_modified: { type: string }
+  q: { type: integer }
+  callid: { type: string }
+  cseq: { type: integer }
+  user_agent: { type: string }
+  socket: { type: string }
+  server_id: { type: integer }

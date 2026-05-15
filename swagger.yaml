@@ -115,6 +115,10 @@ tags:
     description: Endpoints related to carrier management.
   - name: Circuits
     description: Endpoints related to circuit management and details.
+  - name: Stats
+    description: Endpoints related to statistics and usage data.
+  - name: VoIP/DSS
+    description: Endpoints related to DSS trunks, gateways, numbers, CDR and statistics.
   - name: Customers
     description: Endpoints related to customer management.
   - name: Coverage
@@ -292,6 +296,538 @@ paths:
                 type: array
                 items:
                   $ref: "/schemas/Carrier.yaml"
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 📊 STATS
+  # ========================================================
+
+  /v1/stats/getdailyminutes/{organizationId}:
+    get:
+      tags:
+        - Stats
+      summary: Get Partner Daily Minutes
+      description: Retrieve daily minutes statistics for a specific organization.
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Daily minutes statistics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/stats/Stats_DailyMinutes.yaml"
+        "404":
+          description: Organization not found
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 📞 VOIP DSS
+  # ========================================================
+
+  /v1/voip/dss/trunk/:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Trunks
+      description: Retrieve the list of DSS trunks.
+      responses:
+        "200":
+          description: DSS trunks retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/DssTrunk.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/trunk/{trunkId}/{organizationId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Trunk by ID
+      description: Retrieve a DSS trunk by trunk ID and organization ID.
+      parameters:
+        - name: trunkId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: DSS trunk retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssTrunk.yaml"
+        "404":
+          description: DSS trunk not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/trunk/customer/{customerId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Trunks by Customer
+      description: Retrieve DSS trunks for a specific customer.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: DSS trunks retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/DssTrunk.yaml"
+        "404":
+          description: Customer not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/trunk/allcountries/{trunkId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Trunk Countries
+      description: Retrieve countries enabled for a DSS trunk.
+      parameters:
+        - name: trunkId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: DSS trunk countries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssCountry.yaml"
+        "404":
+          description: DSS trunk not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/trunk/numbers/{trunkId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get Numbers by Trunk ID
+      description: Retrieve numbers associated with a DSS trunk.
+      parameters:
+        - name: trunkId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: DSS trunk numbers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/DssNumber.yaml"
+        "404":
+          description: DSS trunk not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/trunk/registered/:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get Registered DSS Trunks
+      description: Retrieve registered DSS trunks.
+      responses:
+        "200":
+          description: Registered DSS trunks retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/DssRegisteredTrunk.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/trunk/registered/{trunkId}/{organizationId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get Registered DSS Trunk by ID
+      description: Retrieve a registered DSS trunk by trunk ID and organization ID.
+      parameters:
+        - name: trunkId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Registered DSS trunk retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssRegisteredTrunk.yaml"
+        "404":
+          description: DSS trunk not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/gtw/:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Gateways
+      description: Retrieve the list of DSS gateways.
+      responses:
+        "200":
+          description: DSS gateways retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/DssGateway.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/gtw/{gatewayId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Gateway by ID
+      description: Retrieve a DSS gateway by ID.
+      parameters:
+        - name: gatewayId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: DSS gateway retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssGateway.yaml"
+        "404":
+          description: DSS gateway not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/gtw/customer/{customerId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Gateways by Customer
+      description: Retrieve DSS gateways for a specific customer.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: DSS gateways retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/DssGateway.yaml"
+        "404":
+          description: Customer not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/gtw/allcountries/{gatewayId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Gateway Countries
+      description: Retrieve countries enabled for a DSS gateway.
+      parameters:
+        - name: gatewayId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: DSS gateway countries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssCountry.yaml"
+        "404":
+          description: DSS gateway not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/gtw/numbers/{gatewayId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get Numbers by Gateway ID
+      description: Retrieve numbers associated with a DSS gateway.
+      parameters:
+        - name: gatewayId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: DSS gateway numbers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/DssNumber.yaml"
+        "404":
+          description: DSS gateway not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/cdr/:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS CDR
+      description: Retrieve DSS CDR records using organization, trunk type and start time filters.
+      parameters:
+        - name: organizationId
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: idTrunk
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: typeTrunk
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: startTime
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: DSS CDR records retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/DssCdr.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/stats/:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Stats Dashboard
+      description: Retrieve the DSS statistics dashboard.
+      responses:
+        "200":
+          description: DSS statistics dashboard retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssStats.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/stats/{organizationId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Stats Dashboard by Organization
+      description: Retrieve the DSS statistics dashboard for a specific organization.
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: DSS statistics dashboard retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssStats.yaml"
+        "404":
+          description: Organization not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/stats/trunk/{trunkId}/{organizationId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Trunk Stats
+      description: Retrieve DSS statistics for a trunk or gateway in a time range.
+      parameters:
+        - name: trunkId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startTime
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: endTime
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: DSS trunk statistics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssStats.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/stats/organization/{organizationId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Organization Stats
+      description: Retrieve DSS statistics for a specific organization in a time range.
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: startTime
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: endTime
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: DSS organization statistics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssStats.yaml"
+        "404":
+          description: Organization not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/number/{numberId}/{organizationId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get Trunk or Gateway by Number ID
+      description: Retrieve the DSS trunk or gateway associated with a number.
+      parameters:
+        - name: numberId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: DSS trunk or gateway retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssNumberRoute.yaml"
+        "404":
+          description: Number not found
+        "500":
+          description: Internal server error
+
+  /v1/voip/dss/available-number/{organizationId}:
+    get:
+      tags:
+        - VoIP/DSS
+      summary: Get Available DSS Numbers
+      description: Retrieve available DSS numbers for a specific organization.
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Available DSS numbers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/DssNumber.yaml"
+        "404":
+          description: Organization not found
         "500":
           description: Internal server error
 

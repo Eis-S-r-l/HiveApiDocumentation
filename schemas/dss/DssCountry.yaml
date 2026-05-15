@@ -1,0 +1,18 @@
+type: object
+properties:
+  world:
+    type: object
+    additionalProperties:
+      type: object
+      properties:
+        name: { type: string }
+        states:
+          type: array
+          items:
+            type: object
+            properties:
+              name: { type: string }
+              iso: { type: string }
+              premium: { type: boolean }
+              visible: { type: boolean }
+              active: { type: boolean }

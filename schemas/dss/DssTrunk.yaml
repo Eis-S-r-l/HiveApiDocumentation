@@ -1,0 +1,24 @@
+type: object
+properties:
+  id: { type: integer }
+  sbcId: { type: integer }
+  nome: { type: string }
+  username: { type: string }
+  maxChannel: { type: integer }
+  trafficLimit: { type: number }
+  traffic_consumed: { type: number }
+  permanentBk: { type: boolean }
+  bkNumber: { type: [string, "null"] }
+  blocked: { type: boolean }
+  dualIdentity: { type: boolean }
+  to_in_ru: { type: boolean }
+  checkPrefix: { type: boolean }
+  mainNumber: { type: [string, "null"] }
+  lcrId: { type: integer }
+  domain: { type: string }
+  organizationId: { type: integer }
+  partnerName: { type: string }
+  registration: { type: boolean }
+  idCustomer: { type: integer }
+  customerName: { type: string }
+  companyName: { type: string }

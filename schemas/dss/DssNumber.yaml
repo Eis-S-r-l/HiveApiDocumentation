@@ -1,0 +1,182 @@
+type: object
+properties:
+  idNumbers: { type: integer }
+  trunkId: { type: string }
+  tipo: { type: string }
+  orgId: { type: integer }
+  tipoNumerazione: { type: string }
+  details:
+    type: object
+    properties:
+      id: { type: integer }
+      created_time: { type: string }
+      activationDate: { type: [string, "null"] }
+      ceasedDate: { type: [string, "null"] }
+      statoBK: { type: [string, "null"] }
+      numeroBK: { type: [string, "null"] }
+      permanente: { type: [boolean, "null"] }
+      destination_old: { type: [string, "null"] }
+      canali: { type: [integer, "null"] }
+      dbu: { type: boolean }
+      dbuCategory: { type: [integer, "null"] }
+      dbuQualification: { type: [string, "null"] }
+      dbuOccupation: { type: [string, "null"] }
+      dbuEmail: { type: [string, "null"] }
+      dbuAdditionalAddress: { type: [string, "null"] }
+      dbuNote: { type: [string, "null"] }
+      paperDirectories: { type: boolean }
+      informationServices: { type: boolean }
+      derivedSearch: { type: boolean }
+      emailAdvertising: { type: boolean }
+      taxCodeAggregation: { type: boolean }
+      phoneAdvertising: { type: boolean }
+      otherAdvertisingChannels: { type: boolean }
+      etnaInserted: { type: boolean }
+      anagrafica:
+        type: object
+        properties:
+          id: { type: integer }
+          organizationId: { type: integer }
+          name: { type: string }
+          ragioneSociale: { type: string }
+          rappresentante: { type: [string, "null"] }
+          indirizzo: { type: string }
+          civico: { type: string }
+          indSedLeg: { type: [string, "null"] }
+          civicoSedLeg: { type: string }
+          comuneSedLeg: { type: string }
+          provinciaSedLeg: { type: string }
+          regioneSedLeg: { type: string }
+          capSedLeg: { type: string }
+          comune: { type: string }
+          provincia: { type: string }
+          regione: { type: string }
+          country: { type: string }
+          cap: { type: string }
+          tel: { type: string }
+          fiscalCode: { type: [string, "null"] }
+          company: { type: boolean }
+          userid: { type: integer }
+          mainCustomer: { type: [integer, "null"] }
+          createDate: { type: [string, "null"] }
+          associated_users:
+            type: array
+            items:
+              type: object
+              properties:
+                userId: { type: integer }
+                emailAddress: { type: string }
+                firstName: { type: string }
+                lastName: { type: string }
+                type:
+                  type: object
+                  properties:
+                    id: { type: integer }
+                    name: { type: string }
+                organizationId: { type: integer }
+                parentOrganizationId: { type: integer }
+                organizationName: { type: string }
+          egonCodeAddress: { type: [string, "null"] }
+          egonCodeCity: { type: [string, "null"] }
+          egonCodeMain: { type: [string, "null"] }
+          rawAddress: { type: [string, "null"] }
+          piva: { type: string }
+          ptoponomastica: { type: [string, "null"] }
+          mainCustomerInfo: { type: [object, "null"] }
+      organization:
+        type: object
+        properties:
+          organizationId: { type: integer }
+          userId: { type: integer }
+          userName: { type: string }
+          createDate: { type: string }
+          modifiedDate: { type: string }
+          parentOrganizationId: { type: integer }
+          name: { type: string }
+          type_: { type: string }
+          sbcId: { type: integer }
+          documentation_URL: { type: string }
+          support_URL: { type: string }
+          status_URL: { type: string }
+          redirect_URL: { type: string }
+          notificationEmailFromAddress: { type: string }
+          customerId: { type: [integer, "null"] }
+          manualCoverage: { type: boolean }
+          coverageIntegration: { type: integer }
+      creator:
+        type: object
+        properties:
+          userId: { type: integer }
+          ssoId: { type: string }
+          createDate: { type: string }
+          modifiedDate: { type: string }
+          emailAddress: { type: string }
+          firstName: { type: string }
+          lastName: { type: string }
+          hasToChangePassword: { type: boolean }
+          type:
+            type: object
+            properties:
+              id: { type: integer }
+              name: { type: string }
+          organizationId: { type: integer }
+          parentOrganizationId: { type: integer }
+          organizationName: { type: string }
+      voipPlatform:
+        type: object
+        properties:
+          id: { type: integer }
+          name: { type: string }
+          description: { type: string }
+          attributes: { type: [object, "null"] }
+      status:
+        type: object
+        properties:
+          id: { type: integer }
+          code: { type: string }
+          description: { type: string }
+          finishStatus: { type: boolean }
+      order: { type: [object, "null"] }
+      service:
+        type: object
+        properties:
+          id: { type: integer }
+          serviceList:
+            type: object
+            properties:
+              id: { type: integer }
+              name: { type: string }
+              serviceProvider:
+                type: object
+                properties:
+                  id: { type: integer }
+                  description: { type: string }
+              carrier:
+                type: object
+                properties:
+                  id: { type: integer }
+                  name: { type: string }
+              type:
+                type: object
+                properties:
+                  id: { type: integer }
+                  name: { type: string }
+              supplierProductId: { type: [string, "null"] }
+          organizationId: { type: integer }
+          integration:
+            type: object
+            properties:
+              id: { type: integer }
+              name: { type: string }
+          name: { type: string }
+          forDirect: { type: boolean }
+          forSub: { type: boolean }
+          carrierType: { type: string }
+          offsetDays: { type: [integer, "null"] }
+          attributes: { type: [object, "null"] }
+      dn: { type: string }
+      tipo: { type: string }
+      tipoSP: { type: string }
+      codiceMigrazione: { type: string }
+      ipgateway: { type: [string, "null"] }
+      isTWT: { type: [boolean, "null"] }
