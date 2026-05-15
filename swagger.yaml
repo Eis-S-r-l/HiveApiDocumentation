@@ -902,18 +902,6 @@ paths:
         "500":
           description: Internal server error
 
-  /v1/circuits/testschedule:
-    get:
-      tags:
-        - Circuits
-      summary: Test Circuit Scheduler
-      description: Execute the circuit scheduler test endpoint.
-      responses:
-        "200":
-          description: Scheduler test executed successfully.
-        "500":
-          description: Internal server error
-
   /v1/circuits/dad/minimum:
     get:
       tags:
@@ -975,7 +963,11 @@ paths:
           content:
             application/json:
               schema:
-                type: integer
+                type: object
+                properties:
+                  active: { type: integer }
+                  ko: { type: integer }
+                  delivering: { type: integer }
         "500":
           description: Internal server error
 
