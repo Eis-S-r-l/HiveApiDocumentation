@@ -1,0 +1,414 @@
+type: object
+description: Order information for the Numbers module.
+properties:
+  id:
+    type: integer
+    description: The unique order identifier
+  tipo:
+    type: string
+    description: The order type
+  codeOrderOlo:
+    type: string
+    nullable: true
+    description: The OLO order code
+  idOrderOlo:
+    type: integer
+    nullable: true
+    description: The OLO order identifier
+  note:
+    type: string
+    nullable: true
+    description: Additional notes for the order
+  quantity:
+    type: integer
+    description: The ordered quantity
+  region:
+    type: string
+    nullable: true
+    description: The region associated with the order
+  province:
+    type: string
+    nullable: true
+    description: The province associated with the order
+  city:
+    type: string
+    nullable: true
+    description: The city associated with the order
+  prefix:
+    type: string
+    nullable: true
+    description: The number prefix
+  created_time:
+    type: string
+    nullable: true
+    description: The order creation date
+  organization:
+    type: object
+    description: The organization associated with the order
+    properties:
+      organizationId:
+        type: integer
+        description: The organization identifier
+      userId:
+        type: integer
+        nullable: true
+        description: The user identifier
+      userName:
+        type: string
+        nullable: true
+        description: The user full name
+      createDate:
+        type: string
+        nullable: true
+        description: The organization creation date
+      modifiedDate:
+        type: string
+        nullable: true
+        description: The organization last modification date
+      parentOrganizationId:
+        type: integer
+        nullable: true
+        description: The parent organization identifier
+      name:
+        type: string
+        description: The organization name
+      type_:
+        type: string
+        nullable: true
+        description: The organization type
+      sbcId:
+        type: integer
+        nullable: true
+        description: The SBC identifier
+      documentation_URL:
+        type: string
+        nullable: true
+        description: The documentation URL
+      support_URL:
+        type: string
+        nullable: true
+        description: The support URL
+      status_URL:
+        type: string
+        nullable: true
+        description: The status URL
+      redirect_URL:
+        type: string
+        nullable: true
+        description: The redirect URL
+      notificationEmailFromAddress:
+        type: string
+        nullable: true
+        description: The notification sender email address
+      customerId:
+        type: integer
+        nullable: true
+        description: The customer identifier
+      manualCoverage:
+        type: boolean
+        nullable: true
+        description: Whether manual coverage is enabled
+      coverageIntegration:
+        type: integer
+        nullable: true
+        description: The coverage integration mode
+  service:
+    type: object
+    description: The service associated with the order
+    properties:
+      id:
+        type: integer
+        description: The service identifier
+      serviceList:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: The service list identifier
+          name:
+            type: string
+            description: The service list name
+          serviceProvider:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The service provider identifier
+              description:
+                type: string
+                description: The service provider description
+          carrier:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The carrier identifier
+              name:
+                type: string
+                description: The carrier name
+          type:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The service type identifier
+              name:
+                type: string
+                description: The service type name
+          supplierProductId:
+            type: integer
+            nullable: true
+            description: The supplier product identifier
+      organizationId:
+        type: integer
+        description: The organization identifier
+      integration:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: The integration identifier
+          name:
+            type: string
+            description: The integration name
+      name:
+        type: string
+        description: The service name
+      forDirect:
+        type: boolean
+        description: Whether the service is available for direct sales
+      forSub:
+        type: boolean
+        description: Whether the service is available for sub-dealers
+      carrierType:
+        type: string
+        description: The carrier type
+      offsetDays:
+        type: integer
+        nullable: true
+        description: The service offset in days
+      attributes:
+        nullable: true
+        description: The service attributes
+  customer:
+    type: object
+    description: The customer associated with the order
+    properties:
+      id:
+        type: integer
+        description: The customer identifier
+      organizationId:
+        type: integer
+        description: The organization identifier
+      name:
+        type: string
+        description: The customer display name
+      ragioneSociale:
+        type: string
+        description: The legal company name
+      rappresentante:
+        type: string
+        nullable: true
+        description: The company representative
+      indirizzo:
+        type: string
+        description: The address
+      civico:
+        type: string
+        description: The street number
+      indSedLeg:
+        type: string
+        description: The registered office address
+      civicoSedLeg:
+        type: string
+        nullable: true
+        description: The registered office street number
+      comuneSedLeg:
+        type: string
+        nullable: true
+        description: The registered office city
+      provinciaSedLeg:
+        type: string
+        nullable: true
+        description: The registered office province
+      regioneSedLeg:
+        type: string
+        nullable: true
+        description: The registered office region
+      capSedLeg:
+        type: string
+        nullable: true
+        description: The registered office postal code
+      comune:
+        type: string
+        description: The city
+      provincia:
+        type: string
+        description: The province
+      regione:
+        type: string
+        description: The region
+      country:
+        type: string
+        description: The country code
+      cap:
+        type: string
+        description: The postal code
+      tel:
+        type: string
+        nullable: true
+        description: The phone number
+      fiscalCode:
+        type: string
+        nullable: true
+        description: The fiscal code
+      company:
+        type: boolean
+        description: Whether the customer is a company
+      userid:
+        type: integer
+        description: The user identifier
+      mainCustomer:
+        nullable: true
+        description: The main customer reference
+      createDate:
+        type: string
+        nullable: true
+        description: The creation date
+      organization:
+        type: object
+        description: The organization linked to the customer
+        properties:
+          organizationId:
+            type: integer
+            description: The organization identifier
+          name:
+            type: string
+            description: The organization name
+          documentation_URL:
+            type: string
+            nullable: true
+            description: The documentation URL
+          support_URL:
+            type: string
+            nullable: true
+            description: The support URL
+          status_URL:
+            type: string
+            nullable: true
+            description: The status URL
+          redirect_URL:
+            type: string
+            nullable: true
+            description: The redirect URL
+          notificationEmailFromAddress:
+            type: string
+            nullable: true
+            description: The notification sender email address
+          customerId:
+            type: integer
+            nullable: true
+            description: The customer identifier
+          manualCoverage:
+            type: boolean
+            nullable: true
+            description: Whether manual coverage is enabled
+          coverageIntegration:
+            type: integer
+            nullable: true
+            description: The coverage integration mode
+      user:
+        type: object
+        description: The user linked to the customer
+        properties:
+          userId:
+            type: integer
+            description: The user identifier
+          emailAddress:
+            type: string
+            description: The email address
+          firstName:
+            type: string
+            description: The user first name
+          lastName:
+            type: string
+            description: The user last name
+          type:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The user type identifier
+              name:
+                type: string
+                description: The user type name
+          organizationId:
+            type: integer
+            description: The organization identifier
+          parentOrganizationId:
+            type: integer
+            description: The parent organization identifier
+          organizationName:
+            type: string
+            description: The organization name
+      associated_users:
+        type: array
+        items:
+          type: object
+        description: Associated users list
+      egonCodeAddress:
+        type: string
+        nullable: true
+        description: The EGON code for the address
+      egonCodeCity:
+        type: string
+        nullable: true
+        description: The EGON code for the city
+      egonCodeMain:
+        type: string
+        nullable: true
+        description: The main EGON code
+      rawAddress:
+        type: string
+        nullable: true
+        description: The raw address value
+      piva:
+        type: string
+        description: The VAT number
+      ptoponomastica:
+        type: string
+        nullable: true
+        description: The street type
+      mainCustomerInfo:
+        nullable: true
+        description: The main customer information
+  npDetails:
+    nullable: true
+    description: Additional numbering plan details
+  status:
+    type: object
+    description: The order status
+    properties:
+      id:
+        type: integer
+        description: The status identifier
+      code:
+        type: string
+        nullable: true
+        description: The status code
+      description:
+        type: string
+        nullable: true
+        description: The status description
+      finishStatus:
+        type: boolean
+        nullable: true
+        description: Whether the status is a final status
+required:
+  - id
+  - tipo
+  - quantity
+  - organization
+  - service
+  - customer
+  - status

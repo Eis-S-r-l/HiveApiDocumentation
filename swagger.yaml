@@ -95,6 +95,10 @@ tags:
     description: Endpoints related to customer management.
   - name: Coverage
     description: Endpoints related coverage.
+  - name: Numbers/Order
+    description: Endpoints related to numbering orders.
+  - name: Numbers/New Number
+    description: Endpoints related to native new number orders.
   - name: Regulatory
     description: Endpoints related to regulatory management.
   - name: DaaS/Accessories
@@ -647,6 +651,201 @@ paths:
             application/json:
               schema:
                 $ref: "/schemas/coverage/CoverageValidateResponse.yaml"
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 🔢 NUMBERS/ORDER
+  # ========================================================
+
+  /v1/numbers/orders/customer/{idCustomer}:
+    get:
+      tags:
+        - Numbers/Order
+      summary: Get Number Order by Customer ID
+      description: Retrieve a numbering order by its customer ID. If the organization is not specified, the authenticated user's organization is used.
+      parameters:
+        - name: idCustomer
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The customer identifier
+      responses:
+        "200":
+          description: Number order retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/numbers/NumberOrder.yaml"
+        "404":
+          description: Order not found
+        "500":
+          description: Internal server error
+
+  /v1/numbers/orders/customer/{idCustomer}/{organizationId}:
+    get:
+      tags:
+        - Numbers/Order
+      summary: Get Number Order by Customer ID and Organization ID
+      description: Retrieve a numbering order by its customer ID and organization ID.
+      parameters:
+        - name: idCustomer
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The customer identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The organization identifier
+      responses:
+        "200":
+          description: Number order retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/numbers/NumberOrder.yaml"
+        "404":
+          description: Order not found
+        "500":
+          description: Internal server error
+
+  /v1/numbers/orders/{idOrder}:
+    get:
+      tags:
+        - Numbers/Order
+      summary: Get Number Order by Order ID
+      description: Retrieve a single numbering order by its order ID. If the organization is not specified, the authenticated user's partner organization is used.
+      parameters:
+        - name: idOrder
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The order identifier
+      responses:
+        "200":
+          description: Number order retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/numbers/NumberOrder.yaml"
+        "404":
+          description: Order not found
+        "500":
+          description: Internal server error
+
+  /v1/numbers/orders/{idOrder}/{organizationId}:
+    get:
+      tags:
+        - Numbers/Order
+      summary: Get Number Order by Order ID and Organization ID
+      description: Retrieve a single numbering order by its order ID and organization ID.
+      parameters:
+        - name: idOrder
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The order identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The organization identifier
+      responses:
+        "200":
+          description: Number order retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/numbers/NumberOrder.yaml"
+        "404":
+          description: Order not found
+        "500":
+          description: Internal server error
+
+  /v1/numbers/orders/{idOrder}/{organizationId}/history:
+    get:
+      tags:
+        - Numbers/Order
+      summary: Get Number Order History
+      description: Retrieve the full history of a numbering order by order ID and organization ID.
+      parameters:
+        - name: idOrder
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The order identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The organization identifier
+      responses:
+        "200":
+          description: Number order history retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/numbers/NumberOrderHistoryItem.yaml"
+        "404":
+          description: Order not found
+        "500":
+          description: Internal server error
+
+  # ========================================================
+  # 🔢 NUMBERS/NEW NUMBER
+  # ========================================================
+
+  /v1/numbers/orders/new-numbers/optimized:
+    get:
+      tags:
+        - Numbers/New Number
+      summary: Get All Native New Number Orders
+      description: Retrieve all native new number orders.
+      responses:
+        "200":
+          description: Native new number orders retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/numbers/NumberNewOrderItem.yaml"
+        "500":
+          description: Internal server error
+
+  /v1/numbers/orders/new-number:
+    post:
+      tags:
+        - Numbers/New Number
+      summary: Create a Native New Number Order
+      description: Create a new native number order.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/numbers/NumberNewOrderRequest.yaml"
+      responses:
+        "201":
+          description: New number order created successfully.
         "400":
           description: Bad request - Invalid parameters or missing required fields
         "500":

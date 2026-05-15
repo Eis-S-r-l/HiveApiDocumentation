@@ -1,0 +1,20 @@
+type: object
+description: History entry for a numbering order.
+properties:
+  date:
+    type: string
+    description: The history entry timestamp
+  description:
+    type: string
+    description: The history event description
+  note:
+    type: string
+    nullable: true
+    description: Additional notes for the history entry
+  causal:
+    type: string
+    nullable: true
+    description: The causal or reason associated with the event
+required:
+  - date
+  - description

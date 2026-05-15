@@ -1,0 +1,16 @@
+type: object
+description: Request payload for creating a native new number order.
+properties:
+  idService:
+    type: integer
+    description: The service identifier
+  idCustomer:
+    type: integer
+    description: The customer identifier
+  organizationId:
+    type: integer
+    description: The organization identifier
+required:
+  - idService
+  - idCustomer
+  - organizationId

@@ -1,0 +1,51 @@
+type: object
+description: Order information for native new number orders.
+properties:
+  id:
+    type: integer
+    description: The unique order identifier
+  status:
+    $ref: "/schemas/Status.yaml"
+  service:
+    type: string
+    description: The service name
+  customerName:
+    type: string
+    description: The customer name
+  type:
+    type: string
+    description: The order type
+  createdDate:
+    type: string
+    description: The order creation date
+  organizationId:
+    type: integer
+    description: The organization identifier
+  organizationName:
+    type: string
+    description: The organization name
+  quantity:
+    type: integer
+    description: The ordered quantity
+  region:
+    type: string
+    nullable: true
+    description: The region associated with the order
+  province:
+    type: string
+    nullable: true
+    description: The province associated with the order
+  city:
+    type: string
+    nullable: true
+    description: The city associated with the order
+required:
+  - id
+  - status
+  - service
+  - customerName
+  - type
+  - createdDate
+  - organizationId
+  - organizationName
+  - quantity
