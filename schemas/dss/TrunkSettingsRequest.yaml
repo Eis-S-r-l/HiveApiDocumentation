@@ -1,0 +1,7 @@
+type: object
+description: DSS trunk or gateway settings payload. Each endpoint uses the property relevant to that operation.
+properties:
+  maxChannel: { type: integer, description: Maximum number of concurrent channels, example: 10 }
+  trafficLimit: { type: integer, description: Traffic credit limit, example: 1000 }
+  bkNumber: { type: string, description: Backup number, example: "+390212345678" }
+  nome: { type: string, description: Trunk or gateway name, example: Main trunk }

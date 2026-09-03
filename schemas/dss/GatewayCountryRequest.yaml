@@ -1,0 +1,8 @@
+type: object
+description: Request payload for managing a DSS gateway destination.
+properties:
+  idGtw: { type: integer, description: DSS gateway identifier, example: 45 }
+  idOrganization: { type: integer, description: Organization identifier, example: 10 }
+  iso: { type: string, description: Country ISO code, example: IT }
+  premium_available: { type: string, description: Premium traffic availability value }
+required: [idGtw, idOrganization, iso]

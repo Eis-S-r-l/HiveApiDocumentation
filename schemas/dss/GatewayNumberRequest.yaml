@@ -1,0 +1,6 @@
+type: object
+description: Request payload for associating or disassociating a number from a DSS gateway.
+properties:
+  idNumber: { type: integer, description: Number identifier, example: 456 }
+  idGtw: { type: integer, description: DSS gateway identifier, example: 45 }
+  organizationId: { type: integer, description: Organization identifier, example: 10 }

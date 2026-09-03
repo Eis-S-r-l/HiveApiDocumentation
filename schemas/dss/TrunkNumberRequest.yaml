@@ -1,0 +1,6 @@
+type: object
+description: Request payload for associating or disassociating a number from a DSS trunk.
+properties:
+  idNumber: { type: integer, description: Number identifier, example: 456 }
+  idTrunk: { type: integer, description: DSS trunk identifier, example: 45 }
+  organizationId: { type: integer, description: Organization identifier, example: 10 }

@@ -831,6 +831,1515 @@ paths:
         "500":
           description: Internal server error
 
+  /v1/voip/dss/trunk/add:
+    post:
+      tags:
+        - VoIP/DSS
+      summary: Create a DSS Trunk
+      description: Create a DSS trunk and optionally associate initial numbers and destinations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/NewTrunkRequest.yaml"
+      responses:
+        "201":
+          description: DSS trunk created successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/changecustomer:
+    post:
+      tags:
+        - VoIP/DSS
+      summary: Change DSS Trunk Customer
+      description: Change the customer associated with a DSS trunk.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/ChangeCustomerTrunk.yaml"
+      responses:
+        "200":
+          description: DSS trunk customer changed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/ChangeCustomerTrunk.yaml"
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/resetpassword:
+    post:
+      tags:
+        - VoIP/DSS
+      summary: Reset DSS Trunk Password
+      description: Reset the authentication password of a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Organization identifier. When omitted, the authenticated user's organization is used.
+      responses:
+        "200":
+          description: DSS trunk password reset successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        "400":
+          description: Bad request - Invalid parameters
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: DSS trunk not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/country:
+    post:
+      tags:
+        - VoIP/DSS
+      summary: Enable a DSS Trunk Destination
+      description: Enable a country destination for a DSS trunk.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/TrunkCountryRequest.yaml"
+      responses:
+        "204":
+          description: Operation completed successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/country/massive/{idTrunk}/{continent}:
+    post:
+      tags:
+        - VoIP/DSS
+      summary: Enable DSS Trunk Destinations by Continent
+      description: Enable all supported country destinations in a continent for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema: { type: integer }
+          description: DSS trunk identifier
+        - name: continent
+          in: path
+          required: true
+          schema: { type: integer }
+          description: Continent identifier
+      responses:
+        "200":
+          description: DSS trunk destinations enabled successfully.
+          content:
+            application/json:
+              schema: { type: object }
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/add:
+    post:
+      tags:
+        - VoIP/DSS
+      summary: Create a DSS Gateway
+      description: Create a DSS gateway.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/NewGatewayRequest.yaml"
+      responses:
+        "201":
+          description: DSS gateway created successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/changecustomer:
+    post:
+      tags:
+        - VoIP/DSS
+      summary: Change DSS Gateway Customer
+      description: Change the customer associated with a DSS gateway.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/ChangeCustomerGateway.yaml"
+      responses:
+        "200":
+          description: DSS gateway customer changed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/ChangeCustomerGateway.yaml"
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/country:
+    post:
+      tags:
+        - VoIP/DSS
+      summary: Enable a DSS Gateway Destination
+      description: Enable a country destination for a DSS gateway.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/GatewayCountryRequest.yaml"
+      responses:
+        "204":
+          description: Operation completed successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/country/active-all:
+    post:
+      tags:
+        - VoIP/DSS
+      summary: Enable All DSS Gateway Destinations
+      description: Enable all supported country destinations for DSS gateways.
+      responses:
+        "200":
+          description: DSS gateway destinations enabled successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/DssCountry.yaml"
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/addnumber:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Associate a Number with a DSS Trunk
+      description: Associate an available number with a DSS trunk.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/TrunkNumberRequest.yaml"
+      responses:
+        "204":
+          description: Number associated with DSS trunk successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/country/setpremium:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Enable Premium Traffic for a DSS Trunk Destination
+      description: Enable premium traffic for a DSS trunk country destination.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/TrunkCountryRequest.yaml"
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/country/removepremium:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Disable Premium Traffic for a DSS Trunk Destination
+      description: Disable premium traffic for a DSS trunk country destination.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/TrunkCountryRequest.yaml"
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/disablecheckprefix/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Disable DSS Trunk Prefix Checking
+      description: Disable prefix checking for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/enablecheckprefix/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Enable DSS Trunk Prefix Checking
+      description: Enable prefix checking for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/enabletoinru/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Enable To In RU for a DSS Trunk
+      description: Enable To In RU handling for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/disabletoinru/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Disable To In RU for a DSS Trunk
+      description: Disable To In RU handling for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/setbk/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Enable Permanent Backup for a DSS Trunk
+      description: Enable permanent backup routing for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/removebk/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Disable Permanent Backup for a DSS Trunk
+      description: Disable permanent backup routing for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/block/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Block a DSS Trunk
+      description: Block traffic on a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/unblock/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Unblock a DSS Trunk
+      description: Unblock traffic on a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/enabledi/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Enable Dual Identity for a DSS Trunk
+      description: Enable dual identity for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/disabledi/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Disable Dual Identity for a DSS Trunk
+      description: Disable dual identity for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/channel/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Update DSS Trunk Channels
+      description: Update the maximum number of concurrent channels for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "/schemas/dss/TrunkSettingsRequest.yaml"
+                - type: object
+                  required: [maxChannel]
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/bknumber/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Update DSS Trunk Backup Number
+      description: Update the backup number for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "/schemas/dss/TrunkSettingsRequest.yaml"
+                - type: object
+                  required: [bkNumber]
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/credit/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Update DSS Trunk Traffic Limit
+      description: Update the traffic credit limit for a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "/schemas/dss/TrunkSettingsRequest.yaml"
+                - type: object
+                  required: [trafficLimit]
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/settings/name/{idTrunk}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Rename a DSS Trunk
+      description: Update the display name of a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "/schemas/dss/TrunkSettingsRequest.yaml"
+                - type: object
+                  required: [nome]
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/addnumber:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Associate a Number with a DSS Gateway
+      description: Associate an available number with a DSS gateway.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/GatewayNumberRequest.yaml"
+      responses:
+        "204":
+          description: Number associated with DSS gateway successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/country/setpremium:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Enable Premium Traffic for a DSS Gateway Destination
+      description: Enable premium traffic for a DSS gateway country destination.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/GatewayCountryRequest.yaml"
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/country/removepremium:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Disable Premium Traffic for a DSS Gateway Destination
+      description: Disable premium traffic for a DSS gateway country destination.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/GatewayCountryRequest.yaml"
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/enabledi/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Enable Dual Identity for a DSS Gateway
+      description: Enable dual identity for a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/disabledi/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Disable Dual Identity for a DSS Gateway
+      description: Disable dual identity for a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/disablecheckprefix/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Disable DSS Gateway Prefix Checking
+      description: Disable prefix checking for a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/enablecheckprefix/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Enable DSS Gateway Prefix Checking
+      description: Enable prefix checking for a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/setbk/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Enable Permanent Backup for a DSS Gateway
+      description: Enable permanent backup routing for a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/removebk/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Disable Permanent Backup for a DSS Gateway
+      description: Disable permanent backup routing for a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/block/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Block a DSS Gateway
+      description: Block traffic on a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/unblock/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Unblock a DSS Gateway
+      description: Unblock traffic on a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/channel/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Update DSS Gateway Channels
+      description: Update the maximum number of concurrent channels for a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "/schemas/dss/TrunkSettingsRequest.yaml"
+                - type: object
+                  required: [maxChannel]
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/bknumber/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Update DSS Gateway Backup Number
+      description: Update the backup number for a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "/schemas/dss/TrunkSettingsRequest.yaml"
+                - type: object
+                  required: [bkNumber]
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/credit/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Update DSS Gateway Traffic Limit
+      description: Update the traffic credit limit for a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "/schemas/dss/TrunkSettingsRequest.yaml"
+                - type: object
+                  required: [trafficLimit]
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/name/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Rename a DSS Gateway
+      description: Update the display name of a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "/schemas/dss/TrunkSettingsRequest.yaml"
+                - type: object
+                  required: [nome]
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/primaryip/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Update DSS Gateway Primary IP
+      description: Update the primary IP address and port of a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "/schemas/dss/GatewayIpRequest.yaml"
+                - type: object
+                  required: [ipAddress]
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/secondaryip/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Update DSS Gateway Secondary IP
+      description: Update the secondary IP address and port of a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "/schemas/dss/GatewayIpRequest.yaml"
+                - type: object
+                  required: [secondaryIP]
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/settings/ip/{idGtw}/{organizationId}:
+    put:
+      tags:
+        - VoIP/DSS
+      summary: Update DSS Gateway IP Settings
+      description: Update the primary and secondary IP settings of a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/GatewayIpRequest.yaml"
+      responses:
+        "204":
+          description: DSS resource updated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/delete/{idTrunk}/{organizationId}:
+    delete:
+      tags:
+        - VoIP/DSS
+      summary: Delete a DSS Trunk
+      description: Delete a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS trunk identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS trunk deleted successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/deletenumber:
+    delete:
+      tags:
+        - VoIP/DSS
+      summary: Disassociate a Number from a DSS Trunk
+      description: Disassociate a number from a DSS trunk. This operation requires a request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/TrunkNumberRequest.yaml"
+      responses:
+        "204":
+          description: Number disassociated from DSS trunk successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/trunk/country/{idTrunk}/{iso}/{organizationId}:
+    delete:
+      tags:
+        - VoIP/DSS
+      summary: Remove a DSS Trunk Destination
+      description: Remove a country destination from a DSS trunk.
+      parameters:
+        - name: idTrunk
+          in: path
+          required: true
+          schema: { type: integer }
+          description: DSS trunk identifier
+        - name: iso
+          in: path
+          required: true
+          schema: { type: string }
+          description: Country ISO code
+        - name: organizationId
+          in: path
+          required: true
+          schema: { type: integer }
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS trunk destination removed successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/delete/{idGtw}/{organizationId}:
+    delete:
+      tags:
+        - VoIP/DSS
+      summary: Delete a DSS Gateway
+      description: Delete a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: DSS gateway identifier
+        - name: organizationId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS gateway deleted successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/deletenumber:
+    delete:
+      tags:
+        - VoIP/DSS
+      summary: Disassociate a Number from a DSS Gateway
+      description: Disassociate a number from a DSS gateway. This operation requires a request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/GatewayNumberRequest.yaml"
+      responses:
+        "204":
+          description: Number disassociated from DSS gateway successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+  /v1/voip/dss/gtw/country/{idGtw}/{iso}/{organizationId}:
+    delete:
+      tags:
+        - VoIP/DSS
+      summary: Remove a DSS Gateway Destination
+      description: Remove a country destination from a DSS gateway.
+      parameters:
+        - name: idGtw
+          in: path
+          required: true
+          schema: { type: integer }
+          description: DSS gateway identifier
+        - name: iso
+          in: path
+          required: true
+          schema: { type: string }
+          description: Country ISO code
+        - name: organizationId
+          in: path
+          required: true
+          schema: { type: integer }
+          description: Organization identifier. The API also provides an alternative route without this path segment; that route uses the authenticated user's organization.
+      responses:
+        "204":
+          description: DSS gateway destination removed successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Requested DSS resource not found
+        "500":
+          description: Internal server error
+
   # ========================================================
   # 🌐 CIRCUITS
   # ========================================================
@@ -1599,6 +3108,50 @@ paths:
                   $ref: "/schemas/numbers/NumberDetail.yaml"
         "404":
           description: Customer not found
+        "500":
+          description: Internal server error
+
+  /v1/numbers/activate:
+    post:
+      tags:
+        - Numbers
+      summary: Activate a Number
+      description: Activate a number using the selected VoIP platform, organization, DBU data, and optional provider-specific trunk settings.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/numbers/NumberActivateRequest.yaml"
+      responses:
+        "204":
+          description: Number activated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "500":
+          description: Internal server error
+
+  /v1/numbers/terminate:
+    post:
+      tags:
+        - Numbers
+      summary: Terminate a Number
+      description: Terminate a number for the specified organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/numbers/NumberTerminateRequest.yaml"
+      responses:
+        "204":
+          description: Number terminated successfully.
+        "400":
+          description: Bad request - Invalid parameters or missing required fields
+        "403":
+          description: Forbidden - Insufficient permissions
+        "404":
+          description: Number not found
         "500":
           description: Internal server error
 

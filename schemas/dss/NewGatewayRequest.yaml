@@ -1,0 +1,15 @@
+type: object
+description: Request payload for creating a DSS gateway.
+properties:
+  name: { type: string, description: Gateway name, example: Primary gateway }
+  channel: { type: integer, description: Maximum number of concurrent channels, example: 10 }
+  idCustomer: { type: integer, description: Customer identifier, example: 123 }
+  organizationId: { type: integer, description: Organization identifier, example: 10 }
+  sbcId: { type: integer, description: Session border controller identifier, example: 2 }
+  ipAddress: { type: string, description: Primary IP address, example: 192.0.2.10 }
+  port: { type: integer, description: Primary SIP port, example: 5060 }
+  secondaryIpAddress: { type: string, description: Secondary IP address, example: 192.0.2.11 }
+  portSecondary: { type: integer, description: Secondary SIP port, example: 5060 }
+  dualIdentity: { type: boolean, description: Whether dual identity is enabled }
+  webex: { type: boolean, description: Whether Webex integration is enabled }
+required: [name, channel]

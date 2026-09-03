@@ -1,0 +1,6 @@
+type: object
+description: Request and response payload for changing a DSS gateway customer.
+properties:
+  idCustomer: { type: integer, description: New customer identifier, example: 123 }
+  idGtw: { type: integer, description: DSS gateway identifier, example: 45 }
+  organizationId: { type: integer, description: Organization identifier, example: 10 }

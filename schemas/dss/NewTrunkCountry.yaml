@@ -1,0 +1,6 @@
+type: object
+description: Destination enabled while creating a DSS trunk.
+properties:
+  iso: { type: string, description: Country ISO code, example: IT }
+  premiumAvailable: { type: boolean, description: Whether premium traffic is enabled }
+required: [iso]

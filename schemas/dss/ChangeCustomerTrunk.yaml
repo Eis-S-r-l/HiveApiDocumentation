@@ -1,0 +1,6 @@
+type: object
+description: Request and response payload for changing a DSS trunk customer.
+properties:
+  idCustomer: { type: integer, description: New customer identifier, example: 123 }
+  idTrunk: { type: integer, description: DSS trunk identifier, example: 45 }
+  organizationId: { type: integer, description: Organization identifier, example: 10 }

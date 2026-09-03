@@ -1,0 +1,6 @@
+type: object
+description: Request payload for terminating a number.
+properties:
+  idNumber: { type: integer, description: Number identifier, example: 123 }
+  organizationId: { type: integer, description: Organization identifier, example: 10 }
+required: [idNumber, organizationId]

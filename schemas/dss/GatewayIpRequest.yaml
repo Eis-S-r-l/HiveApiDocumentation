@@ -1,0 +1,7 @@
+type: object
+description: Request payload for updating DSS gateway IP settings.
+properties:
+  ipAddress: { type: string, description: Primary IP address, example: 192.0.2.10 }
+  port: { type: string, description: Primary SIP port, example: "5060" }
+  secondaryIP: { type: string, description: Secondary IP address, example: 192.0.2.11 }
+  portSecondary: { type: string, description: Secondary SIP port, example: "5060" }

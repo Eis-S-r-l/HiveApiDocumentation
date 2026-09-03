@@ -1,0 +1,23 @@
+type: object
+description: Request payload for creating a DSS trunk.
+properties:
+  name: { type: string, description: Trunk name, example: Main trunk }
+  channel: { type: integer, minimum: 1, description: Maximum number of concurrent channels, example: 10 }
+  idCustomer: { type: integer, minimum: 1, description: Customer identifier, example: 123 }
+  organizationId: { type: integer, description: Organization identifier, example: 10 }
+  domainId: { type: [integer, "null"], description: DSS domain identifier, example: 4 }
+  singleNumber: { type: [boolean, "null"], description: Whether the trunk uses a single number }
+  numberId: { type: [integer, "null"], description: Number to associate when singleNumber is enabled, example: 456 }
+  trafficLimit: { type: [integer, "null"], minimum: 0, description: Traffic credit limit }
+  bkNumber: { type: [string, "null"], description: Backup number, example: "+390212345678" }
+  blocked: { type: [boolean, "null"], description: Initial blocked state }
+  permanentBk: { type: [boolean, "null"], description: Whether permanent backup routing is enabled }
+  dualIdentity: { type: [boolean, "null"], description: Whether dual identity is enabled }
+  toInRu: { type: [boolean, "null"], description: Whether To In RU is enabled }
+  checkPrefix: { type: [boolean, "null"], description: Whether prefix checking is enabled }
+  countries:
+    type: [array, "null"]
+    description: Initial enabled destinations.
+    items:
+      $ref: "/schemas/dss/NewTrunkCountry.yaml"
+required: [name, channel, idCustomer]

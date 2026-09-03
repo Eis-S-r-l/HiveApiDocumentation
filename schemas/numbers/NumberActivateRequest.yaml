@@ -1,0 +1,96 @@
+type: object
+description: Request payload for activating a number.
+properties:
+  idNumber:
+    type: integer
+    description: The number identifier
+  voipPlatform:
+    type: integer
+    description: The VoIP platform identifier
+  organizationId:
+    type: integer
+    description: The organization identifier
+  category:
+    type: integer
+    description: The DBU category identifier. Required when dbu is true.
+  optionalData:
+    type: object
+    properties:
+      qualification:
+        type: string
+        description: The qualification
+      occupation:
+        type: string
+        description: The occupation
+      email:
+        type: string
+        description: The email address
+      additionalAddress:
+        type: string
+        description: The additional address
+      note:
+        type: string
+        description: The note
+  consent:
+    type: object
+    description: Directory publication consents. Required when dbu is true.
+    properties:
+      paperDirectories:
+        type: boolean
+        description: Consent for paper directories
+      informationServices:
+        type: boolean
+        description: Consent for information services
+      derivedSearch:
+        type: boolean
+        description: Consent for derived search
+      emailAdvertising:
+        type: boolean
+        description: Consent for email advertising
+      taxCodeAggregation:
+        type: boolean
+        description: Consent for tax code aggregation
+      phoneAdvertising:
+        type: boolean
+        description: Consent for phone advertising
+      otherAdvertisingChannels:
+        type: boolean
+        description: Consent for other advertising channels
+  dbu:
+    type: boolean
+    description: Whether DBU is enabled
+  primaryGtw:
+    type: string
+    description: Primary gateway address used for provider-specific activation.
+  primaryGtwPort:
+    type: string
+    description: Primary gateway port used for provider-specific activation.
+  secondaryGtw:
+    type: string
+    description: Secondary gateway address used for provider-specific activation.
+  secondaryGtwPort:
+    type: string
+    description: Secondary gateway port used for provider-specific activation.
+  channel:
+    type: integer
+    description: Number of concurrent channels used for provider-specific activation.
+  password:
+    type: string
+    description: Trunk password used for provider-specific activation.
+required:
+  - idNumber
+  - voipPlatform
+  - organizationId
+  - dbu
+allOf:
+  - if:
+      properties:
+        dbu:
+          const: true
+      required:
+        - dbu
+    then:
+      required:
+        - category
+        - optionalData
+        - consent
