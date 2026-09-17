@@ -1,0 +1,70 @@
+type: object
+properties:
+  target:
+    type: object
+    properties:
+      moduleId: { type: integer }
+      organizationId: { type: integer, format: int64 }
+      objectType: { type: string }
+      objectId: { type: string }
+      context:
+        type: object
+        additionalProperties: { type: string }
+      data:
+        type: object
+        additionalProperties: true
+    required: [moduleId, organizationId, objectType, objectId, context, data]
+  groups:
+    type: array
+    items:
+      type: object
+      properties:
+        code: { type: string }
+        label: { type: string }
+        actions:
+          type: array
+          items:
+            $ref: "#/$defs/Action"
+      required: [code, label, actions]
+required: [target, groups]
+$defs:
+  Action:
+    type: object
+    properties:
+      actionId: { type: integer, format: int64 }
+      key: { type: string }
+      label: { type: string }
+      description: { type: [string, "null"] }
+      displayOrder: { type: integer }
+      fields:
+        type: array
+        items:
+          $ref: "#/$defs/Field"
+      outputs:
+        type: array
+        items:
+          $ref: "#/$defs/Output"
+    required: [actionId, key, label, displayOrder, fields, outputs]
+  Field:
+    type: object
+    properties:
+      key: { type: string }
+      label: { type: string }
+      fieldType: { type: string }
+      required: { type: boolean }
+      sensitive: { type: boolean }
+      displayOrder: { type: integer }
+      config:
+        description: Action-specific field configuration.
+    required: [key, label, fieldType, required, sensitive, displayOrder]
+  Output:
+    type: object
+    properties:
+      key: { type: string }
+      label: { type: string }
+      fieldType: { type: string }
+      sensitive: { type: boolean }
+      oneTime: { type: boolean }
+      copyable: { type: boolean }
+      displayOrder: { type: integer }
+    required: [key, label, fieldType, sensitive, oneTime, copyable, displayOrder]

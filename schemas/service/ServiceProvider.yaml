@@ -1,0 +1,14 @@
+type: object
+properties:
+  id:
+    type: integer
+    description: Service provider identifier.
+  name:
+    type: [string, "null"]
+    maxLength: 100
+    description: Service provider name.
+  description:
+    type: [string, "null"]
+    maxLength: 1000
+    description: Service provider description.
+

@@ -1,0 +1,22 @@
+type: object
+properties:
+  executionId:
+    type: string
+  actionId:
+    type: integer
+    format: int64
+  label:
+    type: string
+  status:
+    type: string
+  data:
+    type: object
+    additionalProperties: true
+    description: Public action outputs. Sensitive or one-time values may be included.
+required:
+  - executionId
+  - actionId
+  - label
+  - status
+  - data
+

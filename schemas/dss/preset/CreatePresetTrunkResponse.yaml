@@ -1,0 +1,14 @@
+type: object
+properties:
+  presetId: { type: integer, format: int64 }
+  presetCode: { type: string }
+  label: { type: string }
+  status: { type: string }
+  data:
+    type: object
+    additionalProperties: true
+    description: Public provisioning outputs. Sensitive or one-time values may be included.
+  actionObject:
+    $ref: "/schemas/actions/ActionObjectReference.yaml"
+required: [presetId, presetCode, label, status, data, actionObject]
+

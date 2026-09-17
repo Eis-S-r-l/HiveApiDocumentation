@@ -1,0 +1,38 @@
+type: object
+properties:
+  id:
+    type: integer
+    description: Organization service option identifier.
+  name:
+    type: [string, "null"]
+    maxLength: 100
+  forDirect:
+    type: [boolean, "null"]
+  forSub:
+    type: [boolean, "null"]
+  type:
+    type: [string, "null"]
+    maxLength: 10
+  serviceOption:
+    type: [object, "null"]
+    properties:
+      id:
+        type: integer
+      name:
+        type: [string, "null"]
+  serviceOrg:
+    type: [object, "null"]
+    properties:
+      id:
+        type: integer
+      name:
+        type: [string, "null"]
+  organization:
+    type: [object, "null"]
+    properties:
+      organizationId:
+        type: integer
+        format: int64
+      name:
+        type: [string, "null"]
+

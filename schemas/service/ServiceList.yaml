@@ -1,0 +1,26 @@
+type: object
+properties:
+  id:
+    type: integer
+    description: Service catalog entry identifier.
+  name:
+    type: [string, "null"]
+    maxLength: 100
+    description: Service catalog entry name.
+  serviceProvider:
+    oneOf:
+      - $ref: "/schemas/service/ServiceProvider.yaml"
+      - type: "null"
+  carrier:
+    oneOf:
+      - $ref: "/schemas/service/Carrier.yaml"
+      - type: "null"
+  type:
+    oneOf:
+      - $ref: "/schemas/service/ServiceType.yaml"
+      - type: "null"
+  supplierProductId:
+    type: [string, "null"]
+    maxLength: 200
+    description: Product identifier used by the supplier.
+

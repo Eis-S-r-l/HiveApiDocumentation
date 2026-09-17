@@ -1,0 +1,10 @@
+type: object
+properties:
+  id:
+    type: integer
+    description: Service type identifier.
+  name:
+    type: [string, "null"]
+    maxLength: 100
+    description: Service type name.
+

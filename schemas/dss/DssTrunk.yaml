@@ -22,3 +22,12 @@ properties:
   idCustomer: { type: integer }
   customerName: { type: string }
   companyName: { type: string }
+  presetId:
+    type: [integer, "null"]
+    format: int64
+    description: Preset used to provision the trunk, when managed through the preset workflow.
+  actionObject:
+    description: Runtime action reference for trunks managed through the preset workflow.
+    oneOf:
+      - $ref: "/schemas/actions/ActionObjectReference.yaml"
+      - type: "null"

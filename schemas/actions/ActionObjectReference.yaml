@@ -1,0 +1,31 @@
+type: object
+properties:
+  moduleId:
+    type: integer
+    minimum: 1
+    description: Identifier of the module that owns the object.
+  organizationId:
+    type: integer
+    format: int64
+    minimum: 1
+    description: Organization that owns the object.
+  objectType:
+    type: string
+    minLength: 1
+    description: Runtime object type. DSS trunks use `DSS_TRUNK`.
+  objectId:
+    type: string
+    minLength: 1
+    description: Object identifier represented as a string.
+  context:
+    type: object
+    additionalProperties:
+      type: string
+    description: Resolver context. DSS trunks include the `presetId` entry.
+required:
+  - moduleId
+  - organizationId
+  - objectType
+  - objectId
+  - context
+

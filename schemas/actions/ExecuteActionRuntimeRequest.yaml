@@ -1,0 +1,16 @@
+type: object
+properties:
+  actionId:
+    type: integer
+    format: int64
+    minimum: 1
+  actionObject:
+    $ref: "/schemas/actions/ActionObjectReference.yaml"
+  parameters:
+    type: [object, "null"]
+    additionalProperties: true
+    description: Values requested by the selected action fields.
+required:
+  - actionId
+  - actionObject
+

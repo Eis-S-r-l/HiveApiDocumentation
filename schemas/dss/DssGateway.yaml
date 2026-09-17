@@ -1,2 +1,12 @@
 type: object
 additionalProperties: true
+properties:
+  presetId:
+    type: [integer, "null"]
+    format: int64
+    description: Preset used to provision the gateway, when managed through the preset workflow.
+  actionObject:
+    description: Runtime action reference for gateways managed through the preset workflow.
+    oneOf:
+      - $ref: "/schemas/actions/ActionObjectReference.yaml"
+      - type: "null"

@@ -1,0 +1,22 @@
+type: object
+properties:
+  id:
+    type: integer
+    description: Service option identifier.
+  name:
+    type: [string, "null"]
+    maxLength: 200
+  supplierProductId:
+    type: [string, "null"]
+    maxLength: 200
+  optionType:
+    type: integer
+    description: Option type identifier.
+  supplierOptionId:
+    type: [string, "null"]
+    maxLength: 200
+  service:
+    oneOf:
+      - $ref: "/schemas/service/ServiceList.yaml"
+      - type: "null"
+

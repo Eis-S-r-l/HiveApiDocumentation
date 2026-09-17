@@ -1,0 +1,43 @@
+type: object
+properties:
+  id:
+    type: integer
+    description: Organization service identifier.
+  serviceList:
+    oneOf:
+      - $ref: "/schemas/service/ServiceList.yaml"
+      - type: "null"
+  organizationId:
+    type: [integer, "null"]
+    format: int64
+    description: Organization owning the configured service.
+  integration:
+    type: [object, "null"]
+    description: Integration summary exposed for the service.
+    properties:
+      id:
+        type: integer
+      name:
+        type: [string, "null"]
+  name:
+    type: [string, "null"]
+    maxLength: 300
+    description: Organization-specific service name.
+  forDirect:
+    type: [boolean, "null"]
+    description: Whether the service is available for direct customers.
+  forSub:
+    type: [boolean, "null"]
+    description: Whether the service is available for subpartners.
+  carrierType:
+    type: [string, "null"]
+    maxLength: 50
+    description: Carrier-specific service classification.
+  offsetDays:
+    type: [integer, "null"]
+    description: Service scheduling offset in days.
+  attributes:
+    type: [object, "null"]
+    additionalProperties: true
+    description: Provider-specific service attributes.
+

@@ -1,0 +1,23 @@
+type: object
+properties:
+  presetId:
+    type: integer
+    format: int64
+    minimum: 1
+  idCustomer:
+    type: integer
+    minimum: 1
+  organizationId:
+    type: integer
+    format: int64
+    minimum: 0
+    default: 0
+    description: Organization identifier. Use `0` to resolve it from the authenticated user.
+  parameters:
+    type: object
+    additionalProperties: true
+    description: Values for the configurable preset fields.
+required:
+  - presetId
+  - idCustomer
+

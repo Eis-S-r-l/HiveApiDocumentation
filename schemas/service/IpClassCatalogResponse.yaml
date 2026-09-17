@@ -1,0 +1,28 @@
+type: object
+properties:
+  ipServiceProvider:
+    type: [object, "null"]
+    properties:
+      id:
+        type: [integer, "null"]
+      name:
+        type: [string, "null"]
+  ipv4:
+    type: array
+    items:
+      $ref: "#/$defs/ServiceOrgSummary"
+  ipv6:
+    type: array
+    items:
+      $ref: "#/$defs/ServiceOrgSummary"
+required:
+  - ipv4
+  - ipv6
+$defs:
+  ServiceOrgSummary:
+    type: object
+    properties:
+      id:
+        type: [integer, "null"]
+      name:
+        type: [string, "null"]

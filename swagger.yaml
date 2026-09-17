@@ -36,7 +36,9 @@ info:
     - Audit Logs
     - Statuses
     - Carriers
+    - Services
     - Circuits
+    - Actions Runtime
     - Customers
     - Coverage
     - Numbers
@@ -92,7 +94,7 @@ info:
 
     **Dimensione massima per file:** 5MB
 
-  version: 1.0.11
+  version: 1.0.12
   contact:
     email: sviluppo@hive-service.com
 servers:
@@ -113,8 +115,12 @@ tags:
     description: Endpoints related to retrieving all statuses.
   - name: Carriers
     description: Endpoints related to carrier management.
+  - name: Services
+    description: Endpoints for retrieving service catalogs, organization services, options, and IP class profiles.
   - name: Circuits
     description: Endpoints related to circuit management and details.
+  - name: Actions Runtime
+    description: Runtime discovery and execution of actions available for API objects, including DSS trunks.
   - name: Stats
     description: Endpoints related to statistics and usage data.
   - name: VoIP/DSS
@@ -2339,6 +2345,597 @@ paths:
           description: Requested DSS resource not found
         "500":
           description: Internal server error
+
+  # ========================================================
+  # 🧩 SERVICES
+  # ========================================================
+
+  /v1/service:
+    get:
+      operationId: getServicesByType
+      tags:
+        - Services
+      summary: Get Services by Type
+      description: Retrieve organization services for a service type. When `id` is provided, the result is restricted to that service identifier.
+      parameters:
+        - name: id
+          in: query
+          required: false
+          schema: { type: integer }
+          description: Optional service identifier.
+        - name: typeId
+          in: query
+          required: true
+          schema: { type: integer }
+          description: Service type identifier.
+        - name: forDirect
+          in: query
+          required: false
+          schema: { type: boolean }
+          description: Accepted for compatibility; the current implementation does not apply this value.
+        - name: forSub
+          in: query
+          required: false
+          schema: { type: boolean }
+          description: Accepted for compatibility; the current implementation does not apply this value.
+      responses:
+        "200":
+          description: Services retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/service/ServiceOrg.yaml"
+        "400": { description: Bad request - Missing or invalid parameters }
+        "500": { description: Internal server error }
+
+  /v1/service/all:
+    get:
+      operationId: getAllServicesByType
+      tags:
+        - Services
+      summary: Get All Services by Type
+      description: Retrieve all organization services for a service type. Requires the `service_edit` authority.
+      parameters:
+        - name: typeId
+          in: query
+          required: true
+          schema: { type: integer }
+          description: Service type identifier.
+        - name: forDirect
+          in: query
+          required: false
+          schema: { type: boolean }
+          description: Accepted for compatibility; the current implementation does not apply this value.
+        - name: forSub
+          in: query
+          required: false
+          schema: { type: boolean }
+          description: Accepted for compatibility; the current implementation does not apply this value.
+      responses:
+        "200":
+          description: Services retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/service/ServiceOrg.yaml"
+        "400": { description: Bad request - Missing or invalid parameters }
+        "403": { description: Forbidden - Insufficient permissions }
+        "500": { description: Internal server error }
+
+  /v1/service/type:
+    get:
+      operationId: getServiceTypes
+      tags:
+        - Services
+      summary: Get Service Types
+      description: Retrieve all service types or a specific service type when `id` is provided.
+      parameters:
+        - name: id
+          in: query
+          required: false
+          schema: { type: integer }
+          description: Optional service type identifier.
+      responses:
+        "200":
+          description: Service types retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/service/ServiceType.yaml"
+        "400": { description: Bad request - Invalid service type identifier }
+        "500": { description: Internal server error }
+
+  /v1/service/carrier:
+    get:
+      operationId: getServicesByCarrier
+      tags:
+        - Services
+      summary: Get Services by Carrier
+      description: Retrieve organization services matching a carrier and carrier type.
+      parameters:
+        - name: carrierId
+          in: query
+          required: true
+          schema: { type: integer }
+          description: Carrier identifier.
+        - name: carrierType
+          in: query
+          required: true
+          schema: { type: string }
+          description: Carrier-specific service classification.
+      responses:
+        "200":
+          description: Services retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/service/ServiceOrg.yaml"
+        "400": { description: Bad request - Missing or invalid parameters }
+        "500": { description: Internal server error }
+
+  /v1/service/filter:
+    get:
+      operationId: filterServiceCatalog
+      tags:
+        - Services
+      summary: Filter Service Catalog Entries
+      description: Retrieve catalog entries for a service type and provider, optionally filtering by name. Requires the `service_view` authority.
+      parameters:
+        - name: typeId
+          in: query
+          required: true
+          schema: { type: integer }
+          description: Service type identifier.
+        - name: providerId
+          in: query
+          required: true
+          schema: { type: integer }
+          description: Service provider identifier.
+        - name: name
+          in: query
+          required: false
+          schema: { type: string }
+          description: Optional case-insensitive name filter.
+      responses:
+        "200":
+          description: Service catalog entries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/service/ServiceList.yaml"
+        "400": { description: Bad request - Missing or invalid parameters }
+        "403": { description: Forbidden - Insufficient permissions }
+        "500": { description: Internal server error }
+
+  /v1/service/org/list:
+    get:
+      operationId: getOrganizationServices
+      tags:
+        - Services
+      summary: Get Organization Services
+      description: Retrieve services visible to the authenticated user's organization. Requires the `service_view` authority.
+      responses:
+        "200":
+          description: Organization services retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/service/ServiceOrg.yaml"
+        "403": { description: Forbidden - Insufficient permissions }
+        "500": { description: Internal server error }
+
+  /v1/service/org/filter:
+    get:
+      operationId: filterOrganizationServices
+      tags:
+        - Services
+      summary: Filter Organization Services
+      description: Retrieve organization services, optionally filtering by carrier type. Requires the `service_view` authority.
+      parameters:
+        - name: carrierType
+          in: query
+          required: false
+          schema: { type: string }
+          description: Optional carrier-specific service classification.
+      responses:
+        "200":
+          description: Organization services retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/service/ServiceOrg.yaml"
+        "403": { description: Forbidden - Insufficient permissions }
+        "500": { description: Internal server error }
+
+  /v1/service/org/{id}/{organizationId}:
+    get:
+      operationId: getOrganizationService
+      tags:
+        - Services
+      summary: Get an Organization Service
+      description: Retrieve a configured service by its identifier and organization. Requires the `service_view` authority.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+          description: Organization service identifier.
+        - name: organizationId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+          description: Organization identifier.
+      responses:
+        "200":
+          description: Organization service retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/service/ServiceOrg.yaml"
+        "403": { description: Forbidden - Insufficient permissions }
+        "404": { description: Organization service not found }
+        "500": { description: Internal server error }
+
+  /v1/service/org/ip-classes:
+    get:
+      operationId: getProviderIpClasses
+      tags:
+        - Services
+      summary: Get IP Classes by Provider
+      description: Retrieve IPv4 and IPv6 service profiles available for a provider. Requires the `circuits_view` authority.
+      parameters:
+        - name: providerId
+          in: query
+          required: true
+          schema: { type: integer }
+          description: Service provider identifier.
+        - name: organizationId
+          in: query
+          required: false
+          schema: { type: integer, format: int64, default: 0 }
+          description: Organization identifier. Use `0` to resolve it from the authenticated user.
+        - name: type
+          in: query
+          required: false
+          schema: { type: string }
+          description: Optional IP class type filter.
+      responses:
+        "200":
+          description: IP class catalog retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/service/IpClassCatalogResponse.yaml"
+        "400": { description: Bad request - Missing or invalid parameters }
+        "403": { description: Forbidden - Insufficient permissions }
+        "404": { description: Service provider not found }
+        "500": { description: Internal server error }
+
+  /v1/service/org/{profileId}/ip-classes:
+    get:
+      operationId: getProfileIpClasses
+      tags:
+        - Services
+      summary: Get IP Classes by Profile
+      description: Retrieve IPv4 and IPv6 service profiles related to an organization service profile. Requires the `circuits_view` authority.
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          schema: { type: integer }
+          description: Organization service profile identifier.
+        - name: organizationId
+          in: query
+          required: false
+          schema: { type: integer, format: int64, default: 0 }
+          description: Organization identifier. Use `0` to resolve it from the authenticated user.
+        - name: type
+          in: query
+          required: false
+          schema: { type: string }
+          description: Optional IP class type filter.
+      responses:
+        "200":
+          description: IP class catalog retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/service/IpClassCatalogResponse.yaml"
+        "400": { description: Bad request - Missing or invalid parameters }
+        "403": { description: Forbidden - Insufficient permissions }
+        "404": { description: Organization service profile not found }
+        "500": { description: Internal server error }
+
+  /v1/service/org/option/{serviceId}/all:
+    get:
+      operationId: getOrganizationServiceOptions
+      tags:
+        - Services
+      summary: Get Organization Service Options
+      description: Retrieve all configured organization options for a service. Requires the `service_view` authority.
+      parameters:
+        - name: serviceId
+          in: path
+          required: true
+          schema: { type: integer }
+          description: Organization service identifier.
+      responses:
+        "200":
+          description: Organization service options retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/service/ServiceOrgOption.yaml"
+        "403": { description: Forbidden - Insufficient permissions }
+        "500": { description: Internal server error }
+
+  /v1/service/org/option/{optionOrgId}/{organizationId}:
+    get:
+      operationId: getOrganizationServiceOption
+      tags:
+        - Services
+      summary: Get an Organization Service Option
+      description: Retrieve a configured service option by identifier and organization. Requires the `service_view` authority.
+      parameters:
+        - name: optionOrgId
+          in: path
+          required: true
+          schema: { type: integer }
+          description: Organization service option identifier.
+        - name: organizationId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+          description: Organization identifier.
+      responses:
+        "200":
+          description: Organization service option retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/service/ServiceOrgOption.yaml"
+        "403": { description: Forbidden - Insufficient permissions }
+        "404": { description: Organization service option not found }
+        "500": { description: Internal server error }
+
+  /v1/service/option/{serviceId}/all:
+    get:
+      operationId: getServiceCatalogOptions
+      tags:
+        - Services
+      summary: Get Catalog Options for a Service
+      description: Retrieve all original catalog options belonging to a service. Requires the `service_view` authority.
+      parameters:
+        - name: serviceId
+          in: path
+          required: true
+          schema: { type: integer }
+          description: Service catalog entry identifier.
+      responses:
+        "200":
+          description: Service options retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/service/ServiceOption.yaml"
+        "403": { description: Forbidden - Insufficient permissions }
+        "500": { description: Internal server error }
+
+  /v1/service/option/{optionId}:
+    get:
+      operationId: getServiceCatalogOption
+      tags:
+        - Services
+      summary: Get a Catalog Service Option
+      description: Retrieve an original catalog option by identifier. Requires the `service_view` authority.
+      parameters:
+        - name: optionId
+          in: path
+          required: true
+          schema: { type: integer }
+          description: Service option identifier.
+      responses:
+        "200":
+          description: Service option retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/service/ServiceOption.yaml"
+        "403": { description: Forbidden - Insufficient permissions }
+        "404": { description: Service option not found }
+        "500": { description: Internal server error }
+
+  # ========================================================
+  # 🧰 DSS PRESETS
+  # ========================================================
+
+  /v1/voip/dss/trunk-presets:
+    get:
+      operationId: getDssTrunkPresets
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Trunk Presets
+      description: Retrieve the DSS trunk presets visible to the authenticated user's organization. Requires the `trunksip_view` authority.
+      responses:
+        "200":
+          description: DSS trunk presets retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/preset/TrunkPresetResponse.yaml"
+        "403": { description: Forbidden - Insufficient permissions }
+        "500": { description: Internal server error }
+
+  /v1/voip/dss/trunk-presets/{organizationId}:
+    get:
+      operationId: getDssTrunkPresetsByOrganization
+      tags:
+        - VoIP/DSS
+      summary: Get DSS Trunk Presets by Organization
+      description: Retrieve the DSS trunk presets visible to a specific organization. Requires the `trunksip_view` authority.
+      parameters:
+        - name: organizationId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+          description: Organization identifier.
+      responses:
+        "200":
+          description: DSS trunk presets retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "/schemas/dss/preset/TrunkPresetResponse.yaml"
+        "403": { description: Forbidden - Insufficient permissions }
+        "404": { description: Organization not found }
+        "500": { description: Internal server error }
+
+  /v1/voip/dss/trunks:
+    post:
+      operationId: createDssPresetTrunk
+      tags:
+        - VoIP/DSS
+      summary: Create a DSS Trunk from a Preset
+      description: |
+        Provision a DSS trunk using a visible preset and the supplied field values. Requires the `trunksip_add` authority.
+
+        The response includes an `actionObject`. Use its module, organization, object type, object identifier, and context to discover and execute the runtime actions available for the new trunk.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/dss/preset/CreatePresetTrunkRequest.yaml"
+      responses:
+        "201":
+          description: DSS trunk provisioned successfully.
+          headers:
+            Cache-Control:
+              description: Prevents storage of sensitive or one-time provisioning outputs.
+              schema:
+                type: string
+                example: no-store
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/dss/preset/CreatePresetTrunkResponse.yaml"
+        "400": { description: Bad request - Invalid preset parameters }
+        "403": { description: Forbidden - Insufficient permissions }
+        "404": { description: "Preset, customer, or organization not found" }
+        "409": { description: Provisioning conflict or organization not associated with DSS }
+        "500": { description: Internal server error }
+
+  # ========================================================
+  # ⚡ ACTIONS RUNTIME
+  # ========================================================
+
+  /v1/actions/runtime/modules/{moduleId}/organizations/{organizationId}/objects/{objectType}/{objectId}:
+    get:
+      operationId: getRuntimeActions
+      tags:
+        - Actions Runtime
+      summary: Get Available Runtime Actions
+      description: |
+        Resolve an API object and return the action groups currently available to the authenticated user.
+
+        For a DSS trunk, copy the values from the trunk's `actionObject`: use `DSS_TRUNK` as `objectType`, the trunk identifier as `objectId`, and pass its context entries as query parameters prefixed with `context.`. In particular, `context.presetId` is required.
+      parameters:
+        - name: moduleId
+          in: path
+          required: true
+          schema: { type: integer, minimum: 1 }
+          description: Module identifier from `actionObject.moduleId`.
+        - name: organizationId
+          in: path
+          required: true
+          schema: { type: integer, format: int64, minimum: 1 }
+          description: Organization identifier from `actionObject.organizationId`.
+        - name: objectType
+          in: path
+          required: true
+          schema:
+            type: string
+            example: DSS_TRUNK
+          description: Runtime object type from `actionObject.objectType`.
+        - name: objectId
+          in: path
+          required: true
+          schema: { type: string }
+          description: Object identifier from `actionObject.objectId`.
+        - name: context.presetId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          description: DSS preset identifier from `actionObject.context.presetId`.
+      responses:
+        "200":
+          description: Runtime actions retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/actions/ActionRuntimeResponse.yaml"
+        "400": { description: Bad request - Invalid object or context }
+        "403": { description: Forbidden - Missing module or action authority }
+        "404": { description: "Runtime object, provisioning, or preset not found" }
+        "409": { description: Multiple provisionings are associated with the object }
+        "500": { description: Internal server error }
+
+  /v1/actions/runtime/executions:
+    post:
+      operationId: executeRuntimeAction
+      tags:
+        - Actions Runtime
+      summary: Execute a Runtime Action
+      description: Execute an action returned by the runtime discovery endpoint against the supplied `actionObject`. For DSS trunks, preserve the complete object reference and its `presetId` context.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "/schemas/actions/ExecuteActionRuntimeRequest.yaml"
+      responses:
+        "200":
+          description: Runtime action executed successfully.
+          headers:
+            Cache-Control:
+              description: Prevents storage of sensitive or one-time action outputs.
+              schema:
+                type: string
+                example: no-store
+          content:
+            application/json:
+              schema:
+                $ref: "/schemas/actions/ExecuteActionRuntimeResponse.yaml"
+        "400": { description: Bad request - Invalid action object or parameters }
+        "403": { description: Forbidden - Missing module or action authority }
+        "404": { description: "Runtime object, action, provisioning, or preset not found" }
+        "409": { description: Action cannot be executed in the current object state }
+        "500": { description: Internal server error }
 
   # ========================================================
   # 🌐 CIRCUITS
